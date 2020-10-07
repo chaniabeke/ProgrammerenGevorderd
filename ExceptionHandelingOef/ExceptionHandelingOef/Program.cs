@@ -6,7 +6,8 @@ namespace ExceptionHandelingOef
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            NumberArrayController.Run();
+            CatAgeController.Run();
         }
     }
 }
