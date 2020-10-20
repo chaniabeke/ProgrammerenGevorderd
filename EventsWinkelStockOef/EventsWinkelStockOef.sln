@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventsWinkelStockOef", "EventsWinkelStockOef\EventsWinkelStockOef.csproj", "{C5242396-55B5-4FFF-99E7-88049BC826EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{1C3CAAB2-D0E4-4DE2-B6C8-FC20D7079B71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5242396-55B5-4FFF-99E7-88049BC826EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5242396-55B5-4FFF-99E7-88049BC826EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5242396-55B5-4FFF-99E7-88049BC826EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5242396-55B5-4FFF-99E7-88049BC826EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C3CAAB2-D0E4-4DE2-B6C8-FC20D7079B71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C3CAAB2-D0E4-4DE2-B6C8-FC20D7079B71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C3CAAB2-D0E4-4DE2-B6C8-FC20D7079B71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C3CAAB2-D0E4-4DE2-B6C8-FC20D7079B71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {254C4784-F142-44E7-9C00-BAD514FD9358}
+	EndGlobalSection
+EndGlobal
