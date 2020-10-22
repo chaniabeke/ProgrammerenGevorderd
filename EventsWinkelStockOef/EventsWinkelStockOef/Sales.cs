@@ -7,39 +7,40 @@ namespace EventsWinkelStockOef
 {
     public class Sales
     {
-        private Dictionary<string, List<Bestelling>> rapport;
+        private Dictionary<string, List<Bestelling>> _rapport;
 
         public Sales()
         {
-            rapport = new Dictionary<string, List<Bestelling>>();
+            _rapport = new Dictionary<string, List<Bestelling>>();
         }
 
         public void OnWinkelVerkoop(object source, WinkelEventArgs args)
         {
-            if (rapport.ContainsKey(args.Bestelling.Adres))
+            if (_rapport.ContainsKey(args.Bestelling.Adres))
             {
-                KeyValuePair<string, List<Bestelling>> keyValuePair = rapport.Where(x => x.Key == args.Bestelling.Adres).FirstOrDefault();
+                KeyValuePair<string, List<Bestelling>> keyValuePair = _rapport.Where(x => x.Key == args.Bestelling.Adres).FirstOrDefault();
                 keyValuePair.Value.Add(args.Bestelling);
             }
             else
             {
                 List<Bestelling> nieuweBestellingen = new List<Bestelling>();
                 nieuweBestellingen.Add(args.Bestelling);
-                rapport.Add(args.Bestelling.Adres, nieuweBestellingen);
+                _rapport.Add(args.Bestelling.Adres, nieuweBestellingen);
             }
+            ToonRapport();
         }
 
-        public void ShowRapport()
+        public void ToonRapport()
         {
             Console.WriteLine("----------");
             Console.WriteLine("Sales - rapport");
-            for (int indexRapport = 0; indexRapport < rapport.Count; indexRapport++)
+            for (int indexRapport = 0; indexRapport < _rapport.Count; indexRapport++)
             {
                 int dubbelAantal = 0;
                 int kriekAantal = 0;
                 int pilsAantal = 0;
                 int trippelAantal = 0;
-                var rapportItem = rapport.ElementAt(indexRapport);
+                var rapportItem = _rapport.ElementAt(indexRapport);
                 Console.WriteLine(rapportItem.Key.ToString());
                 for (int indexBestellingen = 0; indexBestellingen < rapportItem.Value.Count; indexBestellingen++)
                 {

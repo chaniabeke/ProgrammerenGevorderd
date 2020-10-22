@@ -9,7 +9,7 @@ namespace EventsWinkelStockOef
         public event EventHandler<WinkelEventArgs> WinkelVerkoop;
         public void VerkoopProduct(Bestelling b) 
         {
-            Console.WriteLine($"verkoopproduct - {b}");
+           // Console.WriteLine($"verkoopproduct - {b}");
             OnWinkelVerkoop(b);
         }
 

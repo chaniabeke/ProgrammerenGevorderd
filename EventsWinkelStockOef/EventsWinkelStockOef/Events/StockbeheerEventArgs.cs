@@ -6,6 +6,6 @@ namespace EventsWinkelStockOef
 {
    public class StockbeheerEventArgs : EventArgs
     {
-        public Stockbeheer Stockbeheer { get; set; }
+        public Bestelling Bestelling { get; set; }
     }
 }

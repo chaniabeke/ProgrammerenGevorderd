@@ -9,17 +9,16 @@ namespace ConsoleApp1
         {
             Winkel w = new Winkel();
             Sales s = new Sales();
+            Stockbeheer st = new Stockbeheer();
+            GrootHandelaar g = new GrootHandelaar();
             w.WinkelVerkoop += s.OnWinkelVerkoop;
+            w.WinkelVerkoop += st.OnWinkelVerkoop;
+            st.StockWijziging += g.OnStockWijziging;
 
-            Console.WriteLine("Plaats bestellngen");
-            Console.WriteLine("----------");
             w.VerkoopProduct(new Bestelling(ProductType.Dubbel, 50, 25, "Moerbeekstraat 25 - Geraadsbergen"));
-            w.VerkoopProduct(new Bestelling(ProductType.Dubbel, 50, 25, "Moerbeekstraat 25 - Geraadsbergen"));
+            w.VerkoopProduct(new Bestelling(ProductType.Pils, 50, 25, "Moerbeekstraat 25 - Geraadsbergen"));
             w.VerkoopProduct(new Bestelling(ProductType.Kriek, 100, 50, "Stationsstraat 10 - Zottegem"));
-            w.VerkoopProduct(new Bestelling(ProductType.Pils, 10, 5, "Moerbeekstraat 25 - Geraadsbergen"));
-            Console.WriteLine("----------");
-
-            s.ShowRapport();
+            w.VerkoopProduct(new Bestelling(ProductType.Pils, 10, 95, "Moerbeekstraat 25 - Geraadsbergen"));
         }
     }
 }
