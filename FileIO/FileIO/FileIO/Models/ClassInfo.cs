@@ -4,13 +4,33 @@ namespace FileIO.Models
 {
     public class ClassInfo
     {
-        public string Namespace { get; set; }
+        #region Properties
+        public FileInfo FileInfo { get; set; }
+        public string NamespaceName { get; set; }
         public string ClassName { get; set; }
-        private List<string> _constructors;
-        private List<string> _usingStatements;
-        private List<string> _methodes;
-        private List<string> _properties;
-        private List<string> _variables;
         public string ParentClass { get; set; }
+        public List<string> Constructors = new List<string>();
+        public List<string> UsingStatements = new List<string>();
+        public List<string> Methodes = new List<string>();
+        public List<string> Properties = new List<string>();
+        public List<string> Variables = new List<string>();
+        #endregion
+
+        #region Constructors
+        public ClassInfo(FileInfo fileInfo, string namespaceName, string className, string parentClass)
+        {
+            FileInfo = fileInfo;
+            NamespaceName = namespaceName;
+            ClassName = className;
+            ParentClass = parentClass;
+        }
+        public ClassInfo(FileInfo fileInfo, string namespaceName, string className)
+        {
+            FileInfo = fileInfo;
+            NamespaceName = namespaceName;
+            ClassName = className;
+        }
+        #endregion 
+
     }
 }

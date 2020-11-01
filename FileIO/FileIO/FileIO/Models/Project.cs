@@ -9,30 +9,32 @@ namespace FileIO.Models
 {
     public class Project
     {
+        #region Properties
         public string InputPath { get; set; }
         public string ZipFilePath { get; set; }
         public string OutputPath { get; set; }
         private string _outputTextFile;
         private readonly string _folderInput = "FileIO_Input";
         private readonly string _folderOutput = "FileIO_Results";
-        private List<string> _csFilePaths;
-        private List<FileInfo> _files;
+        private List<string> _csFilePaths = new List<string>();
+        private List<FileInfo> _files = new List<FileInfo>();
+        private List<ClassInfo> _classInfos = new List<ClassInfo>();
+        #endregion
 
+        #region Constructors
         public Project(string inputPath, string zipFilePath, string outputPath)
         {
             InputPath = inputPath + _folderInput;
             ZipFilePath = zipFilePath;
             OutputPath = outputPath + _folderOutput;
             _outputTextFile = "Analyse_" + Path.GetFileNameWithoutExtension(zipFilePath) + ".txt";
-            _files = new List<FileInfo>();
         }
+        #endregion
 
+        #region Methods
         public void Analyse()
         {
-            Console.WriteLine("Start extract");
-            Directory.CreateDirectory(InputPath);
-            ZipFile.ExtractToDirectory(ZipFilePath, InputPath);
-            Console.WriteLine("Extract done");
+            ExtractZipFile();
 
             _csFilePaths = Directory.GetFiles(InputPath, "*.cs", SearchOption.AllDirectories).ToList();
             foreach (string filePath in _csFilePaths)
@@ -43,12 +45,23 @@ namespace FileIO.Models
                     {
                         FileInfo file = CreateFileObject(filePath);
                         _files.Add(file);
+                        if (file.ClassInterface.Equals(ClassInterfaceType.Class))
+                        {
+                            ClassInfo classInfo = CreateClassInfoObject(filePath, file);
+                            _classInfos.Add(classInfo);
+                        }
                     }
                 }
             }
-            WriteAnalyse();
+            WriteAnalyseToTextFile();
+
         }
-        private void WriteAnalyse()
+        private void ExtractZipFile()
+        {
+            Directory.CreateDirectory(InputPath);
+            ZipFile.ExtractToDirectory(ZipFilePath, InputPath);
+        }
+        private void WriteAnalyseToTextFile()
         {
             Directory.CreateDirectory(OutputPath);
             using (StreamWriter writer = File.CreateText(Path.Combine(OutputPath, _outputTextFile)))
@@ -108,6 +121,19 @@ namespace FileIO.Models
             FileInfo file = new FileInfo(fileName, classInterface, classInterfaceName, classCount, namespaceName, codeLinesCount);
             return file;
         }
+        private ClassInfo CreateClassInfoObject(string path, FileInfo fileInfo)
+        {
+            if (fileInfo.ClassInterfaceName.Contains(":"))
+            {
+                string[] inheritance = fileInfo.ClassInterfaceName.Split(":");
+                fileInfo.ClassInterfaceName = inheritance[0];
+                string parentClass = inheritance[1];
+                ClassInfo classInfoWithParentClass = new ClassInfo(fileInfo, fileInfo.NamespaceName, fileInfo.ClassInterfaceName, parentClass);
+                return classInfoWithParentClass;
+            }
+            ClassInfo classInfo = new ClassInfo(fileInfo, fileInfo.NamespaceName, fileInfo.ClassInterfaceName);
+            return classInfo;
+        }
         private string[] readLines(string path)
         {
             string[] result = null;
@@ -117,5 +143,6 @@ namespace FileIO.Models
             }
             return result;
         }
+        #endregion
     }
 }

@@ -13,9 +13,6 @@ namespace FileIO.Models
         public int ClassInterfaceCount { get; set; }
         public string NamespaceName { get; set; }
         public int CodeLinesCount { get; set; }
-        public ClassInfo ClassInfo { get; set; }
-
-        public FileInfo() { }
 
         public FileInfo(string fileName, ClassInterfaceType classInterface, string classInterfaceName, int classInterfaceCount, string namespaceName, int codeLinesCount)
         {
