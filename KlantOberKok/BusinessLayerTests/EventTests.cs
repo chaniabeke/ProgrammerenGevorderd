@@ -36,5 +36,30 @@ namespace BusinessLayerTests
                 monitoredSubject.Should().Raise("BestellingEvent");
             }
         }
+
+        [TestMethod]
+        public void Bestel_BijCorrecteBestelling_ZouRingEventMoetenOpgeroepenZijn()
+        {
+            BestellingsSysteem bestellingsSysteem = new BestellingsSysteem();
+            Bel bel = new Bel();
+            Klant klant1 = new Klant("Piet");
+
+            Ober ober = new Ober("Jan")
+            {
+                BestellingsSysteem = bestellingsSysteem,
+                Bel = bel,
+            };
+            Kok kok = new Kok("Marie")
+            {
+                BestellingsSysteem = bestellingsSysteem,
+                Bel = bel,
+            };
+
+            using (var monitoredSubject = bel.Monitor())
+            {
+                klant1.Bestel(ober, "Hoegaarden");
+                monitoredSubject.Should().Raise("RingEvent");
+            }
+        }
     }
 }
