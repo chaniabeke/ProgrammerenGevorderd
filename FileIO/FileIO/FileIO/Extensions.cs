@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 
 namespace FileIO
 {
@@ -16,6 +13,16 @@ namespace FileIO
             {
                 yield return line;
             }
+        }
+
+        public static string[] readLines(string path)
+        {
+            string[] result = null;
+            using (StreamReader reader = new StreamReader(path))
+            {
+                result = reader.ReadAllLines().ToArray();
+            }
+            return result;
         }
     }
 }

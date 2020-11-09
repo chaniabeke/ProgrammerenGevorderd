@@ -1,13 +1,11 @@
 ﻿using FileIO.Models;
 using System;
-using System.IO;
-using System.IO.Compression;
 
 namespace FileIO
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             string inputPath = @"C:\Users\Chania\Desktop\Programmeren Gevorderd\";
             string zipFilePathBIG = @"C:\Users\Chania\Desktop\PROJECT\VipServices2020.zip";
@@ -17,6 +15,8 @@ namespace FileIO
 
             Project project = new Project(inputPath, zipFilePathMIDDEl, outputPath);
             project.Analyse();
+
+            Console.ReadKey();
         }
     }
 }

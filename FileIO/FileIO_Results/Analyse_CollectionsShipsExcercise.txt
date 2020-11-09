@@ -1,0 +1,343 @@
+-------------------
+FileName: Program.cs
+Type: Class
+Name: Program
+Namespace: ConsoleApp1
+LinesOfCode: 62
+-------------------
+-------------------
+FileName: BasisSchip.cs
+Type: Class
+Name: BasisSchip
+Namespace: CollectionsShipsExcercise.Abstract
+LinesOfCode: 13
+-------------------
+-------------------
+FileName: Cargo.cs
+Type: Class
+Name: Cargo 
+Namespace: CollectionsShipsExcercise.Abstract
+LinesOfCode: 10
+-------------------
+-------------------
+FileName: Lading.cs
+Type: Class
+Name: Lading 
+Namespace: CollectionsShipsExcercise.Abstract
+LinesOfCode: 10
+-------------------
+-------------------
+FileName: Passenger.cs
+Type: Class
+Name: Passenger 
+Namespace: CollectionsShipsExcercise.Abstract
+LinesOfCode: 10
+-------------------
+-------------------
+FileName: Haven.cs
+Type: Class
+Name: Haven
+Namespace: CollectionsShipsExcercise.Models
+LinesOfCode: 24
+-------------------
+-------------------
+FileName: Rederij.cs
+Type: Class
+Name: Rederij
+Namespace: CollectionsShipsExcercise.Models
+LinesOfCode: 131
+-------------------
+-------------------
+FileName: Vloot.cs
+Type: Class
+Name: Vloot
+Namespace: CollectionsShipsExcercise.Models
+LinesOfCode: 60
+-------------------
+-------------------
+FileName: HavenTests.cs
+Type: Class
+Name: HavenTests
+Namespace: CollectionsShipsExcercise.Models.Tests
+LinesOfCode: 26
+-------------------
+-------------------
+FileName: RederijTests.cs
+Type: Class
+Name: RederijTests
+Namespace: CollectionsShipsExcercise.Models.Tests
+LinesOfCode: 139
+-------------------
+-------------------
+FileName: VlootTests.cs
+Type: Class
+Name: VlootTests
+Namespace: CollectionsShipsExcercise.Models.Tests
+LinesOfCode: 83
+-------------------
+-------------------
+FileName: BasisSchip.cs
+Type: Class
+Name: BasisSchip
+Namespace: CollectionsShipsExcercise.Abstract
+LinesOfCode: 15
+-------------------
+-------------------
+FileName: Cargo.cs
+Type: Class
+Name: Cargo 
+Namespace: CollectionsShipsExcercise.Abstract
+LinesOfCode: 10
+-------------------
+-------------------
+FileName: Lading.cs
+Type: Class
+Name: Lading 
+Namespace: CollectionsShipsExcercise.Abstract
+LinesOfCode: 10
+-------------------
+-------------------
+FileName: Passenger.cs
+Type: Class
+Name: Passenger 
+Namespace: CollectionsShipsExcercise.Abstract
+LinesOfCode: 10
+-------------------
+-------------------
+FileName: Haven.cs
+Type: Class
+Name: Haven
+Namespace: CollectionsShipsExcercise.Models
+LinesOfCode: 24
+-------------------
+-------------------
+FileName: Rederij.cs
+Type: Class
+Name: Rederij
+Namespace: CollectionsShipsExcercise.Models
+LinesOfCode: 149
+-------------------
+-------------------
+FileName: Vloot.cs
+Type: Class
+Name: Vloot
+Namespace: CollectionsShipsExcercise.Models
+LinesOfCode: 131
+-------------------
+-------------------
+FileName: HavenTests.cs
+Type: Class
+Name: HavenTests
+Namespace: CollectionsShipsExcercise.Models.Tests
+LinesOfCode: 26
+-------------------
+-------------------
+FileName: RederijTests.cs
+Type: Class
+Name: RederijTests
+Namespace: CollectionsShipsExcercise.Models.Tests
+LinesOfCode: 138
+-------------------
+-------------------
+FileName: VlootTests.cs
+Type: Class
+Name: VlootTests
+Namespace: CollectionsShipsExcercise.Models.Tests
+LinesOfCode: 79
+-------------------
+-------------------
+FileName: Containerschip.cs
+Type: Class
+Name: Containerschip 
+Namespace: CollectionsShipsExcercise.Models.Schepen
+LinesOfCode: 36
+-------------------
+-------------------
+FileName: Cruiseschip.cs
+Type: Class
+Name: Cruiseschip 
+Namespace: CollectionsShipsExcercise.Models.Schepen
+LinesOfCode: 39
+-------------------
+-------------------
+FileName: Gastanker.cs
+Type: Class
+Name: Gastanker 
+Namespace: CollectionsShipsExcercise.Models.Schepen
+LinesOfCode: 38
+-------------------
+-------------------
+FileName: Olietanker.cs
+Type: Class
+Name: Olietanker 
+Namespace: CollectionsShipsExcercise.Models.Schepen
+LinesOfCode: 38
+-------------------
+-------------------
+FileName: RoRoschip.cs
+Type: Class
+Name: RoRoschip 
+Namespace: CollectionsShipsExcercise.Models.Schepen
+LinesOfCode: 38
+-------------------
+-------------------
+FileName: Sleepboot.cs
+Type: Class
+Name: Sleepboot 
+Namespace: CollectionsShipsExcercise.Models.Schepen
+LinesOfCode: 31
+-------------------
+-------------------
+FileName: Veerboot.cs
+Type: Class
+Name: Veerboot 
+Namespace: CollectionsShipsExcercise.Models.Schepen
+LinesOfCode: 38
+-------------------
+-------------------
+FileName: ContainerschipTests.cs
+Type: Class
+Name: ContainerschipTests
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+LinesOfCode: 32
+-------------------
+-------------------
+FileName: CruiseschipTests.cs
+Type: Class
+Name: CruiseschipTests
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+LinesOfCode: 42
+-------------------
+-------------------
+FileName: GastankerTests.cs
+Type: Class
+Name: GastankerTests
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+LinesOfCode: 33
+-------------------
+-------------------
+FileName: OlietankerTests.cs
+Type: Class
+Name: OlietankerTests
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+LinesOfCode: 33
+-------------------
+-------------------
+FileName: RoRoschipTests.cs
+Type: Class
+Name: RoRoschipTests
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+LinesOfCode: 33
+-------------------
+-------------------
+FileName: SleepbootTests.cs
+Type: Class
+Name: SleepbootTests
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+LinesOfCode: 29
+-------------------
+-------------------
+FileName: VeerbootTests.cs
+Type: Class
+Name: VeerbootTests
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+LinesOfCode: 33
+-------------------
+-------------------
+FileName: Containerschip.cs
+Type: Class
+Name: Containerschip 
+Namespace: CollectionsShipsExcercise.Models.Schepen
+LinesOfCode: 37
+-------------------
+-------------------
+FileName: Cruiseschip.cs
+Type: Class
+Name: Cruiseschip 
+Namespace: CollectionsShipsExcercise.Models.Schepen
+LinesOfCode: 40
+-------------------
+-------------------
+FileName: Gastanker.cs
+Type: Class
+Name: Gastanker 
+Namespace: CollectionsShipsExcercise.Models.Schepen
+LinesOfCode: 39
+-------------------
+-------------------
+FileName: Olietanker.cs
+Type: Class
+Name: Olietanker 
+Namespace: CollectionsShipsExcercise.Models.Schepen
+LinesOfCode: 39
+-------------------
+-------------------
+FileName: RoRoschip.cs
+Type: Class
+Name: RoRoschip 
+Namespace: CollectionsShipsExcercise.Models.Schepen
+LinesOfCode: 39
+-------------------
+-------------------
+FileName: Sleepboot.cs
+Type: Class
+Name: Sleepboot 
+Namespace: CollectionsShipsExcercise.Models.Schepen
+LinesOfCode: 32
+-------------------
+-------------------
+FileName: Veerboot.cs
+Type: Class
+Name: Veerboot 
+Namespace: CollectionsShipsExcercise.Models.Schepen
+LinesOfCode: 39
+-------------------
+-------------------
+FileName: ContainerschipTests.cs
+Type: Class
+Name: ContainerschipTests
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+LinesOfCode: 32
+-------------------
+-------------------
+FileName: CruiseschipTests.cs
+Type: Class
+Name: CruiseschipTests
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+LinesOfCode: 42
+-------------------
+-------------------
+FileName: GastankerTests.cs
+Type: Class
+Name: GastankerTests
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+LinesOfCode: 33
+-------------------
+-------------------
+FileName: OlietankerTests.cs
+Type: Class
+Name: OlietankerTests
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+LinesOfCode: 33
+-------------------
+-------------------
+FileName: RoRoschipTests.cs
+Type: Class
+Name: RoRoschipTests
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+LinesOfCode: 33
+-------------------
+-------------------
+FileName: SleepbootTests.cs
+Type: Class
+Name: SleepbootTests
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+LinesOfCode: 29
+-------------------
+-------------------
+FileName: VeerbootTests.cs
+Type: Class
+Name: VeerbootTests
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+LinesOfCode: 33
+-------------------

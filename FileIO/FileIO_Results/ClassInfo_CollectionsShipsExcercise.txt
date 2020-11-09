@@ -1,0 +1,795 @@
+-------------------
+FileName: Program.cs
+Namespace: ConsoleApp1
+ParentClass: 
+ClassName: Program
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using CollectionsShipsExcercise.Models
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Linq
+-------------------
+-------------------
+FileName: BasisSchip.cs
+Namespace: CollectionsShipsExcercise.Abstract
+ParentClass: 
+ClassName: BasisSchip
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Properties: public abstract double Lengte { get; set; }
+Properties: public abstract double Breedte { get; set; }
+Properties: public abstract double Tonnage { get; set; }
+Properties: public abstract string Naam { get; set; }
+-------------------
+-------------------
+FileName: Cargo.cs
+Namespace: CollectionsShipsExcercise.Abstract
+ParentClass:  BasisSchip
+ClassName: Cargo 
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Properties: public abstract decimal Cargowaarde { get; set; }
+-------------------
+-------------------
+FileName: Lading.cs
+Namespace: CollectionsShipsExcercise.Abstract
+ParentClass:  Cargo
+ClassName: Lading 
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Properties: public abstract double VolumeInLiters { get; set; }
+-------------------
+-------------------
+FileName: Passenger.cs
+Namespace: CollectionsShipsExcercise.Abstract
+ParentClass:  BasisSchip
+ClassName: Passenger 
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Properties: public abstract int AantalPassagiers { get; set; }
+-------------------
+-------------------
+FileName: Haven.cs
+Namespace: CollectionsShipsExcercise.Models
+ParentClass: 
+ClassName: Haven
+Constructor: public Haven
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public override string ToString
+Properties: public string Naam { get; set; }
+-------------------
+-------------------
+FileName: Rederij.cs
+Namespace: CollectionsShipsExcercise.Models
+ParentClass: 
+ClassName: Rederij
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Linq
+UsingStatement: using System.Security.Cryptography.X509Certificates
+UsingStatement: using System.Text
+UsingStatement: using System.Threading
+Methode: public void AddVloot
+Methode: public void MoveSchipToDifferentVloot
+Methode: public void DeleteVloot
+Methode: public Vloot SearchVlootByName
+Methode: public void AddHaven
+Methode: public void DeleteHaven
+Methode: public decimal GetTotalCargowaarde
+Methode: public int GetTotalPassagiers
+Methode: public IOrderedEnumerable<Vloot> GetTonnageByVlootFromBigToSmall
+Methode: public double GetTotalVolume
+Methode: public List<Sleepboot> GetAvailableSleepboten
+Methode: public List<BasisSchip> GetInfoSchip
+-------------------
+-------------------
+FileName: Vloot.cs
+Namespace: CollectionsShipsExcercise.Models
+ParentClass: 
+ClassName: Vloot
+Constructor: public Vloot
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Linq
+UsingStatement: using System.Text
+Methode: public override string ToString
+Methode: public void AddSchip
+Methode: public void DeleteSchip
+Methode: public BasisSchip SearchSchipByName
+Methode: public Dictionary<BasisSchip, string> OverzichtVanSchepen
+Properties: public string Naam { get; set; }
+Properties: public double Tonnage { get; set; }
+-------------------
+-------------------
+FileName: HavenTests.cs
+Namespace: CollectionsShipsExcercise.Models.Tests
+ParentClass: 
+ClassName: HavenTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public void HavenTest
+Methode: public void ToStringTest
+-------------------
+-------------------
+FileName: RederijTests.cs
+Namespace: CollectionsShipsExcercise.Models.Tests
+ParentClass: 
+ClassName: RederijTests
+Constructor: public void RederijTestsInitialize
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System.Linq
+Methode: public void AddVlootTest
+Methode: public void MoveSchipToDifferentVlootTest
+Methode: public void DeleteVlootTest
+Methode: public void SearchVlootByNameTest
+Methode: public void AddHavenTest
+Methode: public void DeleteHavenTest
+Methode: public void GetTotalCargowaardeTest
+Methode: public void GetTotalPassagiersTest
+Methode: public void GetTotalVolumeTest
+Methode: public void GetAvailableSleepbotenTest
+Methode: public void GetTonnageByVlootFromBigToSmallTest
+Methode: public void GetInfoSchipTest
+-------------------
+-------------------
+FileName: VlootTests.cs
+Namespace: CollectionsShipsExcercise.Models.Tests
+ParentClass: 
+ClassName: VlootTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System.Linq
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using FluentAssertions
+Methode: public void VlootTest
+Methode: public void ToStringTest
+Methode: public void AddSchipTest
+Methode: public void AddSchipTest_WhenSchipIsAlreadyInDictionary_ShouldThrowException
+Methode: public void DeleteSchipTest
+Methode: public void OverzichtVanSchepenTest
+Methode: public void SearchSchipByNameTest
+-------------------
+-------------------
+FileName: BasisSchip.cs
+Namespace: CollectionsShipsExcercise.Abstract
+ParentClass: 
+ClassName: BasisSchip
+UsingStatement: using CollectionsShipsExcercise.Models
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Properties: public abstract double Lengte { get; set; }
+Properties: public abstract double Breedte { get; set; }
+Properties: public abstract double Tonnage { get; set; }
+Properties: public abstract string Naam { get; set; }
+Properties: public abstract Vloot Vloot { get; set; }
+-------------------
+-------------------
+FileName: Cargo.cs
+Namespace: CollectionsShipsExcercise.Abstract
+ParentClass:  BasisSchip
+ClassName: Cargo 
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Properties: public abstract decimal Cargowaarde { get; set; }
+-------------------
+-------------------
+FileName: Lading.cs
+Namespace: CollectionsShipsExcercise.Abstract
+ParentClass:  Cargo
+ClassName: Lading 
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Properties: public abstract double VolumeInLiters { get; set; }
+-------------------
+-------------------
+FileName: Passenger.cs
+Namespace: CollectionsShipsExcercise.Abstract
+ParentClass:  BasisSchip
+ClassName: Passenger 
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Properties: public abstract int AantalPassagiers { get; set; }
+-------------------
+-------------------
+FileName: Haven.cs
+Namespace: CollectionsShipsExcercise.Models
+ParentClass: 
+ClassName: Haven
+Constructor: public Haven
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public override string ToString
+Properties: public string Naam { get; set; }
+-------------------
+-------------------
+FileName: Rederij.cs
+Namespace: CollectionsShipsExcercise.Models
+ParentClass: 
+ClassName: Rederij
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Linq
+UsingStatement: using System.Security.Cryptography.X509Certificates
+UsingStatement: using System.Text
+UsingStatement: using System.Threading
+Methode: public void AddVloot
+Methode: public void MoveSchipToDifferentVloot
+Methode: public void DeleteVloot
+Methode: public Vloot SearchVlootByName
+Methode: public SortedDictionary<string, Vloot> OverzichtVanVloten
+Methode: public void AddHaven
+Methode: public void DeleteHaven
+Methode: public SortedSet<Haven> OverzichtVanHavens
+Methode: public decimal GetTotalCargowaarde
+Methode: public int GetTotalPassagiers
+Methode: public IOrderedEnumerable<Vloot> GetTonnageByVlootFromBigToSmall
+Methode: public double GetTotalVolume
+Methode: public List<Sleepboot> GetAvailableSleepboten
+Methode: public List<BasisSchip> GetInfoSchip
+-------------------
+-------------------
+FileName: Vloot.cs
+Namespace: CollectionsShipsExcercise.Models
+ParentClass: 
+ClassName: Vloot
+Constructor: public Vloot
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Linq
+UsingStatement: using System.Text
+Methode: public override string ToString
+Methode: public void AddSchip
+Methode: public void DeleteSchip
+Methode: public BasisSchip SearchSchipByName
+Methode: public Dictionary<string, BasisSchip> OverzichtVanSchepen
+Methode: public decimal GetTotalCargowaarde
+Methode: public int GetTotalPassagiers
+Methode: public double GetTotalTonnage
+Methode: public double GetTotalVolume
+Methode: public List<Sleepboot> GetAvailableSleepboten
+Methode: public List<BasisSchip> GetInfoSchip
+Properties: public string Naam { get; set; }
+-------------------
+-------------------
+FileName: HavenTests.cs
+Namespace: CollectionsShipsExcercise.Models.Tests
+ParentClass: 
+ClassName: HavenTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public void HavenTest
+Methode: public void ToStringTest
+-------------------
+-------------------
+FileName: RederijTests.cs
+Namespace: CollectionsShipsExcercise.Models.Tests
+ParentClass: 
+ClassName: RederijTests
+Constructor: public void RederijTestsInitialize
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System.Linq
+Methode: public void AddVlootTest
+Methode: public void MoveSchipToDifferentVlootTest
+Methode: public void DeleteVlootTest
+Methode: public void SearchVlootByNameTest
+Methode: public void AddHavenTest
+Methode: public void DeleteHavenTest
+Methode: public void GetTotalCargowaardeTest
+Methode: public void GetTotalPassagiersTest
+Methode: public void GetTotalVolumeTest
+Methode: public void GetAvailableSleepbotenTest
+Methode: public void GetTonnageByVlootFromBigToSmallTest
+Methode: public void GetInfoSchipTest
+-------------------
+-------------------
+FileName: VlootTests.cs
+Namespace: CollectionsShipsExcercise.Models.Tests
+ParentClass: 
+ClassName: VlootTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System.Linq
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using FluentAssertions
+Methode: public void VlootTest
+Methode: public void ToStringTest
+Methode: public void AddSchipTest
+Methode: public void AddSchipTest_WhenSchipIsAlreadyInDictionary_ShouldNotAddSchip
+Methode: public void DeleteSchipTest
+Methode: public void OverzichtVanSchepenTest
+Methode: public void SearchSchipByNameTest
+-------------------
+-------------------
+FileName: Containerschip.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen
+ParentClass:  Cargo
+ClassName: Containerschip 
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public Containerschip
+Methode: public override string ToString
+Properties: public override double Lengte { get; set; }
+Properties: public override double Breedte { get; set; }
+Properties: public override double Tonnage { get; set; }
+Properties: public override string Naam { get; set; }
+Properties: public override decimal Cargowaarde { get; set; }
+Properties: public int AantalContainers { get; set; }
+-------------------
+-------------------
+FileName: Cruiseschip.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen
+ParentClass:  Passenger
+ClassName: Cruiseschip 
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public Cruiseschip
+Methode: public override string ToString
+Methode: public void AddHaven
+Properties: public override double Lengte { get; set; }
+Properties: public override double Breedte { get; set; }
+Properties: public override double Tonnage { get; set; }
+Properties: public override string Naam { get; set; }
+Properties: public override int AantalPassagiers { get; set; }
+-------------------
+-------------------
+FileName: Gastanker.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen
+ParentClass:  Lading
+ClassName: Gastanker 
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public Gastanker
+Methode: public override string ToString
+Properties: public override double Lengte { get; set; }
+Properties: public override double Breedte { get; set; }
+Properties: public override double Tonnage { get; set; }
+Properties: public override string Naam { get; set; }
+Properties: public override decimal Cargowaarde { get; set; }
+Properties: public override double VolumeInLiters { get; set; }
+Properties: public GasLadingsType GasLadingsType { get; set; }
+-------------------
+-------------------
+FileName: Olietanker.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen
+ParentClass:  Lading
+ClassName: Olietanker 
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public Olietanker
+Methode: public override string ToString
+Properties: public override double Lengte { get; set; }
+Properties: public override double Breedte { get; set; }
+Properties: public override double Tonnage { get; set; }
+Properties: public override string Naam { get; set; }
+Properties: public override decimal Cargowaarde { get; set; }
+Properties: public override double VolumeInLiters { get; set; }
+Properties: public OlieLadingsType OlieLadingsType { get; set; }
+-------------------
+-------------------
+FileName: RoRoschip.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen
+ParentClass:  Cargo
+ClassName: RoRoschip 
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public RoRoschip
+Methode: public override string ToString
+Properties: public override double Lengte { get; set; }
+Properties: public override double Breedte { get; set; }
+Properties: public override double Tonnage { get; set; }
+Properties: public override string Naam { get; set; }
+Properties: public override decimal Cargowaarde { get; set; }
+Properties: public int AantalAutos { get; set; }
+Properties: public int AantalTrucks { get; set; }
+-------------------
+-------------------
+FileName: Sleepboot.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen
+ParentClass:  BasisSchip
+ClassName: Sleepboot 
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public Sleepboot
+Methode: public override string ToString
+Properties: public override double Lengte { get; set; }
+Properties: public override double Breedte { get; set; }
+Properties: public override double Tonnage { get; set; }
+Properties: public override string Naam { get; set; }
+-------------------
+-------------------
+FileName: Veerboot.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen
+ParentClass:  Passenger
+ClassName: Veerboot 
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public Veerboot
+Methode: public override string ToString
+Properties: public override double Lengte { get; set; }
+Properties: public override double Breedte { get; set; }
+Properties: public override double Tonnage { get; set; }
+Properties: public override string Naam { get; set; }
+Properties: public override int AantalPassagiers { get; set; }
+Properties: public Haven VertrekHaven { get; set; }
+Properties: public Haven AankomHaven { get; set; }
+-------------------
+-------------------
+FileName: ContainerschipTests.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+ParentClass: 
+ClassName: ContainerschipTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public void ContainerschipTest
+Methode: public void ToStringTest
+-------------------
+-------------------
+FileName: CruiseschipTests.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+ParentClass: 
+ClassName: CruiseschipTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+UsingStatement: using System.Linq
+Methode: public void CruiseschipTest
+Methode: public void ToStringTest
+Methode: public void AddHavenTest
+-------------------
+-------------------
+FileName: GastankerTests.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+ParentClass: 
+ClassName: GastankerTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public void GastankerTest
+Methode: public void ToStringTest
+-------------------
+-------------------
+FileName: OlietankerTests.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+ParentClass: 
+ClassName: OlietankerTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public void OlietankerTest
+Methode: public void ToStringTest
+-------------------
+-------------------
+FileName: RoRoschipTests.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+ParentClass: 
+ClassName: RoRoschipTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public void RoRoschipTest
+Methode: public void ToStringTest
+-------------------
+-------------------
+FileName: SleepbootTests.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+ParentClass: 
+ClassName: SleepbootTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public void SleepbootTest
+Methode: public void ToStringTest
+-------------------
+-------------------
+FileName: VeerbootTests.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+ParentClass: 
+ClassName: VeerbootTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public void VeerbootTest
+Methode: public void ToStringTest
+-------------------
+-------------------
+FileName: Containerschip.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen
+ParentClass:  Cargo
+ClassName: Containerschip 
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public Containerschip
+Methode: public override string ToString
+Properties: public override double Lengte { get; set; }
+Properties: public override double Breedte { get; set; }
+Properties: public override double Tonnage { get; set; }
+Properties: public override string Naam { get; set; }
+Properties: public override Vloot Vloot { get; set; }
+Properties: public override decimal Cargowaarde { get; set; }
+Properties: public int AantalContainers { get; set; }
+-------------------
+-------------------
+FileName: Cruiseschip.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen
+ParentClass:  Passenger
+ClassName: Cruiseschip 
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public Cruiseschip
+Methode: public override string ToString
+Methode: public void AddHaven
+Properties: public override double Lengte { get; set; }
+Properties: public override double Breedte { get; set; }
+Properties: public override double Tonnage { get; set; }
+Properties: public override string Naam { get; set; }
+Properties: public override Vloot Vloot { get; set; }
+Properties: public override int AantalPassagiers { get; set; }
+-------------------
+-------------------
+FileName: Gastanker.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen
+ParentClass:  Lading
+ClassName: Gastanker 
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public Gastanker
+Methode: public override string ToString
+Properties: public override double Lengte { get; set; }
+Properties: public override double Breedte { get; set; }
+Properties: public override double Tonnage { get; set; }
+Properties: public override string Naam { get; set; }
+Properties: public override Vloot Vloot { get; set; }
+Properties: public override decimal Cargowaarde { get; set; }
+Properties: public override double VolumeInLiters { get; set; }
+Properties: public GasLadingsType GasLadingsType { get; set; }
+-------------------
+-------------------
+FileName: Olietanker.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen
+ParentClass:  Lading
+ClassName: Olietanker 
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public Olietanker
+Methode: public override string ToString
+Properties: public override double Lengte { get; set; }
+Properties: public override double Breedte { get; set; }
+Properties: public override double Tonnage { get; set; }
+Properties: public override string Naam { get; set; }
+Properties: public override Vloot Vloot { get; set; }
+Properties: public override decimal Cargowaarde { get; set; }
+Properties: public override double VolumeInLiters { get; set; }
+Properties: public OlieLadingsType OlieLadingsType { get; set; }
+-------------------
+-------------------
+FileName: RoRoschip.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen
+ParentClass:  Cargo
+ClassName: RoRoschip 
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public RoRoschip
+Methode: public override string ToString
+Properties: public override double Lengte { get; set; }
+Properties: public override double Breedte { get; set; }
+Properties: public override double Tonnage { get; set; }
+Properties: public override string Naam { get; set; }
+Properties: public override Vloot Vloot { get; set; }
+Properties: public override decimal Cargowaarde { get; set; }
+Properties: public int AantalAutos { get; set; }
+Properties: public int AantalTrucks { get; set; }
+-------------------
+-------------------
+FileName: Sleepboot.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen
+ParentClass:  BasisSchip
+ClassName: Sleepboot 
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public Sleepboot
+Methode: public override string ToString
+Properties: public override double Lengte { get; set; }
+Properties: public override double Breedte { get; set; }
+Properties: public override double Tonnage { get; set; }
+Properties: public override string Naam { get; set; }
+Properties: public override Vloot Vloot { get; set; }
+-------------------
+-------------------
+FileName: Veerboot.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen
+ParentClass:  Passenger
+ClassName: Veerboot 
+UsingStatement: using CollectionsShipsExcercise.Abstract
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public Veerboot
+Methode: public override string ToString
+Properties: public override double Lengte { get; set; }
+Properties: public override double Breedte { get; set; }
+Properties: public override double Tonnage { get; set; }
+Properties: public override string Naam { get; set; }
+Properties: public override Vloot Vloot { get; set; }
+Properties: public override int AantalPassagiers { get; set; }
+Properties: public Haven VertrekHaven { get; set; }
+Properties: public Haven AankomHaven { get; set; }
+-------------------
+-------------------
+FileName: ContainerschipTests.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+ParentClass: 
+ClassName: ContainerschipTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public void ContainerschipTest
+Methode: public void ToStringTest
+-------------------
+-------------------
+FileName: CruiseschipTests.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+ParentClass: 
+ClassName: CruiseschipTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+UsingStatement: using System.Linq
+Methode: public void CruiseschipTest
+Methode: public void ToStringTest
+Methode: public void AddHavenTest
+-------------------
+-------------------
+FileName: GastankerTests.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+ParentClass: 
+ClassName: GastankerTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public void GastankerTest
+Methode: public void ToStringTest
+-------------------
+-------------------
+FileName: OlietankerTests.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+ParentClass: 
+ClassName: OlietankerTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public void OlietankerTest
+Methode: public void ToStringTest
+-------------------
+-------------------
+FileName: RoRoschipTests.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+ParentClass: 
+ClassName: RoRoschipTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public void RoRoschipTest
+Methode: public void ToStringTest
+-------------------
+-------------------
+FileName: SleepbootTests.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+ParentClass: 
+ClassName: SleepbootTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public void SleepbootTest
+Methode: public void ToStringTest
+-------------------
+-------------------
+FileName: VeerbootTests.cs
+Namespace: CollectionsShipsExcercise.Models.Schepen.Tests
+ParentClass: 
+ClassName: VeerbootTests
+UsingStatement: using Microsoft.VisualStudio.TestTools.UnitTesting
+UsingStatement: using CollectionsShipsExcercise.Models.Schepen
+UsingStatement: using System
+UsingStatement: using System.Collections.Generic
+UsingStatement: using System.Text
+Methode: public void VeerbootTest
+Methode: public void ToStringTest
+-------------------
