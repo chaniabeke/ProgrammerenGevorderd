@@ -1,81 +1,135 @@
-﻿using CustomerOrderRESTService.BusinessLayer.Exceptions;
+﻿using BusinessLayer.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLayer.Models
 {
     public class Order
     {
-        #region Fields
-        private int _id;
-        #endregion
-
         #region Properties
-        public int Id
-        {
-            get { return _id; }
-            set
-            {
-                if (value < -1) throw new BusinessException("id can't be lower than 0");
-                _id = value;
-            }
-        }
+
+        public int Id { get; private set; }
+        public bool IsPayed { get; private set; }
+        public double PriceAlreadyPayed { get; private set; }
+        public Customer Customer { get; private set; }
+        public DateTime DateTime { get; private set; }
         private Dictionary<Product, int> _products = new Dictionary<Product, int>();
-        public DateTime OrderDate { get; set; }
-        public Customer Customer { get; set; }
-        private decimal? _totalPrice { get; set; }
-        private bool _isPayed = false;
-        #endregion
+
+        #endregion Properties
 
         #region Constructors
-        public Order(DateTime orderDate)
+
+        public Order(int id, DateTime dateTime)
         {
-            OrderDate = orderDate;
+            SetId(id);
+            SetDateTime(dateTime);
+            IsPayed = false;
         }
-        public Order(DateTime orderDate, Customer customer)
+
+        public Order(int id, Customer customer, DateTime dateTime) : this(id, dateTime)
         {
-            OrderDate = orderDate;
-            Customer = customer;
+            SetCustomer(customer);
         }
-        #endregion
+
+        public Order(int id, Customer customer, DateTime dateTime, Dictionary<Product, int> products) : this(id, customer, dateTime)
+        {
+            if (products is null) throw new OrderException("products are empty");
+            _products = products;
+        }
+
+        #endregion Constructors
+
+        #region Methods For Properties
+
+        public void SetCustomer(Customer newCustomer)
+        {
+            if (newCustomer == null) throw new OrderException("Order - SetCustomer - invalid customer");
+            if (newCustomer == Customer) throw new OrderException("Order - SetCustomer - not new");
+            if (Customer != null)
+                if (Customer.HasOrder(this))
+                    Customer.DeleteOrder(this);
+            if (!newCustomer.HasOrder(this)) newCustomer.AddOrder(this);
+            Customer = newCustomer;
+        }
+
+        public void DeleteCustomer()
+        {
+            Customer = null;
+        }
+
+        private void SetId(int id)
+        {
+            if (Id <= 0) throw new OrderException("Order - invalid id");
+            Id = id;
+        }
+
+        public void SetDateTime(DateTime dateTime)
+        {
+            if (dateTime == null) throw new OrderException("Bestelling - invalid datetime");
+            DateTime = dateTime;
+        }
+
+        public void SetPayed(bool isPayed = true)
+        {
+            IsPayed = isPayed;
+            if (IsPayed)
+            {
+                PriceAlreadyPayed = Price();
+            }
+        }
+
+        #endregion Methods For Properties
 
         #region Methods
-        public void AddProduct(Product product, int amount)
-        {
-            if (amount <= 0) throw new BusinessException("amount can't be less or equal to 0");
-            if (_products.ContainsKey(product)) throw new BusinessException("order already contains product");
-            if (_isPayed == true) throw new BusinessException("order has already been paid");
-            _products.Add(product, amount);
-        }
-        public Dictionary<Product, int> GetProducts()
+
+        public IReadOnlyDictionary<Product, int> GetProducts()
         {
             return _products;
         }
-        //public void RemoveProduct(Product product, int amount)
-        //{
-        //    if (!_products.ContainsKey(product)) throw new BusinessException("product doesn't exist");
-        //    _products.Remove(product);
-        //}
-        public Decimal? GetTotalPrice()
+
+        public void AddProduct(Product product, int amount)
         {
-            if (_isPayed == true) return _totalPrice;
-            return null;
-        }
-        public void SetTotalPrice(double discount)
-        {
-            decimal totalPrice = 0;
-            foreach (var product in _products)
+            if (amount <= 0) throw new OrderException("AddOrder - amount");
+            if (_products.ContainsKey(product))
             {
-                totalPrice += product.Key.Price * product.Value;
+                _products[product] += amount;
             }
-            _totalPrice = (totalPrice / 100) * (decimal)discount;
+            else
+            {
+                _products.Add(product, amount);
+            }
         }
-        public void Pay()
+
+        public void DeleteProduct(Product product, int amount)
         {
-            _isPayed = true;
-            if (Customer != null) Customer.AddOrder(this);
+            if (amount <= 0) throw new OrderException("DeleteOrder - amount");
+            if (!_products.ContainsKey(product)) throw new OrderException("DeleteProduct - product not available");
+            if (_products[product] < amount) throw new OrderException("DeleteProduct - available amount is to small");
+
+            if (_products[product] == amount)
+            {
+                _products.Remove(product);
+            }
+            else
+            {
+                _products[product] -= amount;
+            }
         }
-        #endregion
+
+        public double Price()
+        {
+            double price = 0.0; int korting = 0;
+            if (Customer != null)
+            {
+                korting = Customer.Discount();
+            }
+            foreach (KeyValuePair<Product, int> kvp in _products)
+            {
+                price += kvp.Key.Price * kvp.Value * (100.0 - korting) / 100.0;
+            }
+            return price;
+        }
+
+        #endregion Methods
     }
 }

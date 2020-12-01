@@ -1,63 +1,92 @@
-﻿using CustomerOrderRESTService.BusinessLayer.Exceptions;
-using System;
+﻿using BusinessLayer.Exceptions;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLayer.Models
 {
     public class Customer
     {
-        #region Fields
-        private string _name;
-        private string _address;
-        #endregion
-
         #region Properties
-        public string Name
-        {
-            get { return _name; }
-            internal set
-            {
-                if (value == null) throw new ArgumentNullException();
-                if (value == String.Empty) throw new BusinessException("name can't be empty");
-                _name = value;
-            }
-        }
-        public string Address
-        {
-            get { return _address; }
-            internal set
-            {
-                if (value == null) throw new ArgumentNullException();
-                if (value == String.Empty) throw new BusinessException("address can't be empty");
-                _address = value;
-            }
-        }
-        public double Discount { get; private set; } = 0;
+
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public string Address { get; private set; }
         private List<Order> _orders = new List<Order>();
-        #endregion
+
+        #endregion Properties
 
         #region Constructors
+
         public Customer(string name, string address)
         {
-            if (name == String.Empty) throw new BusinessException("name can't be empty");
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            if (address == String.Empty) throw new BusinessException("name can't be empty");
-            Address = address ?? throw new ArgumentNullException(nameof(address));
+            SetName(name);
+            SetAddress(address);
         }
-        #endregion
+
+        public Customer(int id, string name, string address, List<Order> orders) : this(id, name, address)
+        {
+            if (orders == null) throw new CustomerException("Customer - orders null");
+            _orders = orders;
+            foreach (Order order in orders) order.SetCustomer(this);
+        }
+
+        public Customer(int id, string name, string address) : this(name, address)
+        {
+            Id = id;
+        }
+
+        #endregion Constructors
+
+        #region Methods For Properties
+
+        public void SetName(string name)
+        {
+            if (name.Trim().Length < 1) throw new CustomerException("Customer name invalid");
+            Name = name;
+        }
+
+        public void SetAddress(string address)
+        {
+            if (address.Trim().Length < 5) throw new CustomerException("Customer address invalid");
+            Address = address;
+        }
+
+        #endregion Methods For Properties
 
         #region Methods
-        private void ChangeDiscount()
+
+        public int Discount()
         {
-            if (_orders.Count >= 5) Discount = 5;
-            if (_orders.Count >= 10) Discount = 10;
+            if (_orders.Count < 5) return 0;
+            if (_orders.Count < 10) return 5;
+            return 10;
         }
-        internal void AddOrder(Order order)
+
+        public IReadOnlyList<Order> GetOrders()
         {
+            return _orders.AsReadOnly();
+        }
+
+        public bool HasOrder(Order order)
+        {
+            if (_orders.Contains(order)) return true;
+            return false;
+        }
+
+        public void AddOrder(Order order)
+        {
+            if (_orders.Contains(order)) throw new CustomerException("Customer : AddOrder - order already exists");
             _orders.Add(order);
-            ChangeDiscount();
+            if (order.Customer != this) order.SetCustomer(this);
         }
-        #endregion
+
+        public void DeleteOrder(Order order)
+        {
+            if (!_orders.Contains(order)) throw new CustomerException("Klant : RemoveBestelling - bestelling does not exists");
+            if (order.Customer == this)
+                order.DeleteCustomer();
+            _orders.Remove(order);
+        }
+
+        #endregion Methods
     }
 }
