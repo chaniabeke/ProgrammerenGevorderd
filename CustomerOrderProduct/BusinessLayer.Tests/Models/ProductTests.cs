@@ -9,17 +9,18 @@ namespace BusinessLayer.Tests.Models
     [TestClass]
     public class ProductTests
     {
+        //TODO testen op id
         #region Ctor
 
         [TestMethod]
-        public void Ctor_ShouldBeOfTypeProduct_IfPropertiesAreCorrect()
+        public void Ctor_ShouldBeOfTypeProduct_IfPropertiesAreValid()
         {
             Product product = new Product("Coca-Cola", 1.5);
             product.Should().BeOfType<Product>();
         }
 
         [TestMethod]
-        public void Ctor_ShouldHaveCorrectProperties_IfPropertiesAreCorrect()
+        public void Ctor_ShouldHaveCorrectProperties_IfPropertiesAreValid()
         {
             Product product = new Product("Coca-Cola", 1.5);
             product.Name.Should().Be("Coca-Cola");
@@ -47,7 +48,7 @@ namespace BusinessLayer.Tests.Models
         }
 
         [TestMethod]
-        public void Ctor_ShouldThrowException_IfPriceIsBelowZero()
+        public void Ctor_ShouldThrowException_IfPriceIsNegative()
         {
             Action act = () =>
             {
@@ -57,7 +58,7 @@ namespace BusinessLayer.Tests.Models
         }
 
         [TestMethod]
-        public void Ctor_ShouldThrowException_IfPriceIsEqualToZero()
+        public void Ctor_ShouldThrowException_IfPriceIsZero()
         {
             Action act = () =>
             {
@@ -67,7 +68,7 @@ namespace BusinessLayer.Tests.Models
         }
 
         #endregion Ctor
-
+        #region Methodes For Properties
         #region SetName
 
         [TestMethod]
@@ -105,7 +106,7 @@ namespace BusinessLayer.Tests.Models
         #region SetPrice
 
         [TestMethod]
-        public void SetPrice_ShouldChangePrice_IfPriceIsCorrect()
+        public void SetPrice_ShouldChangePrice_IfPriceIsValid()
         {
             Product product = new Product("Coca-Cola", 1.5);
             product.SetPrice(2);
@@ -113,7 +114,7 @@ namespace BusinessLayer.Tests.Models
         }
 
         [TestMethod]
-        public void SetPrice_ShouldThrowException_IfPriceIsBelowZero()
+        public void SetPrice_ShouldThrowException_IfPriceIsNegative()
         {
             Product product = new Product("Coca-Cola", 1.5);
             Action act = () =>
@@ -124,7 +125,7 @@ namespace BusinessLayer.Tests.Models
         }
 
         [TestMethod]
-        public void SetPrice_ShouldThrowException_IfPriceIsEqualToZero()
+        public void SetPrice_ShouldThrowException_IfPriceIsZero()
         {
             Product product = new Product("Coca-Cola", 1.5);
             Action act = () =>
@@ -135,5 +136,29 @@ namespace BusinessLayer.Tests.Models
         }
 
         #endregion SetPrice
+
+        #region SetId
+        [TestMethod]
+        public void SetId_ShouldBeCorrect_IfIdIsValid()
+        {
+            Assert.Fail();
+        }
+        [TestMethod]
+        public void SetId_ShouldThrowException_IfIdIsNull()
+        {
+            Assert.Fail();
+        }
+        [TestMethod]
+        public void SetId_ShouldThrowException_IfIdIsZero()
+        {
+            Assert.Fail();
+        }
+        [TestMethod]
+        public void SetId_ShouldThrowException_IfIdIsNegative()
+        {
+            Assert.Fail();
+        }
+        #endregion
+        #endregion
     }
 }

@@ -21,23 +21,23 @@ namespace BusinessLayer.Models
             SetName(name);
             SetAddress(address);
         }
+        public Customer(int id, string name, string address) : this(name, address) => SetId(id);
 
         public Customer(int id, string name, string address, List<Order> orders) : this(id, name, address)
         {
-            if (orders == null) throw new CustomerException("Customer - orders null");
+            if (orders == null || orders.Count == 0) throw new CustomerException("Customer - orders invalid");
             _orders = orders;
             foreach (Order order in orders) order.SetCustomer(this);
-        }
-
-        public Customer(int id, string name, string address) : this(name, address)
-        {
-            Id = id;
         }
 
         #endregion Constructors
 
         #region Methods For Properties
-
+        public void SetId(int id)
+        {
+            if (id <= 0) throw new CustomerException("Customer Id invalid");
+            Id = id;
+        }
         public void SetName(string name)
         {
             if (name.Trim().Length < 1) throw new CustomerException("Customer name invalid");
@@ -46,7 +46,7 @@ namespace BusinessLayer.Models
 
         public void SetAddress(string address)
         {
-            if (address.Trim().Length < 5) throw new CustomerException("Customer address invalid");
+            if (address.Trim().Length < 1) throw new CustomerException("Customer address invalid");
             Address = address;
         }
 
@@ -81,7 +81,7 @@ namespace BusinessLayer.Models
 
         public void DeleteOrder(Order order)
         {
-            if (!_orders.Contains(order)) throw new CustomerException("Klant : RemoveBestelling - bestelling does not exists");
+            if (!_orders.Contains(order)) throw new CustomerException("Customer : DeleteOrder - order does not exists");
             if (order.Customer == this)
                 order.DeleteCustomer();
             _orders.Remove(order);

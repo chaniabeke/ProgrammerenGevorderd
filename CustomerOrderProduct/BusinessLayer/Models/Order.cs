@@ -26,14 +26,11 @@ namespace BusinessLayer.Models
             IsPayed = false;
         }
 
-        public Order(int id, Customer customer, DateTime dateTime) : this(id, dateTime)
-        {
-            SetCustomer(customer);
-        }
+        public Order(int id, Customer customer, DateTime dateTime) : this(id, dateTime) => SetCustomer(customer);
 
         public Order(int id, Customer customer, DateTime dateTime, Dictionary<Product, int> products) : this(id, customer, dateTime)
         {
-            if (products is null) throw new OrderException("products are empty");
+            if (products is null || products.Count == 0) throw new OrderException("Order - invalid productsList");
             _products = products;
         }
 
@@ -45,21 +42,30 @@ namespace BusinessLayer.Models
         {
             if (newCustomer == null) throw new OrderException("Order - SetCustomer - invalid customer");
             if (newCustomer == Customer) throw new OrderException("Order - SetCustomer - not new");
+
+            //Check if old customer had order and deletes
             if (Customer != null)
-                if (Customer.HasOrder(this))
-                    Customer.DeleteOrder(this);
+            {
+                if (Customer.HasOrder(this)) Customer.DeleteOrder(this);
+            }
+
+            //check if new customer has order and adds
             if (!newCustomer.HasOrder(this)) newCustomer.AddOrder(this);
+
             Customer = newCustomer;
         }
 
         public void DeleteCustomer()
         {
+            //TODO - ask exception bij geen customer?? 
+            //- Also moet deze publiek zijn of is enkel gebruik vr deze laag? 
+            //- moet bij customer deze order ook verwijdert worden
             Customer = null;
         }
 
         private void SetId(int id)
         {
-            if (Id <= 0) throw new OrderException("Order - invalid id");
+            if (id <= 0) throw new OrderException("Order - invalid id");
             Id = id;
         }
 
