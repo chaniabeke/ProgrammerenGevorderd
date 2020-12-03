@@ -40,6 +40,7 @@ namespace BusinessLayer.Models
         }
         public void SetName(string name)
         {
+            if (name is null) throw new CustomerException("Customer name invalid");
             if (name.Trim().Length < 1) throw new CustomerException("Customer name invalid");
             Name = name;
         }

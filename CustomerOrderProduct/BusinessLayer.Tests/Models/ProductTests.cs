@@ -9,7 +9,6 @@ namespace BusinessLayer.Tests.Models
     [TestClass]
     public class ProductTests
     {
-        //TODO testen op id
         #region Ctor
 
         [TestMethod]
@@ -141,22 +140,35 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void SetId_ShouldBeCorrect_IfIdIsValid()
         {
-            Assert.Fail();
-        }
-        [TestMethod]
-        public void SetId_ShouldThrowException_IfIdIsNull()
-        {
-            Assert.Fail();
+            Product product = new Product("Coca-Cola", 2);
+
+            product.SetId(1);
+
+            product.Id.Should().Be(1);
         }
         [TestMethod]
         public void SetId_ShouldThrowException_IfIdIsZero()
         {
-            Assert.Fail();
+            Product product = new Product("Coca-Cola", 2);
+
+            Action act = () =>
+            {
+                product.SetId(0);
+            };
+
+            act.Should().Throw<ProductException>().WithMessage("Product id invalid");
         }
         [TestMethod]
         public void SetId_ShouldThrowException_IfIdIsNegative()
         {
-            Assert.Fail();
+            Product product = new Product("Coca-Cola", 2);
+
+            Action act = () =>
+            {
+                product.SetId(-6);
+            };
+
+            act.Should().Throw<ProductException>().WithMessage("Product id invalid");
         }
         #endregion
         #endregion

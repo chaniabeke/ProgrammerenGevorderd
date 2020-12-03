@@ -57,13 +57,10 @@ namespace BusinessLayer.Models
 
         public void DeleteCustomer()
         {
-            //TODO - ask exception bij geen customer?? 
-            //- Also moet deze publiek zijn of is enkel gebruik vr deze laag? 
-            //- moet bij customer deze order ook verwijdert worden
             Customer = null;
         }
 
-        private void SetId(int id)
+        public void SetId(int id)
         {
             if (id <= 0) throw new OrderException("Order - invalid id");
             Id = id;
@@ -71,7 +68,6 @@ namespace BusinessLayer.Models
 
         public void SetDateTime(DateTime dateTime)
         {
-            if (dateTime == null) throw new OrderException("Bestelling - invalid datetime");
             DateTime = dateTime;
         }
 

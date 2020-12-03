@@ -4,6 +4,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BusinessLayer.Tests.Models
@@ -95,58 +96,138 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void SetCustomer_ShouldDeleteOrderFromOldCustomer_IfOldCustomerContainsOrder()
         {
-            Assert.Fail();
+            //Arrange
+            Dictionary<Product, int> products = new Dictionary<Product, int>();
+            Product product1 = new Product("Cola", 1.5);
+            Product product2 = new Product("Fanta", 2);
+            products.Add(product1, 5);
+            products.Add(product2, 1);
+
+            DateTime dateTime = new DateTime(2020, 08, 18, 12, 15, 56);
+            Customer customer = new Customer("Jan Janssens", "Langemunt 49 9000 Gent");
+            Order order = new Order(1, customer, dateTime, products);
+
+            Customer newCustomer = new Customer("Bob Bobssons", "Korenmarkt 100 9000 Gent");
+
+            //Act
+            order.SetCustomer(newCustomer);
+
+            //Arrange
+            customer.GetOrders().Count.Should().Be(0);
+            newCustomer.GetOrders().Count.Should().Be(1);
         }
         [TestMethod]
         public void SetCustomer_ShouldAddOrderToNewCustomer_IfCustomerDoesNotContainOrderYet()
         {
-            Assert.Fail();
+            //Arrange
+            Dictionary<Product, int> products = new Dictionary<Product, int>();
+            Product product1 = new Product("Cola", 1.5);
+            Product product2 = new Product("Fanta", 2);
+            products.Add(product1, 5);
+            products.Add(product2, 1);
+
+            DateTime dateTime = new DateTime(2020, 08, 18, 12, 15, 56);
+            Customer customer = new Customer("Jan Janssens", "Langemunt 49 9000 Gent");
+            Order order = new Order(1, customer, dateTime, products);
+
+            Customer newCustomer = new Customer("Bob Bobssons", "Korenmarkt 100 9000 Gent");
+
+            //1
+            Order orderTest = new Order(1, newCustomer, dateTime, products);
+            //Act
+            //2
+            order.SetCustomer(newCustomer);
+
+            //Arrange
+            newCustomer.GetOrders().Count.Should().Be(2);
+            newCustomer.GetOrders().First().Should().BeEquivalentTo(orderTest);
         }
         [TestMethod]
         public void SetCustomer_ShouldChangeCustomer_IfCustomerIsValid()
         {
-            Assert.Fail();
+            //Arrange
+            Dictionary<Product, int> products = new Dictionary<Product, int>();
+            Product product1 = new Product("Cola", 1.5);
+            Product product2 = new Product("Fanta", 2);
+            products.Add(product1, 5);
+            products.Add(product2, 1);
+
+            DateTime dateTime = new DateTime(2020, 08, 18, 12, 15, 56);
+            Customer customer = new Customer("Jan Janssens", "Langemunt 49 9000 Gent");
+            Order order = new Order(1, customer, dateTime, products);
+
+            Customer newCustomer = new Customer("Bob Bobssons", "Korenmarkt 100 9000 Gent");
+
+            //Act
+            order.SetCustomer(newCustomer);
+
+            //Arrange
+            order.Customer.Should().BeEquivalentTo(newCustomer);
+            order.Customer.Should().NotBeEquivalentTo(customer);
         }
         #endregion
         #region DeleteCustomer
         [TestMethod]
         public void DeleteCustomer_CustomerShouldBeNull()
         {
-            Assert.Fail();
+            DateTime dateTime = new DateTime(2020, 08, 18, 12, 15, 56);
+            Customer customer = new Customer("Jan Janssens", "Langemunt 49 9000 Gent");
+            Order order = new Order(1, customer, dateTime);
+
+            order.DeleteCustomer();
+
+            order.Customer.Should().BeNull();
         }
         #endregion
         #region SetId
         [TestMethod]
         public void SetId_ShouldBeCorrect_IfIdIsValid()
         {
-            Assert.Fail();
-        }
-        [TestMethod]
-        public void SetId_ShouldThrowException_IfIdIsNull()
-        {
-            Assert.Fail();
+            DateTime dateTime = new DateTime(2020, 08, 18, 12, 15, 56);
+            Order order = new Order(1, dateTime);
+
+            order.SetId(2);
+
+            order.Id.Should().Be(2);
         }
         [TestMethod]
         public void SetId_ShouldThrowException_IfIdIsZero()
         {
-            Assert.Fail();
+            DateTime dateTime = new DateTime(2020, 08, 18, 12, 15, 56);
+            Order order = new Order(1, dateTime);
+
+            Action act = () =>
+            {
+                order.SetId(0);
+            };
+
+            act.Should().Throw<OrderException>().WithMessage("Order - invalid id");
         }
         [TestMethod]
         public void SetId_ShouldThrowException_IfIdIsNegative()
         {
-            Assert.Fail();
+            DateTime dateTime = new DateTime(2020, 08, 18, 12, 15, 56);
+            Order order = new Order(1, dateTime);
+
+            Action act = () =>
+            {
+                order.SetId(-5);
+            };
+
+            act.Should().Throw<OrderException>().WithMessage("Order - invalid id");
         }
         #endregion
         #region SetDateTime
         [TestMethod]
         public void SetDateTime_ShouldHaveCorrectProperties_IfDateTimeIsValid()
         {
-            Assert.Fail();
-        }
-        [TestMethod]
-        public void SetDateTime_ShouldThrowException_IfDateTimeIsNull()
-        {
-            Assert.Fail();
+            DateTime dateTime = new DateTime(2020, 08, 18, 12, 15, 56);
+            Order order = new Order(1, dateTime);
+
+            DateTime newDateTime = new DateTime(2021, 09, 20, 15, 00, 00);
+            order.SetDateTime(newDateTime);
+
+            order.DateTime.Should().Be(newDateTime);
         }
         #endregion
         #region SetIsPayed
@@ -220,7 +301,21 @@ namespace BusinessLayer.Tests.Models
         }
         #endregion
         #region Price
-        //TODO tests for calculate price
+        [TestMethod]
+        public void Price_ShouldReturn0_IfProductsIsEmpty()
+        {
+            Assert.Fail();
+        }
+        [TestMethod]
+        public void Price_ShouldReturnCorrectValue_IfProductsHasItems()
+        {
+            Assert.Fail();
+        }
+        [TestMethod]
+        public void Price_ShouldReturnCorrectValueWithCustomerDiscount_IfCustomerHasDiscount()
+        {
+            Assert.Fail();
+        }
         #endregion
         #endregion
     }

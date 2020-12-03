@@ -1,4 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using BusinessLayer.Exceptions;
+using BusinessLayer.Models;
+using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -35,56 +38,93 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void SetId_ShouldBeCorrect_IfIdIsValid()
         {
-            Assert.Fail();
-        }
-        [TestMethod]
-        public void SetId_ShouldThrowException_IfIdIsNull()
-        {
-            Assert.Fail();
+            Customer customer = new Customer("Kim De Grootte", "Vrijdagsmarkt 45 9000 Gent");
+
+            customer.SetId(5);
+
+            customer.Id.Should().Be(5);
         }
         [TestMethod]
         public void SetId_ShouldThrowException_IfIdIsZero()
         {
-            Assert.Fail();
+            Customer customer = new Customer("Kim De Grootte", "Vrijdagsmarkt 45 9000 Gent");
+
+            Action act = () =>
+            {
+                customer.SetId(0);
+            };
+
+            act.Should().Throw<CustomerException>().WithMessage("Customer id invalid");
         }
         [TestMethod]
         public void SetId_ShouldThrowException_IfIdIsNegative()
         {
-            Assert.Fail();
+            Customer customer = new Customer("Kim De Grootte", "Vrijdagsmarkt 45 9000 Gent");
+
+            Action act = () =>
+            {
+                customer.SetId(-8);
+            };
+
+            act.Should().Throw<CustomerException>().WithMessage("Customer id invalid");
         }
         #endregion
         #region SetName
         [TestMethod]
         public void SetName_ShouldBeCorrect_IfNameIsValid()
         {
-            Assert.Fail();
+            Customer customer = new Customer("Kim De Grootte", "Vrijdagsmarkt 45 9000 Gent");
+
+            customer.SetName("Leo De Grootte");
+
+            customer.Name.Should().Be("Leo De Grootte");
         }
         [TestMethod]
         public void SetName_ShouldThrowException_IfNameIsNull()
         {
-            Assert.Fail();
+            Customer customer = new Customer("Kim De Grootte", "Vrijdagsmarkt 45 9000 Gent");
+
+            Action act = () =>
+            {
+                customer.SetName(null);
+            };
+
+            act.Should().Throw<CustomerException>().WithMessage("Customer name invalid");
         }
         [TestMethod]
         public void SetName_ShouldThrowException_IfNameIsEmpty()
         {
-            Assert.Fail();
+            Customer customer = new Customer("Kim De Grootte", "Vrijdagsmarkt 45 9000 Gent");
+
+            Action act = () =>
+            {
+                customer.SetName("        ");
+            };
+
+            act.Should().Throw<CustomerException>().WithMessage("Customer name invalid");
         }
         #endregion
         #region SetAddress
         [TestMethod]
         public void SetAddress_ShouldBeCorrect_IfAddressIsValid()
         {
-            Assert.Fail();
-        }
-        [TestMethod]
-        public void SetAddress_ShouldThrowException_IfAddressIsNull()
-        {
-            Assert.Fail();
+            Customer customer = new Customer("Kim De Grootte", "Vrijdagsmarkt 45 9000 Gent");
+
+            customer.SetAddress("Vrijdagsmarkt 45B 9000 Gent");
+
+            customer.Address.Should().Be("Vrijdagsmarkt 45B 9000 Gent");
         }
         [TestMethod]
         public void SetAddress_ShouldThrowException_IfAddressIsEmpty()
         {
-            Assert.Fail();
+            Customer customer = new Customer("Kim De Grootte", "Vrijdagsmarkt 45 9000 Gent");
+
+            Action act = () =>
+            {
+                customer.SetAddress("        ");
+            };
+
+            act.Should().Throw<CustomerException>().WithMessage("Customer address invalid");
         }
         #endregion
         #endregion
