@@ -15,12 +15,18 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void Ctor_ShouldBeOfTypeCustomer_IfPropertiesAreValid()
         {
-            Assert.Fail();
+            Customer customer = new Customer(5, "Han Hansens", "Dorpstraat 101 6000");
+
+            customer.Should().BeOfType<Customer>();
         }
         [TestMethod]
         public void Ctor_ShouldHaveCorrectProperties_IfPropertiesAreValid()
         {
-            Assert.Fail();
+            Customer customer = new Customer(5, "Han Hansens", "Dorpstraat 101 6000");
+
+            customer.Id.Should().Be(5);
+            customer.Name.Should().Be("Han Hansens");
+            customer.Address.Should().Be("Dorpstraat 101 6000");
         }
         [TestMethod]
         public void Ctor_ShouldThrowException_IfOrdersListIsNull()
@@ -133,17 +139,101 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void Discount_ShouldBeZero_IfOrdersCountIsLessThenFive()
         {
-            Assert.Fail();
+            Order order1 = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
+            order1.AddProduct(new Product("Leffe"), 5);
+            Order order2 = new Order(2, new DateTime(2020, 5, 5, 18, 00, 00));
+            order2.AddProduct(new Product("Duvel"), 5);
+            Order order3 = new Order(3, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order4 = new Order(4, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order5 = new Order(5, new DateTime(2020, 5, 5, 18, 00, 00));
+            Customer customer = new Customer("Bob Ghent", "Kattenstraat 59 3000 Antwerpen");
+
+            customer.AddOrder(order1);
+            customer.Discount().Should().Be(0);
+
+            customer.AddOrder(order2);
+            customer.Discount().Should().Be(0);
+
+            customer.AddOrder(order3);
+            customer.Discount().Should().Be(0);
+
+            customer.AddOrder(order4);
+            customer.Discount().Should().Be(0);
+
+            customer.AddOrder(order5);
+            customer.Discount().Should().NotBe(0);
         }
         [TestMethod]
         public void Discount_ShouldBeFive_IfOrdersCountIsLessThenTen()
         {
-            Assert.Fail();
+            Order order1 = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
+            order1.AddProduct(new Product("Leffe"), 5);
+            Order order2 = new Order(2, new DateTime(2020, 5, 5, 18, 00, 00));
+            order2.AddProduct(new Product("Duvel"), 5);
+            Order order3 = new Order(3, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order4 = new Order(4, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order5 = new Order(5, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order6 = new Order(6, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order7= new Order(7, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order8 = new Order(8, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order9 = new Order(9, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order10 = new Order(10, new DateTime(2020, 5, 5, 18, 00, 00));
+            Customer customer = new Customer("Bob Ghent", "Kattenstraat 59 3000 Antwerpen");
+            customer.AddOrder(order1);
+            customer.AddOrder(order2);
+            customer.AddOrder(order3);
+            customer.AddOrder(order4);
+
+            customer.AddOrder(order5);
+            customer.Discount().Should().Be(5);
+
+            customer.AddOrder(order6);
+            customer.Discount().Should().Be(5);
+
+            customer.AddOrder(order7);
+            customer.Discount().Should().Be(5);
+
+            customer.AddOrder(order8);
+            customer.Discount().Should().Be(5);
+
+            customer.AddOrder(order9);
+            customer.Discount().Should().Be(5);
+
+            customer.AddOrder(order10);
+            customer.Discount().Should().NotBe(5);
         }
         [TestMethod]
-        public void Discount_ShouldBeTen_IfOrdersCountIsMoreThenTen()
+        public void Discount_ShouldBeTen_IfOrdersCountIsMoreOrEqualToTen()
         {
-            Assert.Fail();
+            Order order1 = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
+            order1.AddProduct(new Product("Leffe"), 5);
+            Order order2 = new Order(2, new DateTime(2020, 5, 5, 18, 00, 00));
+            order2.AddProduct(new Product("Duvel"), 5);
+            Order order3 = new Order(3, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order4 = new Order(4, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order5 = new Order(5, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order6 = new Order(6, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order7 = new Order(7, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order8 = new Order(8, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order9 = new Order(9, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order10 = new Order(10, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order11 = new Order(11, new DateTime(2020, 5, 5, 18, 00, 00));
+            Customer customer = new Customer("Bob Ghent", "Kattenstraat 59 3000 Antwerpen");
+            customer.AddOrder(order1);
+            customer.AddOrder(order2);
+            customer.AddOrder(order3);
+            customer.AddOrder(order4);
+            customer.AddOrder(order5);
+            customer.AddOrder(order6);
+            customer.AddOrder(order7);
+            customer.AddOrder(order8);
+            customer.AddOrder(order9);
+            
+            customer.AddOrder(order10);
+            customer.Discount().Should().Be(10);
+
+            customer.AddOrder(order11);
+            customer.Discount().Should().Be(10);
         }
         #endregion
         #region GetOrders

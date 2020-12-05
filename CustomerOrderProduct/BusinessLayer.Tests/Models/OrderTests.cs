@@ -255,49 +255,116 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void AddProduct_ShouldThrowException_IfAmountIsZero()
         {
-            Assert.Fail();
+            Order order = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
+
+            Action act = () =>
+            {
+                order.AddProduct(new Product("Whisk"), 0);
+            };
+
+            act.Should().Throw<OrderException>().WithMessage("AddOrder - amount");
         }
         [TestMethod]
         public void AddProduct_ShouldThrowException_IfAmountIsNegative()
         {
-            Assert.Fail();
+            Order order = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
+
+            Action act = () =>
+            {
+                order.AddProduct(new Product("Whisk"), -2);
+            };
+
+            act.Should().Throw<OrderException>().WithMessage("AddOrder - amount");
         }
         [TestMethod]
         public void AddProduct_ShouldAddAmount_IfProductAlreadyExistsInList()
         {
-            Assert.Fail();
+            Order order = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
+
+            order.AddProduct(new Product("Whisky", 50), 5);
+            order.AddProduct(new Product("Whisky", 50), 5);
+
+            order.GetProducts().Count.Should().Be(1);
+            order.GetProducts().First().Value.Should().Be(10);
+
         }
         [TestMethod]
         public void AddProduct_ShouldAddProduct_IfProductDoesNotExistInList()
         {
-            Assert.Fail();
+            Order order = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
+            Product product = new Product("Whisky", 50);
+            order.AddProduct(product, 5);
+
+            order.GetProducts().Count.Should().Be(1);
+            Product testProduct =  order.GetProducts().First().Key;
+            testProduct.Should().BeEquivalentTo(product);
         }
         #endregion
         #region DeleteProduct
         [TestMethod]
         public void DeleteProduct_ShouldThrowException_IfAmountIsZero()
         {
-            Assert.Fail();
+            Order order = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
+            Product product = new Product("Whisky", 50);
+            order.AddProduct(product, 5);
+
+            Action act = () =>
+            {
+                order.DeleteProduct(product, 0);
+            };
+
+            act.Should().Throw<OrderException>().WithMessage("DeleteProduct - amount");
         }
         [TestMethod]
         public void DeleteProduct_ShouldThrowException_IfAmountIsNegative()
         {
-            Assert.Fail();
+            Order order = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
+            Product product = new Product("Whisky", 50);
+            order.AddProduct(product, 5);
+
+            Action act = () =>
+            {
+                order.DeleteProduct(product, -8);
+            };
+
+            act.Should().Throw<OrderException>().WithMessage("DeleteProduct - amount");
         }
         [TestMethod]
         public void DeleteProduct_ShouldThrowException_IfAvailableAmountIsToSmall()
         {
-            Assert.Fail();
+            Order order = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
+            Product product = new Product("Whisky", 50);
+            order.AddProduct(product, 5);
+
+            Action act = () =>
+            {
+                order.DeleteProduct(product, 10);
+            };
+
+            act.Should().Throw<OrderException>().WithMessage("DeleteProduct - available amount is to small");
         }
         [TestMethod]
         public void DeleteProduct_ShouldRemoveProduct_IfAmountIsEqualToAvailableAmount()
         {
-            Assert.Fail();
+            Order order = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
+            Product product = new Product("Whisky", 50);
+            order.AddProduct(product, 10);
+
+            order.DeleteProduct(product, 10);
+
+            order.GetProducts().Count.Should().Be(0);
         }
         [TestMethod]
         public void DeleteProduct_ShouldReduceAmount_IfAmountIsLessThanAvailableAmount()
         {
-            Assert.Fail();
+            Order order = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
+            Product product = new Product("Whisky", 50);
+            order.AddProduct(product, 10);
+
+            order.DeleteProduct(product, 5);
+
+            order.GetProducts().Count.Should().Be(1);
+            order.GetProducts().First().Value.Should().Be(5);
         }
         #endregion
         #region Price

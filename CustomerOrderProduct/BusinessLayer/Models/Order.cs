@@ -104,7 +104,7 @@ namespace BusinessLayer.Models
 
         public void DeleteProduct(Product product, int amount)
         {
-            if (amount <= 0) throw new OrderException("DeleteOrder - amount");
+            if (amount <= 0) throw new OrderException("DeleteProduct - amount");
             if (!_products.ContainsKey(product)) throw new OrderException("DeleteProduct - product not available");
             if (_products[product] < amount) throw new OrderException("DeleteProduct - available amount is to small");
 
