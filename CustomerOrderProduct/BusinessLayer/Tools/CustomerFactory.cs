@@ -1,8 +1,6 @@
 ﻿using BusinessLayer.Exceptions;
 using BusinessLayer.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLayer.Tools
 {
@@ -19,6 +17,7 @@ namespace BusinessLayer.Tools
                 throw new CustomerFactoryException("Create customer", ex);
             }
         }
+
         public static Customer CreateCustomer(int id, string naam, string adres)
         {
             try
@@ -30,6 +29,7 @@ namespace BusinessLayer.Tools
                 throw new CustomerFactoryException("Create customer", ex);
             }
         }
+
         public static Customer CreateCustomer(int id, string naam, string adres, List<Order> bestellingen)
         {
             try

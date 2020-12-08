@@ -2,7 +2,6 @@
 using BusinessLayer.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLayer.Tools
 {
@@ -19,6 +18,7 @@ namespace BusinessLayer.Tools
                 throw new OrderFactoryException("Create order", ex);
             }
         }
+
         public static Order CreateOrder(Customer customer, int id)
         {
             try
@@ -30,6 +30,7 @@ namespace BusinessLayer.Tools
                 throw new OrderFactoryException("Create order", ex);
             }
         }
+
         public static Order CreateOrder(Customer customer, Dictionary<Product, int> products, int id)
         {
             try

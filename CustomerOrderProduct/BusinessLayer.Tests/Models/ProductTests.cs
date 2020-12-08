@@ -67,7 +67,9 @@ namespace BusinessLayer.Tests.Models
         }
 
         #endregion Ctor
+
         #region Methodes For Properties
+
         #region SetName
 
         [TestMethod]
@@ -137,6 +139,7 @@ namespace BusinessLayer.Tests.Models
         #endregion SetPrice
 
         #region SetId
+
         [TestMethod]
         public void SetId_ShouldBeCorrect_IfIdIsValid()
         {
@@ -146,6 +149,7 @@ namespace BusinessLayer.Tests.Models
 
             product.Id.Should().Be(1);
         }
+
         [TestMethod]
         public void SetId_ShouldThrowException_IfIdIsZero()
         {
@@ -158,6 +162,7 @@ namespace BusinessLayer.Tests.Models
 
             act.Should().Throw<ProductException>().WithMessage("Product id invalid");
         }
+
         [TestMethod]
         public void SetId_ShouldThrowException_IfIdIsNegative()
         {
@@ -170,7 +175,9 @@ namespace BusinessLayer.Tests.Models
 
             act.Should().Throw<ProductException>().WithMessage("Product id invalid");
         }
-        #endregion
-        #endregion
+
+        #endregion SetId
+
+        #endregion Methodes For Properties
     }
 }

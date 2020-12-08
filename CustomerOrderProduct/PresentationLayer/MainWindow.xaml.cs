@@ -21,13 +21,16 @@ namespace PresentationLayer
     public partial class MainWindow : Window
     {
         #region Constructor
+
         public MainWindow()
         {
             InitializeComponent();
         }
-        #endregion
+
+        #endregion Constructor
 
         #region Methods
+
         private void MenuItem_Customers_Click(object sender, RoutedEventArgs e)
         {
             changingWindow.Source = new Uri("Pages/CustomersPage.xaml", UriKind.Relative);
@@ -47,6 +50,7 @@ namespace PresentationLayer
         {
             System.Windows.Application.Current.Shutdown();
         }
-        #endregion
+
+        #endregion Methods
     }
 }

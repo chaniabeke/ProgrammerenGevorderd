@@ -92,6 +92,7 @@ namespace BusinessLayer.Models
         public void AddProduct(Product product, int amount)
         {
             if (amount <= 0) throw new OrderException("AddOrder - amount");
+
             if (_products.ContainsKey(product))
             {
                 _products[product] += amount;
@@ -118,6 +119,10 @@ namespace BusinessLayer.Models
             }
         }
 
+        //TODO ASK TOM
+        //Prijs al betaald aftrekken van bereken prijs?
+
+        //Wat als ik al betaald heb, producten toevoeg, en dan opnieuw betaalt, moet er dan nie terug berekent worden minus bedrag al betaalt?
         public double Price()
         {
             double price = 0.0; int korting = 0;
@@ -130,6 +135,17 @@ namespace BusinessLayer.Models
                 price += kvp.Key.Price * kvp.Value * (100.0 - korting) / 100.0;
             }
             return price;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Order order &&
+                   Id == order.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id);
         }
 
         #endregion Methods

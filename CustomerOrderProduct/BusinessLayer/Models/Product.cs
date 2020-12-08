@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Exceptions;
+using System;
 
 namespace BusinessLayer.Models
 {
@@ -13,6 +14,7 @@ namespace BusinessLayer.Models
         #endregion Properties
 
         #region Constructors
+
         //TODO ASK not all products have a price
         public Product(string name) => SetName(name);
 
@@ -43,5 +45,20 @@ namespace BusinessLayer.Models
         }
 
         #endregion Methods For Properties
+
+        #region Methods
+
+        public override bool Equals(object obj)
+        {
+            return obj is Product product &&
+                   Name == product.Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name);
+        }
+
+        #endregion Methods
     }
 }

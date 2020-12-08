@@ -1,20 +1,11 @@
 ﻿using BusinessLayer.Models;
 using BusinessLayer.Tools;
 using PresentationLayer.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PresentationLayer.Pages
 {
@@ -24,9 +15,13 @@ namespace PresentationLayer.Pages
     public partial class CustomersPage : Page
     {
         #region Properties
+
         private ObservableCollection<Customer> _customers = null;
-        #endregion
+
+        #endregion Properties
+
         #region Constructor
+
         public CustomersPage()
         {
             InitializeComponent();
@@ -34,9 +29,11 @@ namespace PresentationLayer.Pages
             dgCustomers.ItemsSource = _customers;
             _customers.CollectionChanged += _customers_CollectionChanged;
         }
-        #endregion
+
+        #endregion Constructor
 
         #region Methods
+
         private void _customers_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Remove)
@@ -54,8 +51,11 @@ namespace PresentationLayer.Pages
                 }
             }
         }
-        #endregion
+
+        #endregion Methods
+
         #region EventMethodsUI
+
         private void dgCustomers_PreviewExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             if (!(MessageBox.Show("Are you sure you want to delete this customer?", "Confirm.", MessageBoxButton.YesNo) == MessageBoxResult.Yes))
@@ -87,6 +87,7 @@ namespace PresentationLayer.Pages
                 btnAddCustomer.IsEnabled = false;
             }
         }
-        #endregion
+
+        #endregion EventMethodsUI
     }
 }

@@ -1,41 +1,48 @@
 ﻿using BusinessLayer.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DataLayer.DataAccessObjects
 {
     public class CustomerDAO
     {
         #region Fields
+
         private readonly string connectionString;
-        #endregion
+
+        #endregion Fields
 
         #region Constructors
+
         public CustomerDAO(string connectionString)
         {
             this.connectionString = connectionString;
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Methodes
-        public Customer GetCustomer(int id)
-        {
-            throw new NotImplementedException();
-        }
-        public IReadOnlyList<Customer> GetAllCustomers()
+
+        public Customer GetCustomerDAO(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void AddCustomer(Customer customer)
+        public IReadOnlyList<Customer> GetAllCustomersDAO()
         {
             throw new NotImplementedException();
         }
-        public void RemoveCustomer(Customer customer)
+
+        public void AddCustomerDAO(Customer customer)
         {
             throw new NotImplementedException();
         }
-        #endregion
+
+        public void RemoveCustomerDAO(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion Methodes
     }
 }

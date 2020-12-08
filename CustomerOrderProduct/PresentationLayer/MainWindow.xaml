@@ -9,12 +9,12 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem x:Name="MenuItem_File" Header="File">
-                <MenuItem x:Name="MenuItem_Close" Header="Close" Click="MenuItem_Close_Click"/>  
+                <MenuItem x:Name="MenuItem_Close" Header="Close" Click="MenuItem_Close_Click" />
             </MenuItem>
             <MenuItem x:Name="Management" Header="Management">
-                <MenuItem x:Name="MenuItem_Customers" Header="Customers" Click="MenuItem_Customers_Click"/>
-                <MenuItem x:Name="MenuItem_Orders" Header="Orders" Click="MenuItem_Orders_Click"/>
-                <MenuItem x:Name="MenuItem_Products" Header="Products" Click="MenuItem_Products_Click"/>
+                <MenuItem x:Name="MenuItem_Customers" Header="Customers" Click="MenuItem_Customers_Click" />
+                <MenuItem x:Name="MenuItem_Orders" Header="Orders" Click="MenuItem_Orders_Click" />
+                <MenuItem x:Name="MenuItem_Products" Header="Products" Click="MenuItem_Products_Click" />
             </MenuItem>
         </Menu>
         <Frame x:Name="changingWindow"  NavigationUIVisibility="Hidden" Source="Pages\HomePage.xaml">

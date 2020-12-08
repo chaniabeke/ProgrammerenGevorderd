@@ -21,6 +21,7 @@ namespace BusinessLayer.Models
             SetName(name);
             SetAddress(address);
         }
+
         public Customer(int id, string name, string address) : this(name, address) => SetId(id);
 
         public Customer(int id, string name, string address, List<Order> orders) : this(id, name, address)
@@ -33,11 +34,13 @@ namespace BusinessLayer.Models
         #endregion Constructors
 
         #region Methods For Properties
+
         public void SetId(int id)
         {
             if (id <= 0) throw new CustomerException("Customer Id invalid");
             Id = id;
         }
+
         public void SetName(string name)
         {
             if (name is null) throw new CustomerException("Customer name invalid");

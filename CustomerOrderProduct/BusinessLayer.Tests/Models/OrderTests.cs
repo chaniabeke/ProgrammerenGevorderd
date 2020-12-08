@@ -5,7 +5,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BusinessLayer.Tests.Models
 {
@@ -13,6 +12,7 @@ namespace BusinessLayer.Tests.Models
     public class OrderTests
     {
         #region Ctor
+
         [TestMethod]
         public void Ctor_ShouldBeTypeOfOrder_IfPropertiesAreValid()
         {
@@ -49,6 +49,7 @@ namespace BusinessLayer.Tests.Models
             order.IsPayed.Should().BeFalse();
             order.PriceAlreadyPayed.Should().Be(0);
         }
+
         [TestMethod]
         public void Ctor_ShouldthrowException_IfProductListIsEmpty()
         {
@@ -63,9 +64,13 @@ namespace BusinessLayer.Tests.Models
 
             act.Should().Throw<OrderException>().WithMessage("Order - invalid productsList");
         }
-        #endregion
+
+        #endregion Ctor
+
         #region Methods For Properties
+
         #region SetCustomer
+
         [TestMethod]
         public void SetCustomer_ShouldThrowException_IfCustomerIsNull()
         {
@@ -79,6 +84,7 @@ namespace BusinessLayer.Tests.Models
 
             act.Should().Throw<OrderException>().WithMessage("Order - SetCustomer - invalid customer");
         }
+
         [TestMethod]
         public void SetCustomer_ShouldThrowException_IfCustomerIsSameAsOldCustomer()
         {
@@ -93,6 +99,7 @@ namespace BusinessLayer.Tests.Models
 
             act.Should().Throw<OrderException>().WithMessage("Order - SetCustomer - not new");
         }
+
         [TestMethod]
         public void SetCustomer_ShouldDeleteOrderFromOldCustomer_IfOldCustomerContainsOrder()
         {
@@ -116,6 +123,7 @@ namespace BusinessLayer.Tests.Models
             customer.GetOrders().Count.Should().Be(0);
             newCustomer.GetOrders().Count.Should().Be(1);
         }
+
         [TestMethod]
         public void SetCustomer_ShouldAddOrderToNewCustomer_IfCustomerDoesNotContainOrderYet()
         {
@@ -142,6 +150,7 @@ namespace BusinessLayer.Tests.Models
             newCustomer.GetOrders().Count.Should().Be(2);
             newCustomer.GetOrders().First().Should().BeEquivalentTo(orderTest);
         }
+
         [TestMethod]
         public void SetCustomer_ShouldChangeCustomer_IfCustomerIsValid()
         {
@@ -165,8 +174,11 @@ namespace BusinessLayer.Tests.Models
             order.Customer.Should().BeEquivalentTo(newCustomer);
             order.Customer.Should().NotBeEquivalentTo(customer);
         }
-        #endregion
+
+        #endregion SetCustomer
+
         #region DeleteCustomer
+
         [TestMethod]
         public void DeleteCustomer_CustomerShouldBeNull()
         {
@@ -178,8 +190,11 @@ namespace BusinessLayer.Tests.Models
 
             order.Customer.Should().BeNull();
         }
-        #endregion
+
+        #endregion DeleteCustomer
+
         #region SetId
+
         [TestMethod]
         public void SetId_ShouldBeCorrect_IfIdIsValid()
         {
@@ -190,6 +205,7 @@ namespace BusinessLayer.Tests.Models
 
             order.Id.Should().Be(2);
         }
+
         [TestMethod]
         public void SetId_ShouldThrowException_IfIdIsZero()
         {
@@ -203,6 +219,7 @@ namespace BusinessLayer.Tests.Models
 
             act.Should().Throw<OrderException>().WithMessage("Order - invalid id");
         }
+
         [TestMethod]
         public void SetId_ShouldThrowException_IfIdIsNegative()
         {
@@ -216,8 +233,11 @@ namespace BusinessLayer.Tests.Models
 
             act.Should().Throw<OrderException>().WithMessage("Order - invalid id");
         }
-        #endregion
+
+        #endregion SetId
+
         #region SetDateTime
+
         [TestMethod]
         public void SetDateTime_ShouldHaveCorrectProperties_IfDateTimeIsValid()
         {
@@ -229,29 +249,46 @@ namespace BusinessLayer.Tests.Models
 
             order.DateTime.Should().Be(newDateTime);
         }
-        #endregion
+
+        #endregion SetDateTime
+
         #region SetIsPayed
+
         [TestMethod]
         public void SetIsPayed_ShouldBeCorrect()
         {
             Assert.Fail();
         }
+
         [TestMethod]
         public void SetIsPayed_ShouldUpdatePriceAlreadyPayed()
         {
             Assert.Fail();
         }
-        #endregion
+
+        #endregion SetIsPayed
+
         #endregion Methods For Properties
+
         #region Methods
+
         #region GetProducts
+
         [TestMethod]
         public void GetProducts_ShouldGetAllProducts()
         {
-            Assert.Fail();
+            Order order = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
+            order.AddProduct(new Product("Whisky", 50), 2);
+            order.AddProduct(new Product("Vodka", 12), 5);
+            order.AddProduct(new Product("Leffe", 2.5), 12);
+
+            order.GetProducts().Count.Should().Be(3);
         }
-        #endregion
+
+        #endregion GetProducts
+
         #region AddProduct
+
         [TestMethod]
         public void AddProduct_ShouldThrowException_IfAmountIsZero()
         {
@@ -264,6 +301,7 @@ namespace BusinessLayer.Tests.Models
 
             act.Should().Throw<OrderException>().WithMessage("AddOrder - amount");
         }
+
         [TestMethod]
         public void AddProduct_ShouldThrowException_IfAmountIsNegative()
         {
@@ -276,6 +314,7 @@ namespace BusinessLayer.Tests.Models
 
             act.Should().Throw<OrderException>().WithMessage("AddOrder - amount");
         }
+
         [TestMethod]
         public void AddProduct_ShouldAddAmount_IfProductAlreadyExistsInList()
         {
@@ -286,8 +325,8 @@ namespace BusinessLayer.Tests.Models
 
             order.GetProducts().Count.Should().Be(1);
             order.GetProducts().First().Value.Should().Be(10);
-
         }
+
         [TestMethod]
         public void AddProduct_ShouldAddProduct_IfProductDoesNotExistInList()
         {
@@ -296,11 +335,14 @@ namespace BusinessLayer.Tests.Models
             order.AddProduct(product, 5);
 
             order.GetProducts().Count.Should().Be(1);
-            Product testProduct =  order.GetProducts().First().Key;
+            Product testProduct = order.GetProducts().First().Key;
             testProduct.Should().BeEquivalentTo(product);
         }
-        #endregion
+
+        #endregion AddProduct
+
         #region DeleteProduct
+
         [TestMethod]
         public void DeleteProduct_ShouldThrowException_IfAmountIsZero()
         {
@@ -315,6 +357,7 @@ namespace BusinessLayer.Tests.Models
 
             act.Should().Throw<OrderException>().WithMessage("DeleteProduct - amount");
         }
+
         [TestMethod]
         public void DeleteProduct_ShouldThrowException_IfAmountIsNegative()
         {
@@ -329,6 +372,7 @@ namespace BusinessLayer.Tests.Models
 
             act.Should().Throw<OrderException>().WithMessage("DeleteProduct - amount");
         }
+
         [TestMethod]
         public void DeleteProduct_ShouldThrowException_IfAvailableAmountIsToSmall()
         {
@@ -343,6 +387,7 @@ namespace BusinessLayer.Tests.Models
 
             act.Should().Throw<OrderException>().WithMessage("DeleteProduct - available amount is to small");
         }
+
         [TestMethod]
         public void DeleteProduct_ShouldRemoveProduct_IfAmountIsEqualToAvailableAmount()
         {
@@ -354,6 +399,7 @@ namespace BusinessLayer.Tests.Models
 
             order.GetProducts().Count.Should().Be(0);
         }
+
         [TestMethod]
         public void DeleteProduct_ShouldReduceAmount_IfAmountIsLessThanAvailableAmount()
         {
@@ -366,24 +412,31 @@ namespace BusinessLayer.Tests.Models
             order.GetProducts().Count.Should().Be(1);
             order.GetProducts().First().Value.Should().Be(5);
         }
-        #endregion
+
+        #endregion DeleteProduct
+
         #region Price
+
         [TestMethod]
         public void Price_ShouldReturn0_IfProductsIsEmpty()
         {
             Assert.Fail();
         }
+
         [TestMethod]
         public void Price_ShouldReturnCorrectValue_IfProductsHasItems()
         {
             Assert.Fail();
         }
+
         [TestMethod]
         public void Price_ShouldReturnCorrectValueWithCustomerDiscount_IfCustomerHasDiscount()
         {
             Assert.Fail();
         }
-        #endregion
-        #endregion
+
+        #endregion Price
+
+        #endregion Methods
     }
 }
