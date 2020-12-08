@@ -10,7 +10,7 @@ namespace BusinessLayer.Models
 
         public int Id { get; private set; }
         public bool IsPayed { get; private set; }
-        public double PriceAlreadyPayed { get; private set; }
+        public decimal PriceAlreadyPayed { get; private set; }
         public Customer Customer { get; private set; }
         public DateTime DateTime { get; private set; }
         private Dictionary<Product, int> _products = new Dictionary<Product, int>();
@@ -123,16 +123,16 @@ namespace BusinessLayer.Models
         //Prijs al betaald aftrekken van bereken prijs?
 
         //Wat als ik al betaald heb, producten toevoeg, en dan opnieuw betaalt, moet er dan nie terug berekent worden minus bedrag al betaalt?
-        public double Price()
+        public decimal Price()
         {
-            double price = 0.0; int korting = 0;
+            decimal price = 0; int discount = 0;
             if (Customer != null)
             {
-                korting = Customer.Discount();
+                discount = Customer.Discount();
             }
             foreach (KeyValuePair<Product, int> kvp in _products)
             {
-                price += kvp.Key.Price * kvp.Value * (100.0 - korting) / 100.0;
+                price += kvp.Key.Price * kvp.Value * (100 - discount) / 100;
             }
             return price;
         }

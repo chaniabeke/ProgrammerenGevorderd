@@ -1,10 +1,12 @@
-﻿using BusinessLayer.Models;
+﻿using BusinessLayer.Interfaces;
+using BusinessLayer.Models;
 using System;
 using System.Collections.Generic;
+using DataLayer.Tools;
 
 namespace DataLayer.DataAccessObjects
 {
-    public class CustomerDAO
+    public class CustomerDAO : ICustomerRepository
     {
         #region Fields
 
@@ -14,31 +16,31 @@ namespace DataLayer.DataAccessObjects
 
         #region Constructors
 
-        public CustomerDAO(string connectionString)
+        public CustomerDAO()
         {
-            this.connectionString = connectionString;
+            connectionString = Util.GetConnectionString();
         }
 
         #endregion Constructors
 
         #region Methodes
 
-        public Customer GetCustomerDAO(int id)
+        public void AddCustomer(Customer customer)
         {
             throw new NotImplementedException();
         }
 
-        public IReadOnlyList<Customer> GetAllCustomersDAO()
+        public IReadOnlyList<Customer> GetAllCustomers()
         {
             throw new NotImplementedException();
         }
 
-        public void AddCustomerDAO(Customer customer)
+        public Customer GetCustomer(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveCustomerDAO(Customer customer)
+        public void RemoveCustomer(Customer customer)
         {
             throw new NotImplementedException();
         }

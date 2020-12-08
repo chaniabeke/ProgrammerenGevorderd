@@ -1,10 +1,12 @@
-﻿using BusinessLayer.Models;
+﻿using BusinessLayer.Interfaces;
+using BusinessLayer.Models;
+using DataLayer.Tools;
 using System;
 using System.Collections.Generic;
 
 namespace DataLayer.DataAccessObjects
 {
-    public class OrderDAO
+    public class OrderDAO : IOrderRepository
     {
         #region Fields
 
@@ -14,9 +16,9 @@ namespace DataLayer.DataAccessObjects
 
         #region Constructors
 
-        public OrderDAO(string connectionString)
+        public OrderDAO()
         {
-            this.connectionString = connectionString;
+            this.connectionString = Util.GetConnectionString();
         }
 
         #endregion Constructors

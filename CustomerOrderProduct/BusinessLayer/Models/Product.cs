@@ -9,7 +9,7 @@ namespace BusinessLayer.Models
 
         public int Id { get; private set; }
         public string Name { get; private set; }
-        public double Price { get; private set; }
+        public decimal Price { get; private set; }
 
         #endregion Properties
 
@@ -18,15 +18,15 @@ namespace BusinessLayer.Models
         //TODO ASK not all products have a price
         public Product(string name) => SetName(name);
 
-        public Product(string name, double price) : this(name) => SetPrice(price);
+        public Product(string name, decimal price) : this(name) => SetPrice(price);
 
-        public Product(int id, string name, double price) : this(name, price) => SetId(id);
+        public Product(int id, string name, decimal price) : this(name, price) => SetId(id);
 
         #endregion Constructors
 
         #region Methods For Properties
 
-        public void SetPrice(double price)
+        public void SetPrice(decimal price)
         {
             if (price <= 0) throw new ProductException("Product price invalid");
             Price = price;

@@ -1,7 +1,7 @@
 ﻿using BusinessLayer.Managers;
 using CommonLayer;
 
-namespace PresentationLayer.Models
+namespace ConsoleApp.Models
 {
     public static class Managers
     {

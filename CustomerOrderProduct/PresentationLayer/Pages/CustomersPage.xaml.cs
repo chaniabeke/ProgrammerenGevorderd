@@ -1,5 +1,4 @@
 ﻿using BusinessLayer.Models;
-using BusinessLayer.Tools;
 using PresentationLayer.Models;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -72,7 +71,7 @@ namespace PresentationLayer.Pages
                 return;
             }
 
-            Customer customer = CustomerFactory.CreateCustomer(tbName.Text, tbAddress.Text);
+            Customer customer = new Customer(tbName.Text, tbAddress.Text);
             _customers.Add(customer);
         }
 
