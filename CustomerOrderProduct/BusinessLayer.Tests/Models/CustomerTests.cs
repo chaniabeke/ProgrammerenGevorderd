@@ -3,6 +3,8 @@ using BusinessLayer.Models;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BusinessLayer.Tests.Models
 {
@@ -32,13 +34,25 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void Ctor_ShouldThrowException_IfOrdersListIsNull()
         {
-            Assert.Fail();
+            Action act = () =>
+            {
+                Customer customer = new Customer(5, "Han Hansens", "Dorpstraat 101 6000", null);
+            };
+
+            act.Should().Throw<CustomerException>().WithMessage("Customer - orders invalid");
         }
 
         [TestMethod]
         public void Ctor_ShouldThrowException_IfOrdersListIsEmpty()
         {
-            Assert.Fail();
+            List<Order> products = new List<Order>();
+
+            Action act = () =>
+            {
+                Customer customer = new Customer(5, "Han Hansens", "Dorpstraat 101 6000", products);
+            };
+
+            act.Should().Throw<CustomerException>().WithMessage("Customer - orders invalid");
         }
 
         #endregion Ctor
@@ -267,7 +281,12 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void GetOrders_ShouldGetAllOrders()
         {
-            Assert.Fail();
+            Customer customer = new Customer(5, "Han Hansens", "Dorpstraat 101 6000");
+            customer.AddOrder(new Order(5, DateTime.Now));
+            customer.AddOrder(new Order(6, DateTime.Now));
+            customer.AddOrder(new Order(7, DateTime.Now));
+
+            customer.GetOrders().Count.Should().Be(3);
         }
 
         #endregion GetOrders
@@ -277,13 +296,20 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void HasOrder_ShouldReturnTrue_IfOrderExistInOrdersList()
         {
-            Assert.Fail();
+            Customer customer = new Customer(5, "Han Hansens", "Dorpstraat 101 6000");
+            Order order = new Order(5, DateTime.Now);
+            customer.AddOrder(order);
+
+            customer.HasOrder(order).Should().BeTrue();
         }
 
         [TestMethod]
         public void HasOrder_ShouldReturnFalse_IfOrderDoesNotExistInOrdersList()
         {
-            Assert.Fail();
+            Customer customer = new Customer(5, "Han Hansens", "Dorpstraat 101 6000");
+            Order order = new Order(5, DateTime.Now);
+
+            customer.HasOrder(order).Should().BeFalse();
         }
 
         #endregion HasOrder
@@ -293,19 +319,39 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void AddOrder_ShouldThrowException_IfOrderAlreadyExist()
         {
-            Assert.Fail();
+            Customer customer = new Customer(5, "Han Hansens", "Dorpstraat 101 6000");
+            Order order = new Order(5, DateTime.Now);
+            customer.AddOrder(order);
+
+            Action act = () =>
+            {
+                customer.AddOrder(order);
+            };
+
+            act.Should().Throw<CustomerException>().WithMessage("Customer : AddOrder - order already exists");
         }
 
         [TestMethod]
         public void AddOrder_ShouldAddOrderCorrect_IfOrderDoesNotExist()
         {
-            Assert.Fail();
+            Customer customer = new Customer(5, "Han Hansens", "Dorpstraat 101 6000");
+            Order order = new Order(5, DateTime.Now);
+            customer.AddOrder(order);
+
+            customer.GetOrders().Count.Should().Be(1);
+            customer.GetOrders().First().Should().BeEquivalentTo(order);
         }
 
         [TestMethod]
         public void AddOrder_ShouldChangeCustomer_IfOrderHasOtherCustomer()
         {
-            Assert.Fail();
+            Customer customer = new Customer(5, "Han Hansens", "Dorpstraat 101 6000");
+            Customer newCustomer = new Customer(6, "Bob Hansens", "Dorpstraat 102 6000");
+            Order order = new Order(5, customer, DateTime.Now);
+
+            newCustomer.AddOrder(order);
+
+            order.Customer.Should().BeEquivalentTo(newCustomer);
         }
 
         #endregion AddOrder
@@ -315,19 +361,39 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void DeleteOrder_ShouldThrowException_IfOrderDoesNotExist()
         {
-            Assert.Fail();
+            Customer customer = new Customer(5, "Han Hansens", "Dorpstraat 101 6000");
+            Order order = new Order(5, DateTime.Now);
+
+            Action act = () =>
+            {
+                customer.DeleteOrder(order);
+            };
+
+            act.Should().Throw<CustomerException>().WithMessage("Customer : DeleteOrder - order does not exists");
         }
 
         [TestMethod]
         public void DeleteOrder_ShouldDeleteCustomerFromOrder_IfOrderHasCustomer()
         {
-            Assert.Fail();
+            Customer customer = new Customer(5, "Han Hansens", "Dorpstraat 101 6000");
+            Order order = new Order(5, DateTime.Now);
+            customer.AddOrder(order);
+
+            customer.DeleteOrder(order);
+
+            order.Customer.Should().BeNull();
         }
 
         [TestMethod]
         public void DeleteOrder_ShouldDeleteOrder_IfOrderExist()
         {
-            Assert.Fail();
+            Customer customer = new Customer(5, "Han Hansens", "Dorpstraat 101 6000");
+            Order order = new Order(5, DateTime.Now);
+            customer.AddOrder(order);
+           
+            customer.DeleteOrder(order);
+
+            customer.GetOrders().Count.Should().Be(0);
         }
 
         #endregion DeleteOrder

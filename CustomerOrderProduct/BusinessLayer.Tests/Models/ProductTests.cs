@@ -14,16 +14,16 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void Ctor_ShouldBeOfTypeProduct_IfPropertiesAreValid()
         {
-            Product product = new Product("Coca-Cola", 1.5);
+            Product product = new Product("Coca-Cola", 1.5m);
             product.Should().BeOfType<Product>();
         }
 
         [TestMethod]
         public void Ctor_ShouldHaveCorrectProperties_IfPropertiesAreValid()
         {
-            Product product = new Product("Coca-Cola", 1.5);
+            Product product = new Product("Coca-Cola", 1.5m);
             product.Name.Should().Be("Coca-Cola");
-            product.Price.Should().Be(1.5);
+            product.Price.Should().Be(1.5m);
         }
 
         [TestMethod]
@@ -31,7 +31,7 @@ namespace BusinessLayer.Tests.Models
         {
             Action act = () =>
             {
-                Product product = new Product(null, 1.5);
+                Product product = new Product(null, 1.5m);
             };
             act.Should().Throw<NullReferenceException>();
         }
@@ -41,7 +41,7 @@ namespace BusinessLayer.Tests.Models
         {
             Action act = () =>
             {
-                Product product = new Product("", 1.5);
+                Product product = new Product("", 1.5m);
             };
             act.Should().Throw<ProductException>().WithMessage("Product name invalid");
         }
@@ -51,7 +51,7 @@ namespace BusinessLayer.Tests.Models
         {
             Action act = () =>
             {
-                Product product = new Product("Coca-Cola", -1.5);
+                Product product = new Product("Coca-Cola", -1.5m);
             };
             act.Should().Throw<ProductException>().WithMessage("Product price invalid");
         }
@@ -75,7 +75,7 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void SetName_ShouldChangeName_IfNameIsCorrect()
         {
-            Product product = new Product("Coca-Cola", 1.5);
+            Product product = new Product("Coca-Cola", 1.5m);
             product.SetName("Fanta");
             product.Name.Should().Be("Fanta");
         }
@@ -83,7 +83,7 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void SetName_ShouldThrowException_IfNameIsNull()
         {
-            Product product = new Product("Coca-Cola", 1.5);
+            Product product = new Product("Coca-Cola", 1.5m);
             Action act = () =>
             {
                 product.SetName(null);
@@ -94,7 +94,7 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void SetName_ShouldThrowException_IfNameIsEmpty()
         {
-            Product product = new Product("Coca-Cola", 1.5);
+            Product product = new Product("Coca-Cola", 1.5m);
             Action act = () =>
             {
                 product.SetName("");
@@ -109,7 +109,7 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void SetPrice_ShouldChangePrice_IfPriceIsValid()
         {
-            Product product = new Product("Coca-Cola", 1.5);
+            Product product = new Product("Coca-Cola", 1.5m);
             product.SetPrice(2);
             product.Price.Should().Be(2);
         }
@@ -117,7 +117,7 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void SetPrice_ShouldThrowException_IfPriceIsNegative()
         {
-            Product product = new Product("Coca-Cola", 1.5);
+            Product product = new Product("Coca-Cola", 1.5m);
             Action act = () =>
             {
                 product.SetPrice(-2);
@@ -128,7 +128,7 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void SetPrice_ShouldThrowException_IfPriceIsZero()
         {
-            Product product = new Product("Coca-Cola", 1.5);
+            Product product = new Product("Coca-Cola", 1.5m);
             Action act = () =>
             {
                 product.SetPrice(0);

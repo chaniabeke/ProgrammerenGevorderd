@@ -19,7 +19,7 @@ namespace BusinessLayer.Tests.Models
             DateTime dateTime = new DateTime(2020, 08, 18, 12, 15, 56);
             Customer customer = new Customer("Jan Janssens", "Langemunt 49 9000 Gent");
             Dictionary<Product, int> products = new Dictionary<Product, int>();
-            Product product1 = new Product("Cola", 1.5);
+            Product product1 = new Product("Cola", 1.5m);
             Product product2 = new Product("Fanta", 2);
             products.Add(product1, 5);
             products.Add(product2, 1);
@@ -33,7 +33,7 @@ namespace BusinessLayer.Tests.Models
         public void Ctor_ShouldHaveCorrectProperties_IfPropertiesAreValid()
         {
             Dictionary<Product, int> products = new Dictionary<Product, int>();
-            Product product1 = new Product("Cola", 1.5);
+            Product product1 = new Product("Cola", 1.5m);
             Product product2 = new Product("Fanta", 2);
             products.Add(product1, 5);
             products.Add(product2, 1);
@@ -105,7 +105,7 @@ namespace BusinessLayer.Tests.Models
         {
             //Arrange
             Dictionary<Product, int> products = new Dictionary<Product, int>();
-            Product product1 = new Product("Cola", 1.5);
+            Product product1 = new Product("Cola", 1.5m);
             Product product2 = new Product("Fanta", 2);
             products.Add(product1, 5);
             products.Add(product2, 1);
@@ -129,7 +129,7 @@ namespace BusinessLayer.Tests.Models
         {
             //Arrange
             Dictionary<Product, int> products = new Dictionary<Product, int>();
-            Product product1 = new Product("Cola", 1.5);
+            Product product1 = new Product("Cola", 1.5m);
             Product product2 = new Product("Fanta", 2);
             products.Add(product1, 5);
             products.Add(product2, 1);
@@ -140,15 +140,12 @@ namespace BusinessLayer.Tests.Models
 
             Customer newCustomer = new Customer("Bob Bobssons", "Korenmarkt 100 9000 Gent");
 
-            //1
-            Order orderTest = new Order(1, newCustomer, dateTime, products);
             //Act
-            //2
             order.SetCustomer(newCustomer);
 
             //Arrange
-            newCustomer.GetOrders().Count.Should().Be(2);
-            newCustomer.GetOrders().First().Should().BeEquivalentTo(orderTest);
+            newCustomer.GetOrders().Count.Should().Be(1);
+            newCustomer.GetOrders().First().Should().BeEquivalentTo(order);
         }
 
         [TestMethod]
@@ -156,7 +153,7 @@ namespace BusinessLayer.Tests.Models
         {
             //Arrange
             Dictionary<Product, int> products = new Dictionary<Product, int>();
-            Product product1 = new Product("Cola", 1.5);
+            Product product1 = new Product("Cola", 1.5m);
             Product product2 = new Product("Fanta", 2);
             products.Add(product1, 5);
             products.Add(product2, 1);
@@ -257,13 +254,28 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void SetIsPayed_ShouldBeCorrect()
         {
-            Assert.Fail();
+            Order order = new Order(5, DateTime.Now);
+
+            order.SetPayed();
+
+            order.IsPayed.Should().BeTrue();
+
+            order.SetPayed(false);
+
+            order.IsPayed.Should().BeFalse();
         }
 
         [TestMethod]
         public void SetIsPayed_ShouldUpdatePriceAlreadyPayed()
         {
-            Assert.Fail();
+            Order order = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
+            order.AddProduct(new Product("Whisky", 50), 2);
+            order.AddProduct(new Product("Vodka", 12), 5);
+            order.AddProduct(new Product("Leffe", 2.5m), 12);
+
+            order.SetPayed();
+
+            order.Price().Should().BeGreaterThan(0);
         }
 
         #endregion SetIsPayed
@@ -280,7 +292,7 @@ namespace BusinessLayer.Tests.Models
             Order order = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
             order.AddProduct(new Product("Whisky", 50), 2);
             order.AddProduct(new Product("Vodka", 12), 5);
-            order.AddProduct(new Product("Leffe", 2.5), 12);
+            order.AddProduct(new Product("Leffe", 2.5m), 12);
 
             order.GetProducts().Count.Should().Be(3);
         }
@@ -420,19 +432,44 @@ namespace BusinessLayer.Tests.Models
         [TestMethod]
         public void Price_ShouldReturn0_IfProductsIsEmpty()
         {
-            Assert.Fail();
+            Order order = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
+
+            order.SetPayed();
+
+            order.Price().Should().Be(0);
         }
 
         [TestMethod]
         public void Price_ShouldReturnCorrectValue_IfProductsHasItems()
         {
-            Assert.Fail();
+            Customer customer = new Customer("Bob", "Dorpstraat 101");
+            Order order1 = new Order(3, customer, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order2 = new Order(4, customer, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order3 = new Order(5, customer, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order4 = new Order(6, customer, new DateTime(2020, 5, 5, 18, 00, 00));
+            Order order5 = new Order(7, customer, new DateTime(2020, 5, 5, 18, 00, 00));
+            
+            Order newOrder = new Order(1, customer, new DateTime(2020, 5, 5, 18, 00, 00));
+            newOrder.AddProduct(new Product("Whisky", 50), 2);
+            newOrder.AddProduct(new Product("Vodka", 12), 5);
+            newOrder.AddProduct(new Product("Leffe", 2.5m), 12);
+
+            newOrder.SetPayed();
+
+            newOrder.Price().Should().Be(180.5m);
         }
 
         [TestMethod]
         public void Price_ShouldReturnCorrectValueWithCustomerDiscount_IfCustomerHasDiscount()
         {
-            Assert.Fail();
+            Order order = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
+            order.AddProduct(new Product("Whisky", 50), 2);
+            order.AddProduct(new Product("Vodka", 12), 5);
+            order.AddProduct(new Product("Leffe", 2.5m), 12);
+
+            order.SetPayed();
+
+            order.Price().Should().Be(190);
         }
 
         #endregion Price
