@@ -32,6 +32,11 @@ namespace DataLayer.DataAccessObjects
 
         public IReadOnlyList<Customer> GetAllCustomers()
         {
+             throw new NotImplementedException();
+        }
+
+        public IReadOnlyList<Customer> GetCustomers(Func<Customer, bool> predicate)
+        {
             throw new NotImplementedException();
         }
 

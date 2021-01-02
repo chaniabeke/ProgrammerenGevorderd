@@ -6,11 +6,21 @@ namespace BusinessLayer.Models
 {
     public class Order
     {
+        #region Fields
+        private decimal _priceAlreadyPayed;
+        private bool _isPayed;
+        #endregion
         #region Properties
 
         public int Id { get; private set; }
-        public bool IsPayed { get; private set; }
-        public decimal PriceAlreadyPayed { get; private set; }
+        public bool IsPayed
+        {
+            get => _isPayed; set => _isPayed = SetPayed(value);
+        }
+        public decimal PriceAlreadyPayed
+        {
+            get => _priceAlreadyPayed; set => _priceAlreadyPayed = Price();
+        }
         public Customer Customer { get; private set; }
         public DateTime DateTime { get; private set; }
         private Dictionary<Product, int> _products = new Dictionary<Product, int>();
@@ -71,13 +81,13 @@ namespace BusinessLayer.Models
             DateTime = dateTime;
         }
 
-        public void SetPayed(bool isPayed = true)
+        public bool SetPayed(bool isPayed = true)
         {
-            IsPayed = isPayed;
             if (IsPayed)
             {
                 PriceAlreadyPayed = Price();
             }
+            return isPayed;
         }
 
         #endregion Methods For Properties
@@ -119,10 +129,6 @@ namespace BusinessLayer.Models
             }
         }
 
-        //TODO ASK TOM
-        //Prijs al betaald aftrekken van bereken prijs?
-
-        //Wat als ik al betaald heb, producten toevoeg, en dan opnieuw betaalt, moet er dan nie terug berekent worden minus bedrag al betaalt?
         public decimal Price()
         {
             decimal price = 0; int discount = 0;

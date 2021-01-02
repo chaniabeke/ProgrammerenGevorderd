@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Models;
+using System;
 using System.Collections.Generic;
 
 namespace BusinessLayer.Interfaces
@@ -7,7 +8,8 @@ namespace BusinessLayer.Interfaces
     {
         void AddOrder(Order order);
         Order GetOrder(int id);
-        IReadOnlyList<Order> GetOrders();
+        IReadOnlyList<Order> GetAllOrders();
+        IReadOnlyList<Order> GetOrders(Func<Order, bool> predicate);
         void RemoveOrder(Order order);
     }
 }

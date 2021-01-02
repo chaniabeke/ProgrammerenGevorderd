@@ -23,11 +23,19 @@ namespace BusinessLayer.Managers
             throw new NotImplementedException();
         }
 
+        public IReadOnlyList<Customer> GetCustomers(Func<Customer, bool> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
         public IReadOnlyList<Customer> GetAllCustomers()
         {
             _customers.GetAllCustomers();
             throw new NotImplementedException();
         }
+
+    
+
 
         public void AddCustomer(Customer customer)
         {
@@ -40,7 +48,6 @@ namespace BusinessLayer.Managers
             _customers.RemoveCustomer(customer);
             throw new NotImplementedException();
         }
-
         #endregion Methodes
     }
 }

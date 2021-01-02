@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Models;
+using System;
 using System.Collections.Generic;
 
 namespace BusinessLayer.Interfaces
@@ -7,6 +8,7 @@ namespace BusinessLayer.Interfaces
     {
         void AddCustomer(Customer customer);
         IReadOnlyList<Customer> GetAllCustomers();
+        IReadOnlyList<Customer> GetCustomers(Func<Customer, bool> predicate);
         Customer GetCustomer(int id);
         void RemoveCustomer(Customer customer);
     }

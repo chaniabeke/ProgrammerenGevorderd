@@ -15,7 +15,6 @@ namespace BusinessLayer.Models
 
         #region Constructors
 
-        //TODO ASK not all products have a price
         public Product(string name) => SetName(name);
 
         public Product(string name, decimal price) : this(name) => SetPrice(price);

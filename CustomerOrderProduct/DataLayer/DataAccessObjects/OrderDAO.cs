@@ -30,7 +30,7 @@ namespace DataLayer.DataAccessObjects
             throw new NotImplementedException();
         }
 
-        public IReadOnlyList<Order> GetOrders()
+        public IReadOnlyList<Order> GetAllOrders()
         {
             throw new NotImplementedException();
         }
@@ -41,6 +41,11 @@ namespace DataLayer.DataAccessObjects
         }
 
         public void RemoveOrder(Order order)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IReadOnlyList<Order> GetOrders(Func<Order, bool> predicate)
         {
             throw new NotImplementedException();
         }
