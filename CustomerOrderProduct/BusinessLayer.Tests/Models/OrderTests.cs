@@ -256,11 +256,11 @@ namespace BusinessLayer.Tests.Models
         {
             Order order = new Order(5, DateTime.Now);
 
-            order.SetPayed();
+            order.IsPayed = true;
 
             order.IsPayed.Should().BeTrue();
 
-            order.SetPayed(false);
+            order.IsPayed = false;
 
             order.IsPayed.Should().BeFalse();
         }
@@ -273,7 +273,7 @@ namespace BusinessLayer.Tests.Models
             order.AddProduct(new Product("Vodka", 12), 5);
             order.AddProduct(new Product("Leffe", 2.5m), 12);
 
-            order.SetPayed();
+            order.IsPayed = true;
 
             order.Price().Should().BeGreaterThan(0);
         }
@@ -434,7 +434,7 @@ namespace BusinessLayer.Tests.Models
         {
             Order order = new Order(1, new DateTime(2020, 5, 5, 18, 00, 00));
 
-            order.SetPayed();
+            order.IsPayed = true;
 
             order.Price().Should().Be(0);
         }
@@ -454,7 +454,7 @@ namespace BusinessLayer.Tests.Models
             newOrder.AddProduct(new Product("Vodka", 12), 5);
             newOrder.AddProduct(new Product("Leffe", 2.5m), 12);
 
-            newOrder.SetPayed();
+            newOrder.IsPayed = true;
 
             newOrder.Price().Should().Be(180.5m);
         }
@@ -467,7 +467,7 @@ namespace BusinessLayer.Tests.Models
             order.AddProduct(new Product("Vodka", 12), 5);
             order.AddProduct(new Product("Leffe", 2.5m), 12);
 
-            order.SetPayed();
+            order.IsPayed = true;
 
             order.Price().Should().Be(190);
         }

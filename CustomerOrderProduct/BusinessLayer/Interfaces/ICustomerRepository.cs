@@ -8,8 +8,9 @@ namespace BusinessLayer.Interfaces
     {
         void AddCustomer(Customer customer);
         IReadOnlyList<Customer> GetAllCustomers();
-        IReadOnlyList<Customer> GetCustomers(Func<Customer, bool> predicate);
+        // IReadOnlyList<Customer> GetCustomers(Func<Customer, bool> predicate);
+        Customer GetCustomerWithOrders(int id);
         Customer GetCustomer(int id);
-        void RemoveCustomer(Customer customer);
+        void RemoveCustomer(int id);
     }
 }

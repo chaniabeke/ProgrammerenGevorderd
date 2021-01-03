@@ -19,26 +19,22 @@ namespace BusinessLayer.Managers
 
         public Product GetProduct(int id)
         {
-            _products.GetProduct(id);
-            throw new NotImplementedException();
+           return _products.GetProduct(id);
         }
 
         public IReadOnlyList<Product> GetAllProducts()
         {
-            _products.GetAllProducts();
-            throw new NotImplementedException();
+            return _products.GetAllProducts();
         }
 
         public void AddProduct(Product product)
         {
             _products.AddProduct(product);
-            throw new NotImplementedException();
         }
 
-        public void RemoveProduct(Product product)
+        public void RemoveProduct(int id)
         {
-            _products.RemoveProduct(product);
-            throw new NotImplementedException();
+             _products.RemoveProduct(id);
         }
 
         #endregion Methodes

@@ -19,22 +19,22 @@ namespace BusinessLayer.Managers
 
         public Order GetOrder(int id)
         {
-            throw new NotImplementedException();
+            return _orders.GetOrder(id);
         }
 
         public IReadOnlyList<Order> GetAllOrders()
         {
-            throw new NotImplementedException();
+            return _orders.GetAllOrders();
         }
 
         public void AddOrder(Order order)
         {
-            throw new NotImplementedException();
+            _orders.AddOrder(order);
         }
 
-        public void RemoveOrder(Order order)
+        public void RemoveOrder(int id)
         {
-            throw new NotImplementedException();
+            _orders.RemoveOrder(id);
         }
 
         public IReadOnlyList<Order> GetOrders(Func<Order, bool> predicate)

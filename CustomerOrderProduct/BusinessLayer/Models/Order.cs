@@ -29,11 +29,15 @@ namespace BusinessLayer.Models
 
         #region Constructors
 
-        public Order(int id, DateTime dateTime)
+        public Order(DateTime dateTime)
         {
-            SetId(id);
             SetDateTime(dateTime);
             IsPayed = false;
+        }
+
+        public Order(int id, DateTime dateTime) : this (dateTime)
+        {
+            SetId(id);
         }
 
         public Order(int id, Customer customer, DateTime dateTime) : this(id, dateTime) => SetCustomer(customer);
@@ -42,6 +46,12 @@ namespace BusinessLayer.Models
         {
             if (products is null || products.Count == 0) throw new OrderException("Order - invalid productsList");
             _products = products;
+        }
+
+        public Order(int id, DateTime dateTime, bool isPayed, decimal priceAlreadyPayed): this(id, dateTime)
+        {
+            IsPayed = isPayed;
+            PriceAlreadyPayed = priceAlreadyPayed;
         }
 
         #endregion Constructors
@@ -81,9 +91,9 @@ namespace BusinessLayer.Models
             DateTime = dateTime;
         }
 
-        public bool SetPayed(bool isPayed = true)
+        private bool SetPayed(bool isPayed = true)
         {
-            if (IsPayed)
+            if (isPayed)
             {
                 PriceAlreadyPayed = Price();
             }
@@ -146,7 +156,7 @@ namespace BusinessLayer.Models
         public override bool Equals(object obj)
         {
             return obj is Order order &&
-                   Id == order.Id;
+                   DateTime == order.DateTime;
         }
 
         public override int GetHashCode()

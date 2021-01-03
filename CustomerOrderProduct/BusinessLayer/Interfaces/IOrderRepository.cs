@@ -10,6 +10,6 @@ namespace BusinessLayer.Interfaces
         Order GetOrder(int id);
         IReadOnlyList<Order> GetAllOrders();
         IReadOnlyList<Order> GetOrders(Func<Order, bool> predicate);
-        void RemoveOrder(Order order);
+        void RemoveOrder(int order);
     }
 }

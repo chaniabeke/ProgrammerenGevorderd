@@ -8,6 +8,6 @@ namespace BusinessLayer.Interfaces
         void AddProduct(Product product);
         IReadOnlyList<Product> GetAllProducts();
         Product GetProduct(int id);
-        void RemoveProduct(Product product);
+        void RemoveProduct(int id);
     }
 }

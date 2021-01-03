@@ -78,7 +78,7 @@ namespace BusinessLayer.Models
 
         public void AddOrder(Order order)
         {
-            if (_orders.Contains(order)) throw new CustomerException("Customer : AddOrder - order already exists");
+           // if (_orders.Contains(order)) throw new CustomerException("Customer : AddOrder - order already exists");
             _orders.Add(order);
             if (order.Customer != this) order.SetCustomer(this);
         }

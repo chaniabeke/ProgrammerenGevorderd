@@ -19,34 +19,32 @@ namespace BusinessLayer.Managers
 
         public Customer GetCustomer(int id)
         {
-            _customers.GetCustomer(id);
-            throw new NotImplementedException();
+           return _customers.GetCustomer(id);
         }
 
-        public IReadOnlyList<Customer> GetCustomers(Func<Customer, bool> predicate)
+        //public IReadOnlyList<Customer> GetCustomers(Func<Customer, bool> predicate)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public Customer GetCustomerWithOrders(int id)
         {
-            throw new NotImplementedException();
+           return _customers.GetCustomerWithOrders(id);
         }
 
         public IReadOnlyList<Customer> GetAllCustomers()
         {
-            _customers.GetAllCustomers();
-            throw new NotImplementedException();
+            return _customers.GetAllCustomers();
         }
-
-    
-
 
         public void AddCustomer(Customer customer)
         {
             _customers.AddCustomer(customer);
-            throw new NotImplementedException();
         }
 
-        public void RemoveCustomer(Customer customer)
+        public void RemoveCustomer(int id)
         {
-            _customers.RemoveCustomer(customer);
-            throw new NotImplementedException();
+            _customers.RemoveCustomer(id);
         }
         #endregion Methodes
     }
