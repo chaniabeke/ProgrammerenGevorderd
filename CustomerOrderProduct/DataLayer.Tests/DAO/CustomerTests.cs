@@ -43,28 +43,28 @@ namespace DataLayer.Tests.DAO
             customerInDb.Id.Should().Be(1);
         }
 
-        [TestMethod]
-        public void AddCustomer_ShouldAddCustomerWithOrders()
-        {
-            // Arrange 
-            CustomerDAO customerDAO = new CustomerDAO();
-            Customer customer = new Customer("Jan Janssens", "Vrijdagsmarkt 100 9000 Gent");
-            Order order1 = new Order(new DateTime(2020, 5, 10, 20, 0, 0));
-            order1.IsPayed = true;
-            customer.AddOrder(order1);
-            customer.AddOrder(new Order(new DateTime(2020, 5, 5, 20, 0, 0)));
+        //[TestMethod]
+        //public void AddCustomer_ShouldAddCustomerWithOrders()
+        //{
+        //    // Arrange 
+        //    CustomerDAO customerDAO = new CustomerDAO();
+        //    Customer customer = new Customer("Jan Janssens", "Vrijdagsmarkt 100 9000 Gent");
+        //    Order order1 = new Order(new DateTime(2020, 5, 10, 20, 0, 0));
+        //    order1.IsPayed = true;
+        //    customer.AddOrder(order1);
+        //    customer.AddOrder(new Order(new DateTime(2020, 5, 5, 20, 0, 0)));
 
-            // Act 
-            customerDAO.AddCustomer(customer);
+        //    // Act 
+        //    customerDAO.AddCustomer(customer);
 
-            // Assert           
-            Customer customerInDb = customerDAO.GetCustomerWithOrders(1);
-            customerInDb.GetOrders().Count.Should().Be(2);
-            Order orderInDB = customerInDb.GetOrders().First();
-            orderInDB.DateTime.Should().Be(new DateTime(2020, 5, 10, 20, 0, 0));
-            orderInDB.IsPayed.Should().BeTrue();
-            orderInDB.PriceAlreadyPayed.Should().Be(0);
-        }
+        //    // Assert           
+        //    Customer customerInDb = customerDAO.GetCustomerWithOrders(1);
+        //    customerInDb.GetOrders().Count.Should().Be(2);
+        //    Order orderInDB = customerInDb.GetOrders().First();
+        //    orderInDB.DateTime.Should().Be(new DateTime(2020, 5, 10, 20, 0, 0));
+        //    orderInDB.IsPayed.Should().BeTrue();
+        //    orderInDB.PriceAlreadyPayed.Should().Be(0);
+        //}
 
         [TestMethod]
         public void GetCustomer_ShouldReturnCorrectCustomer()

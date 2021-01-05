@@ -135,6 +135,9 @@
   <data name="Id" xml:space="preserve">
     <value>Nummer</value>
   </data>
+  <data name="IsPayed" xml:space="preserve">
+    <value>Betaald?</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Naam</value>
   </data>

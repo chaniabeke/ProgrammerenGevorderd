@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BusinessLayer.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -24,6 +27,7 @@ namespace KlantBestellingen.WPF
             _customerWindow.Closing += _Window_Closing;
             _productsWindow.Closing += _Window_Closing;
             _bestellingDetailWindow.Closing += _Window_Closing;
+            btnNieuweBestelling.IsEnabled = false;
         }
 
         /// <summary>
@@ -58,7 +62,7 @@ namespace KlantBestellingen.WPF
 
         private void MenuItem_Klanten_Click(object sender, RoutedEventArgs e)
         {
-            if(_customerWindow != null)
+            if (_customerWindow != null)
                 _customerWindow.Show();
         }
 
@@ -66,6 +70,10 @@ namespace KlantBestellingen.WPF
         {
             if (_productsWindow != null)
                 _productsWindow.Show();
+        }
+        private void MenuItem_Bestellingen_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO ADD bestelling window
         }
 
         /// <summary>
@@ -81,16 +89,16 @@ namespace KlantBestellingen.WPF
         private void TextBox_KeyUp(object sender, KeyEventArgs e)
         {
             // Als je een string toekrijgt, controleer dan steeds of deze wel een bruikbare waarde heeft bij aanvang (preconditie)
-            if(string.IsNullOrEmpty(tbKlant.Text))
+            if (string.IsNullOrEmpty(tbKlant.Text))
             {
                 cbKlanten.ItemsSource = null;
                 return;
             }
             // Tip: maak dit case insensitive voor "meer punten" ;-) Nog beter: reguliere expressies gebruiken
-            var klanten = Context.CustomerManager.GetAllCustomers(k => k.Naam.Contains(tbKlant.Text));
+            List<Customer> klanten = Context.CustomerManager.GetAllCustomers().Where(k => k.Name.Contains(tbKlant.Text)).ToList();
             cbKlanten.ItemsSource = klanten;
             // Indien er effectief klanten zijn, maak dan dat de eerste klant in de lijst meteen voorgeselecteerd is in de combobox:
-            if(klanten.Count > 0)
+            if (klanten.Count > 0)
             {
                 cbKlanten.SelectedIndex = 0; // het 0-de item is de eerste klant want C# is zero-based
             }
@@ -111,13 +119,16 @@ namespace KlantBestellingen.WPF
             if (cbKlanten.SelectedItem != null)
             {
                 // Indien er een klant geselecteerd is, dan tonen we de bestellingen van die klant
-                var bestellingen = Context.OrderManager.GetOrders(b => b.Klant == cbKlanten.SelectedItem);
+                var customer = (Customer)cbKlanten.SelectedItem;
+                var bestellingen = Context.OrderManager.GetAllOrdersFromCustomer(customer.Id);
                 dgOrderSelection.ItemsSource = bestellingen;
+                btnNieuweBestelling.IsEnabled = true;
             }
             else
             {
                 // Indien er geen klant geselecteerd is, tonen we geen bestellingen
                 dgOrderSelection.ItemsSource = null;
+                btnNieuweBestelling.IsEnabled = false;
             }
         }
 
@@ -131,6 +142,19 @@ namespace KlantBestellingen.WPF
 
             _bestellingDetailWindow.Klant = cbKlanten.SelectedItem as BusinessLayer.Models.Customer;
             _bestellingDetailWindow.Order = null;
+            _bestellingDetailWindow.Show();
+        }
+
+        private void dgOrderSelection_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Order order = (Order)dgOrderSelection.SelectedItem;
+            if (_bestellingDetailWindow == null || cbKlanten.SelectedIndex < 0 || order == null )
+            {
+                return;
+            }
+
+            _bestellingDetailWindow.Klant = cbKlanten.SelectedItem as BusinessLayer.Models.Customer;
+            _bestellingDetailWindow.Order = order;
             _bestellingDetailWindow.Show();
         }
     }

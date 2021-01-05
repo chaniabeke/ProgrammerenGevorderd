@@ -30,7 +30,7 @@ namespace DataLayer.DataAccessObjects
         #region Create
         public void AddCustomer(Customer customer)
         {
-            AddOrders(customer);
+            //AddOrders(customer);
 
             string query = $"INSERT INTO dbo.Customer( Name, Address )" +
                 $" VALUES (  @Name, @Address )SELECT CAST(scope_identity() AS int);";
@@ -56,7 +56,7 @@ namespace DataLayer.DataAccessObjects
                     conn.Close();
                 }
 
-                AddCustomerOrderEntries(customer);
+                //AddCustomerOrderEntries(customer);
             }
         }
         #endregion
@@ -97,11 +97,6 @@ namespace DataLayer.DataAccessObjects
                     conn.Close();
                 }
             }
-        }
-
-        public IReadOnlyList<Customer> GetCustomers(Func<Customer, bool> predicate)
-        {
-            throw new NotImplementedException();
         }
 
         public Customer GetCustomer(int id)
@@ -173,7 +168,8 @@ namespace DataLayer.DataAccessObjects
                                 (int)dataReader["OrderId"],
                                 (DateTime)dataReader["DateTime"],
                                 (bool)dataReader["Is_Checked"],
-                                (decimal)dataReader["PriceAlreadyPayed"]
+                                (decimal)dataReader["PriceAlreadyPayed"],
+                                customer
                                 ));
                         }
                         foreach (var order in orders)

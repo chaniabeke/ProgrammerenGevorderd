@@ -30,8 +30,10 @@ namespace DataLayer.DataAccessObjects
         #region Create
         public void AddOrder(Order order)
         {
-            string query = $"INSERT INTO dbo.OrderT( DateTime, PriceAlreadyPayed, Is_Checked )" +
-                $" VALUES (  @DateTime, @PriceAlreadyPayed, @Is_Checked)SELECT CAST(scope_identity() AS int);";
+            AddProducts(order);
+
+            string query = $"INSERT INTO dbo.OrderT( DateTime, PriceAlreadyPayed, Is_Checked, CustomerId )" +
+                $" VALUES (  @DateTime, @PriceAlreadyPayed, @Is_Checked, @CustomerId) SELECT CAST(scope_identity() AS int);";
             SqlConnection conn = Util.GetSqlConnection(connectionString);
             using (SqlCommand cmd = conn.CreateCommand())
             {
@@ -41,10 +43,19 @@ namespace DataLayer.DataAccessObjects
                     cmd.Parameters.Add("@DateTime", SqlDbType.DateTime);
                     cmd.Parameters.Add("@PriceAlreadyPayed", SqlDbType.Decimal);
                     cmd.Parameters.Add("@Is_Checked", SqlDbType.Bit);
+                    cmd.Parameters.Add("@CustomerId", SqlDbType.Int);
                     cmd.CommandText = query;
                     cmd.Parameters["@DateTime"].Value = order.DateTime;
                     cmd.Parameters["@PriceAlreadyPayed"].Value = order.PriceAlreadyPayed;
                     cmd.Parameters["@Is_Checked"].Value = order.IsPayed;
+                    if (order.Customer != null)
+                    {
+                        cmd.Parameters["@CustomerId"].Value = order.Customer.Id;
+                    }
+                    else
+                    {
+                        cmd.Parameters["@CustomerId"].Value = (object)DBNull.Value;
+                    }
                     order.SetId((Int32)cmd.ExecuteScalar());
                 }
                 catch (Exception ex)
@@ -55,6 +66,8 @@ namespace DataLayer.DataAccessObjects
                 {
                     conn.Close();
                 }
+
+                AddOrderProductEntries(order);
             }
         }
         #endregion
@@ -62,7 +75,7 @@ namespace DataLayer.DataAccessObjects
         #region Read
         public Order GetOrder(int id)
         {
-            string query = $"Select orderId, DateTime, Is_Checked, PriceAlreadyPayed from dbo.OrderT where OrderId = @Id";
+            string query = $"Select orderId, DateTime, Is_Checked, PriceAlreadyPayed, CustomerId from dbo.OrderT where OrderId = @Id";
             SqlConnection conn = Util.GetSqlConnection(connectionString);
             Order order = null;
             using (SqlCommand cmd = conn.CreateCommand())
@@ -82,9 +95,9 @@ namespace DataLayer.DataAccessObjects
                             DateTime dateTime = (DateTime)dataReader["DateTime"];
                             bool isChecked = (bool)dataReader["Is_Checked"];
                             decimal priceAlreadyPayed = (decimal)dataReader["PriceAlreadyPayed"];
-                            order = new Order(orderId, dateTime);
-                            order.IsPayed = isChecked;
-                            order.PriceAlreadyPayed = priceAlreadyPayed;
+                            int? customerId = !Convert.IsDBNull(dataReader["CustomerId"]) ? (int?)dataReader["CustomerId"] : null;
+                            Customer customer = GetCustomer(customerId);
+                            order = new Order(orderId, dateTime, isChecked, priceAlreadyPayed, customer);
                         }
                     }
                     return order;
@@ -103,7 +116,7 @@ namespace DataLayer.DataAccessObjects
         public IReadOnlyList<Order> GetAllOrders()
         {
             List<Order> orders = new List<Order>();
-            string query = $"Select orderId, DateTime, Is_Checked, PriceAlreadyPayed from dbo.OrderT;";
+            string query = $"Select orderId, DateTime, Is_Checked, PriceAlreadyPayed, CustomerId from dbo.OrderT;";
             SqlConnection conn = Util.GetSqlConnection(connectionString);
             using (SqlCommand cmd = conn.CreateCommand())
             {
@@ -120,7 +133,9 @@ namespace DataLayer.DataAccessObjects
                             DateTime dateTime = (DateTime)dataReader["DateTime"];
                             bool isChecked = (bool)dataReader["Is_Checked"];
                             decimal priceAlreadyPayed = (decimal)dataReader["PriceAlreadyPayed"];
-                            orders.Add(new Order(orderId, dateTime, isChecked, priceAlreadyPayed));
+                            int? customerId = !Convert.IsDBNull(dataReader["CustomerId"]) ? (int?)dataReader["CustomerId"] : null;
+                            Customer customer = GetCustomer(customerId);
+                            orders.Add(new Order(orderId, dateTime, isChecked, priceAlreadyPayed, customer));
                         }
 
                     }
@@ -137,10 +152,48 @@ namespace DataLayer.DataAccessObjects
             }
         }
 
-        public IReadOnlyList<Order> GetOrders(Func<Order, bool> predicate)
+        public IReadOnlyList<Order> GetAllOrdersFromCustomer(int customerId)
         {
-            throw new NotImplementedException();
+            List<Order> orders = new List<Order>();
+            string query = $"Select orderId, DateTime, Is_Checked, PriceAlreadyPayed, CustomerId " +
+                $"from dbo.OrderT where CustomerId = @Id";
+            SqlConnection conn = Util.GetSqlConnection(connectionString);
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                try
+                {
+                    cmd.Parameters.Add("@Id", SqlDbType.Int);
+                    cmd.CommandText = query;
+                    cmd.Parameters["@Id"].Value = customerId;
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    if (dataReader.HasRows)
+                    {
+                        while (dataReader.Read())
+                        {
+                            int orderId = (int)dataReader["OrderId"];
+                            DateTime dateTime = (DateTime)dataReader["DateTime"];
+                            bool isChecked = (bool)dataReader["Is_Checked"];
+                            decimal priceAlreadyPayed = (decimal)dataReader["PriceAlreadyPayed"];
+                            int? idCustomer = !Convert.IsDBNull(dataReader["CustomerId"]) ? (int?)dataReader["CustomerId"] : null;
+                            Customer customer = GetCustomer(idCustomer);
+                            orders.Add(new Order(orderId, dateTime, isChecked, priceAlreadyPayed, customer));
+                        }
+
+                    }
+                    return orders.AsReadOnly();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
         }
+
         #endregion
 
         #region Delete
@@ -150,5 +203,59 @@ namespace DataLayer.DataAccessObjects
         }
         #endregion
         #endregion Methodes
+
+        #region HulpMethodes
+        private Customer GetCustomer(int? customerId)
+        {
+            Customer customer = null;
+            if (customerId != null)
+            {
+                CustomerDAO customerDao = new CustomerDAO();
+                customer = customerDao.GetCustomer((int)customerId);
+            }
+            return customer;
+        }
+
+        private void AddProducts(Order order)
+        {
+            foreach (var product in order.GetProducts().Keys)
+            {
+                var productWithId = new ProductDAO().GetProductByName(product.Name);
+                if (productWithId == null)
+                {
+                    productWithId = product;
+                    new ProductDAO().AddProduct(productWithId);
+                };
+                product.SetId(productWithId.Id);
+            }
+        }
+
+        private void AddOrderProductEntries(Order order)
+        {
+            foreach (var product in order.GetProducts())
+            {
+                string sql = "INSERT INTO OrderProduct ( OrderId, ProductId, Amount ) VALUES ( @OrderId,  @ProductId, @Amount );";
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.Add("@OrderId", SqlDbType.Int);
+                    cmd.Parameters.Add("@ProductId", SqlDbType.Int);
+                    cmd.Parameters.Add("@Amount", SqlDbType.Int);
+                    cmd.Parameters["@OrderId"].Value = order.Id;
+                    cmd.Parameters["@ProductId"].Value = product.Key.Id;
+                    cmd.Parameters["@Amount"].Value = product.Value;
+                    try
+                    {
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+        }
+        #endregion
     }
 }

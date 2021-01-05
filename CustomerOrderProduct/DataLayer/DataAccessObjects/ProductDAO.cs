@@ -94,6 +94,43 @@ namespace DataLayer.DataAccessObjects
             }
         }
 
+        public Product GetProductByName(string productName)
+        {
+            string query = $"Select ProductId, Name, Price from dbo.Product where Name = @ProductName";
+            SqlConnection conn = Util.GetSqlConnection(connectionString);
+            Product product = null;
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                try
+                {
+                    cmd.Parameters.Add("@ProductName", SqlDbType.NVarChar);
+                    cmd.CommandText = query;
+                    cmd.Parameters["@ProductName"].Value = productName;
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    if (dataReader.HasRows)
+                    {
+                        while (dataReader.Read())
+                        {
+                            int productId = (int)dataReader["ProductId"];
+                            string name = (string)dataReader["Name"];
+                            decimal price = (decimal)dataReader["Price"];
+                            product = new Product(productId, name, price);
+                        }
+                    }
+                    return product;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
         public IReadOnlyList<Product> GetAllProducts()
         {
             List<Product> products = new List<Product>();

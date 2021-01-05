@@ -106,11 +106,29 @@ namespace KlantBestellingen.WPF.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to bbb.
+        /// </summary>
+        public static string ggg {
+            get {
+                return ResourceManager.GetString("ggg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number.
         /// </summary>
         public static string Id {
             get {
                 return ResourceManager.GetString("Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payed?.
+        /// </summary>
+        public static string IsPayed {
+            get {
+                return ResourceManager.GetString("IsPayed", resourceCulture);
             }
         }
         

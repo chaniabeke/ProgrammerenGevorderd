@@ -116,7 +116,7 @@ namespace KlantBestellingen.WPF
                     return;
                 }
                 _order = value;
-                var orders = _order.GeefProducten();
+                var orders = _order.GetProducts();
                 _orderProducts = new ObservableCollection<Product>();
                 foreach(var pkv in orders)
                 {
@@ -130,7 +130,7 @@ namespace KlantBestellingen.WPF
             }
         }
         #endregion
-
+        //TODO ADO.net bestelling met producten
         #region Ctor
         public BestellingDetail()
         {

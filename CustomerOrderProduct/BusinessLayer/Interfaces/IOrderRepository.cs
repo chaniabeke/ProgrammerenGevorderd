@@ -9,7 +9,7 @@ namespace BusinessLayer.Interfaces
         void AddOrder(Order order);
         Order GetOrder(int id);
         IReadOnlyList<Order> GetAllOrders();
-        IReadOnlyList<Order> GetOrders(Func<Order, bool> predicate);
+        IReadOnlyList<Order> GetAllOrdersFromCustomer(int customerId);
         void RemoveOrder(int order);
     }
 }

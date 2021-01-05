@@ -34,7 +34,7 @@ namespace KlantBestellingen.WPF
             {
                 foreach (Product product in e.OldItems)
                 {
-                    Context.ProductManager.RemoveProduct(product);
+                    Context.ProductManager.RemoveProduct(product.Id);
                 }
             }
             else if (e.Action == NotifyCollectionChangedAction.Add)

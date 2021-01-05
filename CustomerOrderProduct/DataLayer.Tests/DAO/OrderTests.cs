@@ -44,5 +44,31 @@ namespace DataLayer.Tests.DAO
             orderInDb.PriceAlreadyPayed.Should().Be(0);
             orderInDb.Id.Should().Be(1);
         }
+
+        [TestMethod]
+        public void AddOrder_ShouldAddOrderWithCustomer()
+        {
+            // Arrange 
+            CustomerDAO customerDAO = new CustomerDAO();
+            customerDAO.AddCustomer(new Customer("Jan Jansenss", "Straat 123"));
+            Customer customer = customerDAO.GetCustomer(1);
+            OrderDAO orderDAO = new OrderDAO();
+            DateTime dateTime = new DateTime(2020, 12, 05, 05, 05, 05);
+            Order order = new Order(dateTime);
+            order.IsPayed = true;
+            order.SetCustomer(customer);
+
+            // Act 
+            orderDAO.AddOrder(order);
+
+            // Assert           
+            Order orderInDb = orderDAO.GetOrder(1);
+            orderInDb.Should().BeOfType<Order>();
+            orderInDb.DateTime.Should().Be(dateTime);
+            orderInDb.IsPayed.Should().Be(true);
+            orderInDb.PriceAlreadyPayed.Should().Be(0);
+            orderInDb.Id.Should().Be(1);
+            orderInDb.Customer.Should().BeEquivalentTo(customer);
+        }
     }
 }

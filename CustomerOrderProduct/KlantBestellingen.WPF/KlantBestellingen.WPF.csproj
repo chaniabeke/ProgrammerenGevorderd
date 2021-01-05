@@ -27,7 +27,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Desktop\Programeren Gevorderd Excercises\CustomerOrderProduct\BusinessLayer\BusinessLayer.csproj" />
     <ProjectReference Include="..\..\..\..\Desktop\Programeren Gevorderd Excercises\CustomerOrderProduct\CommonLayer\CommonLayer.csproj" />
-    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

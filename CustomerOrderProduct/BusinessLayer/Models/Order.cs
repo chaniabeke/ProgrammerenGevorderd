@@ -35,10 +35,10 @@ namespace BusinessLayer.Models
             IsPayed = false;
         }
 
-        public Order(int id, DateTime dateTime) : this (dateTime)
-        {
-            SetId(id);
-        }
+        public Order(int id, DateTime dateTime) : this(dateTime) => SetId(id);
+
+        public Order(DateTime dateTime, Customer customer) : this(dateTime) => SetCustomer(customer);
+
 
         public Order(int id, Customer customer, DateTime dateTime) : this(id, dateTime) => SetCustomer(customer);
 
@@ -48,8 +48,9 @@ namespace BusinessLayer.Models
             _products = products;
         }
 
-        public Order(int id, DateTime dateTime, bool isPayed, decimal priceAlreadyPayed): this(id, dateTime)
+        public Order(int id, DateTime dateTime, bool isPayed, decimal priceAlreadyPayed, Customer customer): this(id, dateTime)
         {
+            if(customer != null) SetCustomer(customer);
             IsPayed = isPayed;
             PriceAlreadyPayed = priceAlreadyPayed;
         }

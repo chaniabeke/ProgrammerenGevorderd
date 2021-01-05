@@ -37,11 +37,10 @@ namespace BusinessLayer.Managers
             _orders.RemoveOrder(id);
         }
 
-        public IReadOnlyList<Order> GetOrders(Func<Order, bool> predicate)
+        public IReadOnlyList<Order> GetAllOrdersFromCustomer(int customerId)
         {
-            throw new NotImplementedException();
+            return _orders.GetAllOrdersFromCustomer(customerId);
         }
-
         #endregion Methodes
     }
 }

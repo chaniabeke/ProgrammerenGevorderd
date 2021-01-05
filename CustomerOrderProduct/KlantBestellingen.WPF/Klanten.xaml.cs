@@ -34,7 +34,7 @@ namespace KlantBestellingen.WPF
             {
                 foreach (Customer klant in e.OldItems)
                 {
-                    Context.CustomerManager.RemoveCustomer(klant);
+                    Context.CustomerManager.RemoveCustomer(klant.Id);
                 }
             }
             else if (e.Action == NotifyCollectionChangedAction.Add)

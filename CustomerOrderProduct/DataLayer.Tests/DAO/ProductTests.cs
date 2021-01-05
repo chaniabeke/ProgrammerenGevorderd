@@ -79,6 +79,25 @@ namespace DataLayer.Tests.DAO
             productInDb.Should().NotBeEquivalentTo(product2);
         }
 
+        [TestMethod]
+        public void GetProductByName_ShouldReturnCorrectProduct()
+        {
+            // Arrange 
+            ProductDAO productDAO = new ProductDAO();
+            Product product1 = new Product("Fanta", 2);
+            productDAO.AddProduct(product1);
+            Product product2 = new Product("Cola", 2.5m);
+            productDAO.AddProduct(product2);
+            // Act 
+            Product productInDb = productDAO.GetProductByName("Fanta");
+
+            // Assert           
+            productInDb.Name.Should().Be("Fanta");
+            productInDb.Price.Should().Be(2);
+            productInDb.Id.Should().Be(1);
+            productInDb.Should().NotBeEquivalentTo(product2);
+        }
+
 
         [TestMethod]
         public void GetAllProducts_ShouldReturnAllProducts()
