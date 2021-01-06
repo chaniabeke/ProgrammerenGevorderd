@@ -5,6 +5,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DataLayer.Tests.DAO
@@ -69,6 +70,44 @@ namespace DataLayer.Tests.DAO
             orderInDb.PriceAlreadyPayed.Should().Be(0);
             orderInDb.Id.Should().Be(1);
             orderInDb.Customer.Should().BeEquivalentTo(customer);
+        }
+
+        [TestMethod]
+        public void AddOrder_ShouldAddOrderWithProducts()
+        {
+            // Arrange 
+            ProductDAO productDAO = new ProductDAO();
+            Product product1 = new Product("Fanta", 2.5m);
+            Product product2 = new Product("Cola", 2.2m);
+            Product product3 = new Product("Hamburger", 8m);
+            CustomerDAO customerDAO = new CustomerDAO();
+            customerDAO.AddCustomer(new Customer("Jan Jansenss", "Straat 123"));
+            Customer customer = customerDAO.GetCustomer(1);
+            OrderDAO orderDAO = new OrderDAO();
+            DateTime dateTime = new DateTime(2020, 12, 05, 05, 05, 05);
+            Order order = new Order(dateTime);
+            order.IsPayed = true;
+            order.SetCustomer(customer);
+            order.AddProduct(product1, 5);
+            order.AddProduct(product3, 8);
+            order.AddProduct(product2, 6);
+
+            // Act 
+            orderDAO.AddOrder(order);
+
+            // Assert           
+            Order orderInDb = orderDAO.GetOrder(1);
+            orderInDb.Should().BeOfType<Order>();
+            orderInDb.DateTime.Should().Be(dateTime);
+            orderInDb.IsPayed.Should().Be(true);
+            orderInDb.PriceAlreadyPayed.Should().Be(0);
+            orderInDb.Id.Should().Be(1);
+            orderInDb.Customer.Should().BeEquivalentTo(customer);
+            orderInDb.GetProducts().Count.Should().Be(3);
+
+            product1.SetId(1);
+            orderInDb.GetProducts().First().Key.Should().BeEquivalentTo(product1);
+            orderInDb.GetProducts().First().Value.Should().Be(5);
         }
     }
 }

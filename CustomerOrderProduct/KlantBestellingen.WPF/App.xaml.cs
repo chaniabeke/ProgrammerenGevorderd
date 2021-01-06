@@ -14,7 +14,7 @@ namespace KlantBestellingen.WPF
         {
             // Wisselen van taal:
             Translations.Culture = new System.Globalization.CultureInfo("nl-BE"); // en-US nl-BE
-           Context.Populate();
+         // Context.Populate();
         }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

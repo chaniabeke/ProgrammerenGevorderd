@@ -29,12 +29,12 @@
         <TextBlock x:Name="LblPrijsBetaald" Grid.Row="2" Grid.Column="1" Text="Betaald: " Margin="5"/>
         <CheckBox x:Name="CbPrijs" Grid.Row="2" Grid.Column="2" IsChecked="{Binding Betaald}" Margin="5" ToolTip="Is de bestelling betaald?"/>
         <Label x:Name="LblAddProduct" Grid.Row="3" Content="Producten: " Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
-        <ComboBox x:Name="CbProducts" Grid.Row="3" Grid.Column="1" MinWidth="250" Margin="5" VerticalAlignment="Center" SelectedValuePath="Naam" DisplayMemberPath="Naam"></ComboBox>
+        <ComboBox x:Name="CbProducts" Grid.Row="3" Grid.Column="1" MinWidth="250" Margin="5" VerticalAlignment="Center" SelectedValuePath="Naam" DisplayMemberPath="Name"></ComboBox>
         <Button x:Name="BtnProductAdd" Grid.Row="3" Grid.Column="2" Content="Voeg toe" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" Click="BtnProductAdd_Click"/>
         <DataGrid x:Name="DgProducts" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" AlternatingRowBackground="#FFB9BBFF" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{x:Static langs:Translations.Name}" Binding="{Binding Naam}" MinWidth="200"/>
-                <DataGridTextColumn Header="{x:Static langs:Translations.Price}" Binding="{Binding Prijs}" MinWidth="200"/>
+                <DataGridTextColumn Header="{x:Static langs:Translations.Name}" Binding="{Binding Name}" MinWidth="200"/>
+                <DataGridTextColumn Header="{x:Static langs:Translations.Price}" Binding="{Binding Price}" MinWidth="200"/>
                 <DataGridTemplateColumn Header="" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

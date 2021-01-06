@@ -6,7 +6,7 @@ JOIN CustomerOrder ON Customer.CustomerId = CustomerOrder.CustomerId
 JOIN OrderT ON CustomerOrder.OrderId = OrderT.OrderId
 AND CustomerOrder.CustomerId like 1;
 
--- Select All Order With/Without Products
+-- Select All Orders With/Without Products
 Select OrderT.OrderId, OrderT.DateTime, OrderT.Is_Checked, OrderT.PriceAlreadyPayed, OrderT.CustomerId,
 Product.Name, Product.Price, OrderProduct.Amount from OrderT
 LEFT OUTER JOIN OrderProduct

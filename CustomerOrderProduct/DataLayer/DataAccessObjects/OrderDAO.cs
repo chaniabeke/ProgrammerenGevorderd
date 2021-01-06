@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace DataLayer.DataAccessObjects
 {
@@ -75,8 +76,13 @@ namespace DataLayer.DataAccessObjects
         #region Read
         public Order GetOrder(int id)
         {
-            string query = $"Select orderId, DateTime, Is_Checked, PriceAlreadyPayed, CustomerId from dbo.OrderT where OrderId = @Id";
+            string query = $"Select OrderT.OrderId, OrderT.DateTime, OrderT.Is_Checked, OrderT.PriceAlreadyPayed, OrderT.CustomerId, " +
+                $"Product.ProductId, Product.Name, Product.Price, OrderProduct.Amount from OrderT " +
+                $"LEFT OUTER JOIN OrderProduct ON OrderT.OrderId = OrderProduct.OrderId " +
+                $"LEFT OUTER JOIN Product ON OrderProduct.ProductId = Product.ProductId " +
+                $"where OrderT.OrderId = @Id;";
             SqlConnection conn = Util.GetSqlConnection(connectionString);
+            Dictionary<Product, int> products = new Dictionary<Product, int>();
             Order order = null;
             using (SqlCommand cmd = conn.CreateCommand())
             {
@@ -98,6 +104,15 @@ namespace DataLayer.DataAccessObjects
                             int? customerId = !Convert.IsDBNull(dataReader["CustomerId"]) ? (int?)dataReader["CustomerId"] : null;
                             Customer customer = GetCustomer(customerId);
                             order = new Order(orderId, dateTime, isChecked, priceAlreadyPayed, customer);
+                            products.Add(new Product(
+                                (int)dataReader["ProductId"],
+                                (string)dataReader["Name"],
+                                (decimal)dataReader["Price"]
+                                ), (int)dataReader["Amount"]);
+                        }
+                        foreach(var product in products)
+                        {
+                            order.AddProduct(product.Key, product.Value);
                         }
                     }
                     return order;
@@ -116,7 +131,11 @@ namespace DataLayer.DataAccessObjects
         public IReadOnlyList<Order> GetAllOrders()
         {
             List<Order> orders = new List<Order>();
-            string query = $"Select orderId, DateTime, Is_Checked, PriceAlreadyPayed, CustomerId from dbo.OrderT;";
+            Dictionary<Product, int> products = new Dictionary<Product, int>();
+            string query = $"Select OrderT.OrderId, OrderT.DateTime, OrderT.Is_Checked, OrderT.PriceAlreadyPayed, OrderT.CustomerId, " +
+                $"Product.ProductId, Product.Name, Product.Price, OrderProduct.Amount from OrderT " +
+                $"LEFT OUTER JOIN OrderProduct ON OrderT.OrderId = OrderProduct.OrderId " +
+                $"LEFT OUTER JOIN Product ON OrderProduct.ProductId = Product.ProductId; ";
             SqlConnection conn = Util.GetSqlConnection(connectionString);
             using (SqlCommand cmd = conn.CreateCommand())
             {
@@ -135,7 +154,32 @@ namespace DataLayer.DataAccessObjects
                             decimal priceAlreadyPayed = (decimal)dataReader["PriceAlreadyPayed"];
                             int? customerId = !Convert.IsDBNull(dataReader["CustomerId"]) ? (int?)dataReader["CustomerId"] : null;
                             Customer customer = GetCustomer(customerId);
-                            orders.Add(new Order(orderId, dateTime, isChecked, priceAlreadyPayed, customer));
+                            if(orders.FirstOrDefault(x => x.Id == orderId) == null)
+                            {
+                                Order order = new Order(orderId, dateTime, isChecked, priceAlreadyPayed, customer);
+                                if (dataReader["ProductId"] != DBNull.Value)
+                                {
+                                    order.AddProduct(new Product(
+                                    (int)dataReader["ProductId"],
+                                    (string)dataReader["Name"],
+                                    (decimal)dataReader["Price"]
+                                    ), (int)dataReader["Amount"]);
+                                }
+                                orders.Add(order);
+                            }
+                            else
+                            {
+                                Order order = orders.First(x => x.Id == orderId);
+                                if (dataReader["ProductId"] != DBNull.Value)
+                                {
+                                    order.AddProduct(new Product(
+                                    (int)dataReader["ProductId"],
+                                    (string)dataReader["Name"],
+                                    (decimal)dataReader["Price"]
+                                    ), (int)dataReader["Amount"]);
+                                }
+                            }
+                            
                         }
 
                     }
@@ -155,8 +199,12 @@ namespace DataLayer.DataAccessObjects
         public IReadOnlyList<Order> GetAllOrdersFromCustomer(int customerId)
         {
             List<Order> orders = new List<Order>();
-            string query = $"Select orderId, DateTime, Is_Checked, PriceAlreadyPayed, CustomerId " +
-                $"from dbo.OrderT where CustomerId = @Id";
+            Dictionary<Product, int> products = new Dictionary<Product, int>();
+            string query = $"Select OrderT.OrderId, OrderT.DateTime, OrderT.Is_Checked, OrderT.PriceAlreadyPayed, OrderT.CustomerId, " +
+                $"Product.ProductId, Product.Name, Product.Price, OrderProduct.Amount from dbo.OrderT " +
+                $"LEFT OUTER JOIN OrderProduct ON OrderT.OrderId = OrderProduct.OrderId " +
+                $"LEFT OUTER JOIN Product ON OrderProduct.ProductId = Product.ProductId" +
+                $" where OrderT.CustomerId = @Id; ";
             SqlConnection conn = Util.GetSqlConnection(connectionString);
             using (SqlCommand cmd = conn.CreateCommand())
             {
@@ -166,6 +214,7 @@ namespace DataLayer.DataAccessObjects
                     cmd.Parameters.Add("@Id", SqlDbType.Int);
                     cmd.CommandText = query;
                     cmd.Parameters["@Id"].Value = customerId;
+                    string commandText = cmd.CommandText.ToString();
                     SqlDataReader dataReader = cmd.ExecuteReader();
                     if (dataReader.HasRows)
                     {
@@ -177,7 +226,31 @@ namespace DataLayer.DataAccessObjects
                             decimal priceAlreadyPayed = (decimal)dataReader["PriceAlreadyPayed"];
                             int? idCustomer = !Convert.IsDBNull(dataReader["CustomerId"]) ? (int?)dataReader["CustomerId"] : null;
                             Customer customer = GetCustomer(idCustomer);
-                            orders.Add(new Order(orderId, dateTime, isChecked, priceAlreadyPayed, customer));
+                            if (orders.FirstOrDefault(x => x.Id == orderId) == null)
+                            {
+                                Order order = new Order(orderId, dateTime, isChecked, priceAlreadyPayed, customer);
+                                if (dataReader["ProductId"] != DBNull.Value)
+                                {
+                                    order.AddProduct(new Product(
+                                    (int)dataReader["ProductId"],
+                                    (string)dataReader["Name"],
+                                    (decimal)dataReader["Price"]
+                                    ), (int)dataReader["Amount"]);
+                                }
+                                orders.Add(order);
+                            }
+                            else
+                            {
+                                Order order = orders.First(x => x.Id == orderId);
+                                if (dataReader["ProductId"] != DBNull.Value)
+                                {
+                                    order.AddProduct(new Product(
+                                    (int)dataReader["ProductId"],
+                                    (string)dataReader["Name"],
+                                    (decimal)dataReader["Price"]
+                                    ), (int)dataReader["Amount"]);
+                                }
+                            }
                         }
 
                     }
