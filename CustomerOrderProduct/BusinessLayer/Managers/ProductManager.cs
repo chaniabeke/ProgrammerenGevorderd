@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Interfaces;
+﻿using BusinessLayer.Exceptions;
+using BusinessLayer.Interfaces;
 using BusinessLayer.Models;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,8 @@ namespace BusinessLayer.Managers
 
         public Product GetProduct(int id)
         {
-           return _products.GetProduct(id);
+           if (id <= 0) throw new OrderManagerException("OrderManager - invalid id");
+            return _products.GetProduct(id);
         }
 
         public IReadOnlyList<Product> GetAllProducts()
@@ -29,12 +31,17 @@ namespace BusinessLayer.Managers
 
         public void AddProduct(Product product)
         {
+            //TODO MANAGER => exception if product with name exist
+            if (product == null) throw new ProductManagerException("ProductManager - product is null");
             _products.AddProduct(product);
         }
 
         public void RemoveProduct(int id)
         {
-             _products.RemoveProduct(id);
+            if (id <= 0) throw new OrderManagerException("OrderManager - invalid id");
+            if (GetProduct(id) == null) throw new CustomerManagerException("OrderManager - order doesn't exist");
+            //TODO MANAGER if product still exists in orders => exception
+            _products.RemoveProduct(id);
         }
 
         #endregion Methodes

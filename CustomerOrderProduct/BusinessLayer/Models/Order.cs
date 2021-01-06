@@ -83,7 +83,7 @@ namespace BusinessLayer.Models
 
         public void SetId(int id)
         {
-            if (id <= 0) throw new OrderException("Order - invalid id");
+            if (id < 0) throw new OrderException("Order - invalid id");
             Id = id;
         }
 

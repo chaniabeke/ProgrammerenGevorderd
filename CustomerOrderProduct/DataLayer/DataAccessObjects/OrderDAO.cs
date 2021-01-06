@@ -104,11 +104,14 @@ namespace DataLayer.DataAccessObjects
                             int? customerId = !Convert.IsDBNull(dataReader["CustomerId"]) ? (int?)dataReader["CustomerId"] : null;
                             Customer customer = GetCustomer(customerId);
                             order = new Order(orderId, dateTime, isChecked, priceAlreadyPayed, customer);
-                            products.Add(new Product(
+                            if (dataReader["ProductId"] != DBNull.Value)
+                            {
+                                products.Add(new Product(
                                 (int)dataReader["ProductId"],
                                 (string)dataReader["Name"],
                                 (decimal)dataReader["Price"]
                                 ), (int)dataReader["Amount"]);
+                            }
                         }
                         foreach(var product in products)
                         {
@@ -272,7 +275,30 @@ namespace DataLayer.DataAccessObjects
         #region Delete
         public void RemoveOrder(int id)
         {
-            throw new NotImplementedException();
+            //delete from OrderProduct where OrderProduct.OrderId = 11;
+            //delete from OrderT where OrderT.OrderId = 11;
+            string query = $"delete from OrderProduct where OrderProduct.OrderId = @Id;" +
+                $"delete from OrderT where OrderT.OrderId =  @Id;";
+            SqlConnection conn = Util.GetSqlConnection(connectionString);
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                try
+                {
+                    cmd.Parameters.Add("@Id", SqlDbType.Int);
+                    cmd.CommandText = query;
+                    cmd.Parameters["@Id"].Value = id;
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
         }
         #endregion
         #endregion Methodes

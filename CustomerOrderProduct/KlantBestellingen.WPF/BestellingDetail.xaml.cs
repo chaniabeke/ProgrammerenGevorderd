@@ -130,7 +130,7 @@ namespace KlantBestellingen.WPF
             }
         }
         #endregion
-        //TODO ADO.net bestelling met producten
+
         #region Ctor
         public BestellingDetail()
         {
@@ -185,3 +185,4 @@ namespace KlantBestellingen.WPF
         #endregion
     }
 }
+//TODO WPF - update

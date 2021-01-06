@@ -11,5 +11,7 @@ namespace BusinessLayer.Interfaces
         IReadOnlyList<Order> GetAllOrders();
         IReadOnlyList<Order> GetAllOrdersFromCustomer(int customerId);
         void RemoveOrder(int order);
+
+        //TODO update order
     }
 }

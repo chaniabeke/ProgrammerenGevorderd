@@ -16,11 +16,9 @@ create table [OrderT] (
 );
 
 create table [OrderProduct] (
-	[Id] int identity(1,1) not null,
 	[OrderId] int not null,
 	[ProductId] int not null,
 	[Amount] int not null,
-	primary key clustered([Id] asc),
 	constraint FK_OrderProductOrder foreign key (OrderId) references OrderT(OrderId),
 	constraint FK_OrderTProductProduct foreign key (ProductId) references Product(ProductId)
 );
@@ -31,13 +29,4 @@ create table [Customer] (
 	[Address] varchar(200) not null,
 	primary key clustered([CustomerId] asc),
 	constraint FK_CustomerOrder foreign key (CustomerId) references Customer(CustomerId),
-);
-
-create table [CustomerOrder] (
-	[Id] int identity(1,1) not null,
-	[CustomerId] int,
-	[OrderId] int not null,
-	primary key clustered([Id] asc),
-	constraint FK_CustomerOrderCustomer foreign key (CustomerId) references Customer(CustomerId),
-	constraint FK_CustomerOrderOrder foreign key (OrderId) references OrderT(OrderId)
 );

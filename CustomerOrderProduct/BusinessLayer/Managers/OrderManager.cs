@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Interfaces;
+﻿using BusinessLayer.Exceptions;
+using BusinessLayer.Interfaces;
 using BusinessLayer.Models;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace BusinessLayer.Managers
 
         public Order GetOrder(int id)
         {
+            if (id <= 0) throw new OrderManagerException("OrderManager - invalid id");
             return _orders.GetOrder(id);
         }
 
@@ -29,16 +31,21 @@ namespace BusinessLayer.Managers
 
         public void AddOrder(Order order)
         {
+            if (order == null) throw new OrderManagerException("OrderManager - order is null");
             _orders.AddOrder(order);
         }
 
         public void RemoveOrder(int id)
         {
+            if (id <= 0) throw new OrderManagerException("OrderManager - invalid id");
+            if (GetOrder(id) == null) throw new CustomerManagerException("OrderManager - order doesn't exist");
+            if (!GetOrder(id).IsPayed) throw new CustomerManagerException("OrderManager - order needs to be payed first");
             _orders.RemoveOrder(id);
         }
 
         public IReadOnlyList<Order> GetAllOrdersFromCustomer(int customerId)
         {
+            if (customerId <= 0) throw new OrderManagerException("OrderManager - invalid id");
             return _orders.GetAllOrdersFromCustomer(customerId);
         }
         #endregion Methodes

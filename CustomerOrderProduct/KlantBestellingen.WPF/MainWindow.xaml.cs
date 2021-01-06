@@ -73,7 +73,7 @@ namespace KlantBestellingen.WPF
         }
         private void MenuItem_Bestellingen_Click(object sender, RoutedEventArgs e)
         {
-            //TODO ADD bestelling window
+            //TODO WPF ADD bestelling window
         }
 
         /// <summary>
@@ -156,6 +156,15 @@ namespace KlantBestellingen.WPF
             _bestellingDetailWindow.Klant = cbKlanten.SelectedItem as BusinessLayer.Models.Customer;
             _bestellingDetailWindow.Order = order;
             _bestellingDetailWindow.Show();
+        }
+
+        private void dgOrderSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Order order = (Order)dgOrderSelection.SelectedItem;
+            if (order != null)
+            {
+                TbStatusInformation.Text = $"Aantal producten in bestelling: {order.GetProducts().Count}";
+            }
         }
     }
 }

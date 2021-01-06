@@ -136,60 +136,60 @@ namespace DataLayer.DataAccessObjects
             }
         }
 
-        public Customer GetCustomerWithOrders(int id)
-        {
-            string query = $"Select Customer.CustomerId, Customer.Name,Customer.Address, " +
-                $"OrderT.OrderId, OrderT.DateTime, OrderT.Is_Checked, OrderT.PriceAlreadyPayed " +
-                $"from dbo.Customer " +
-                $"JOIN CustomerOrder ON Customer.CustomerId = CustomerOrder.CustomerId " +
-                $"JOIN OrderT ON CustomerOrder.OrderId = OrderT.OrderId " +
-                $"AND CustomerOrder.CustomerId like @CustomerId; ";
-            SqlConnection conn = Util.GetSqlConnection(connectionString);
-            Customer customer = null;
-            List<Order> orders = new List<Order>();
-            using (SqlCommand cmd = conn.CreateCommand())
-            {
-                conn.Open();
-                try
-                {
-                    cmd.Parameters.Add("@CustomerId", SqlDbType.Int);
-                    cmd.CommandText = query;
-                    cmd.Parameters["@CustomerId"].Value = id;
-                    SqlDataReader dataReader = cmd.ExecuteReader();
-                    if (dataReader.HasRows)
-                    {
-                        while (dataReader.Read())
-                        {
-                            int customerId = (int)dataReader["CustomerId"];
-                            string name = (string)dataReader["Name"];
-                            string address = (string)dataReader["Address"];
-                            customer = new Customer(customerId, name, address);
-                            orders.Add(new Order(
-                                (int)dataReader["OrderId"],
-                                (DateTime)dataReader["DateTime"],
-                                (bool)dataReader["Is_Checked"],
-                                (decimal)dataReader["PriceAlreadyPayed"],
-                                customer
-                                ));
-                        }
-                        foreach (var order in orders)
-                        {
-                            customer.AddOrder(order);
-                        }
-                        return customer;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("", ex);
-                }
-                finally
-                {
-                    conn.Close();
-                }
-            }
-            return customer;
-        }
+        //public Customer GetCustomerWithOrders(int id)
+        //{
+        //    string query = $"Select Customer.CustomerId, Customer.Name,Customer.Address, " +
+        //        $"OrderT.OrderId, OrderT.DateTime, OrderT.Is_Checked, OrderT.PriceAlreadyPayed " +
+        //        $"from dbo.Customer " +
+        //        $"JOIN CustomerOrder ON Customer.CustomerId = CustomerOrder.CustomerId " +
+        //        $"JOIN OrderT ON CustomerOrder.OrderId = OrderT.OrderId " +
+        //        $"AND CustomerOrder.CustomerId like @CustomerId; ";
+        //    SqlConnection conn = Util.GetSqlConnection(connectionString);
+        //    Customer customer = null;
+        //    List<Order> orders = new List<Order>();
+        //    using (SqlCommand cmd = conn.CreateCommand())
+        //    {
+        //        conn.Open();
+        //        try
+        //        {
+        //            cmd.Parameters.Add("@CustomerId", SqlDbType.Int);
+        //            cmd.CommandText = query;
+        //            cmd.Parameters["@CustomerId"].Value = id;
+        //            SqlDataReader dataReader = cmd.ExecuteReader();
+        //            if (dataReader.HasRows)
+        //            {
+        //                while (dataReader.Read())
+        //                {
+        //                    int customerId = (int)dataReader["CustomerId"];
+        //                    string name = (string)dataReader["Name"];
+        //                    string address = (string)dataReader["Address"];
+        //                    customer = new Customer(customerId, name, address);
+        //                    orders.Add(new Order(
+        //                        (int)dataReader["OrderId"],
+        //                        (DateTime)dataReader["DateTime"],
+        //                        (bool)dataReader["Is_Checked"],
+        //                        (decimal)dataReader["PriceAlreadyPayed"],
+        //                        customer
+        //                        ));
+        //                }
+        //                foreach (var order in orders)
+        //                {
+        //                    customer.AddOrder(order);
+        //                }
+        //                return customer;
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            throw new Exception("", ex);
+        //        }
+        //        finally
+        //        {
+        //            conn.Close();
+        //        }
+        //    }
+        //    return customer;
+        //}
         #endregion
 
         #region Delete
@@ -222,44 +222,44 @@ namespace DataLayer.DataAccessObjects
         #endregion Methodes
 
         #region HulpMethodes
-        private void AddOrders(Customer customer)
-        {
-            foreach (var order in customer.GetOrders())
-            {
-                var orderWithId = new OrderDAO().GetOrder(order.Id);
-                if (orderWithId == null)
-                {
-                    orderWithId = order;
-                    new OrderDAO().AddOrder(orderWithId);
-                };
-                order.SetId(orderWithId.Id);
-            }
-        }
+        //private void AddOrders(Customer customer)
+        //{
+        //    foreach (var order in customer.GetOrders())
+        //    {
+        //        var orderWithId = new OrderDAO().GetOrder(order.Id);
+        //        if (orderWithId == null)
+        //        {
+        //            orderWithId = order;
+        //            new OrderDAO().AddOrder(orderWithId);
+        //        };
+        //        order.SetId(orderWithId.Id);
+        //    }
+        //}
 
-        private void AddCustomerOrderEntries(Customer customer)
-        {
-            foreach (var order in customer.GetOrders())
-            {
-                string sql = "INSERT INTO CustomerOrder ( CustomerId, OrderId ) VALUES ( @CustomerId,  @OrderId );";
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.Add("@CustomerId", SqlDbType.Int);
-                    cmd.Parameters.Add("@OrderId", SqlDbType.Int);
-                    cmd.Parameters["@CustomerId"].Value = customer.Id;
-                    cmd.Parameters["@OrderId"].Value = order.Id;
-                    try
-                    {
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                }
-            }
-        }
+        //private void AddCustomerOrderEntries(Customer customer)
+        //{
+        //    foreach (var order in customer.GetOrders())
+        //    {
+        //        string sql = "INSERT INTO CustomerOrder ( CustomerId, OrderId ) VALUES ( @CustomerId,  @OrderId );";
+        //        using (SqlConnection conn = new SqlConnection(connectionString))
+        //        {
+        //            SqlCommand cmd = new SqlCommand(sql, conn);
+        //            cmd.Parameters.Add("@CustomerId", SqlDbType.Int);
+        //            cmd.Parameters.Add("@OrderId", SqlDbType.Int);
+        //            cmd.Parameters["@CustomerId"].Value = customer.Id;
+        //            cmd.Parameters["@OrderId"].Value = order.Id;
+        //            try
+        //            {
+        //                conn.Open();
+        //                cmd.ExecuteNonQuery();
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                Console.WriteLine(ex.Message);
+        //            }
+        //        }
+        //    }
+        //}
         #endregion
     }
 }

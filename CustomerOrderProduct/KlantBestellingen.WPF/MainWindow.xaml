@@ -58,7 +58,7 @@
             <TextBox x:Name="tbKlant" Grid.Row="0" Grid.Column="1" Margin="5" MinWidth="250" KeyUp="TextBox_KeyUp" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
             <ComboBox x:Name="cbKlanten" Grid.Row="0" Grid.Column="2" Margin="5" DisplayMemberPath="Name" SelectedValuePath="Name" VerticalAlignment="Center" SelectionChanged="ComboBox_SelectionChanged"/>
             <Label x:Name="lblBestellingen" Grid.Row="1" Grid.Column="0" Margin="5" Content="Bestellingen: "/>
-            <DataGrid x:Name="dgOrderSelection" Grid.Row="2" Grid.ColumnSpan="3" Margin="5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" AlternatingRowBackground="#FFB9BBFF" IsReadOnly="True" MouseDoubleClick="dgOrderSelection_MouseDoubleClick">
+            <DataGrid x:Name="dgOrderSelection" Grid.Row="2" Grid.ColumnSpan="3" Margin="5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" AlternatingRowBackground="#FFB9BBFF" IsReadOnly="True" MouseDoubleClick="dgOrderSelection_MouseDoubleClick" SelectionChanged="dgOrderSelection_SelectionChanged">
                 <DataGrid.Columns>
                     <!-- we linken ons aan een property van de class Klant: -->
                     <DataGridTextColumn  Header="{x:Static langs:Translations.Id}" Binding="{Binding Id}" MinWidth="200"/>
