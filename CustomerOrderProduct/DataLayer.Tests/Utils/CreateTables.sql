@@ -2,7 +2,7 @@
 create table [Product] (
 	[ProductId] int identity(1,1) not null,
 	[Name] varchar(100) not null,
-	[Price] decimal not null,
+[Price] decimal(18,2) not null,
 	primary key clustered([ProductId] asc),
 );
 

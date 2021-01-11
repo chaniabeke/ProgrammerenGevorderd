@@ -48,6 +48,11 @@ namespace BusinessLayer.Managers
             if (customerId <= 0) throw new OrderManagerException("OrderManager - invalid id");
             return _orders.GetAllOrdersFromCustomer(customerId);
         }
+
+        public void UpdateOrder(int orderId, bool isPayed, decimal priceAlreadyPayed)
+        {
+            _orders.UpdateOrder(orderId, isPayed, priceAlreadyPayed);
+        }
         #endregion Methodes
     }
 }

@@ -24,11 +24,11 @@
             <DataGrid.Columns>
                 <!-- we linken ons aan een property van de class Klant: -->
                 <DataGridTextColumn Header="{x:Static langs:Translations.Name}" Binding="{Binding Name}" MinWidth="200"/>
-                <DataGridTextColumn Header="{x:Static langs:Translations.Address}" Binding="{Binding Address}" MinWidth="500"/>
+                <DataGridTextColumn Header="{x:Static langs:Translations.Address}" Binding="{Binding Address}" MinWidth="300"/>
 <!--                
                 <DataGridTextColumn Header="Adreslengte" Binding="{Binding Adres, Converter={StaticResource slc}}" MinWidth="50"/>
 -->
-                <DataGridTemplateColumn Header="" Width="100">
+                <DataGridTemplateColumn Header="" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Content="{x:Static langs:Translations.Remove}" Click="DeleteButton_Click"/>
@@ -37,7 +37,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="BtnNieuweKlant" Grid.Row="1" Grid.Column="0" Margin="5" Content="{x:Static langs:Translations.Add}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Click="BtnNieuweKlant_Click" IsEnabled="False"/>
+        <Button x:Name="BtnNieuweKlant" Grid.Row="1" Grid.Column="0" Margin="5" Content="{x:Static langs:Translations.Add}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Click="BtnNieuweKlant_Click" IsEnabled="False"/>
         <Grid Grid.Row="1" Grid.Column="1" Margin="5">
             <!-- een Grid schaalt automatisch mee! -->
             <Grid.RowDefinitions>

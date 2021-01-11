@@ -3,6 +3,7 @@ using BusinessLayer.Interfaces;
 using BusinessLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BusinessLayer.Managers
 {
@@ -31,7 +32,8 @@ namespace BusinessLayer.Managers
 
         public void AddProduct(Product product)
         {
-            //TODO MANAGER => exception if product with name exist
+            if(GetAllProducts().Where(x => x.Name == product.Name).Count() > 0)
+                throw new ProductManagerException($"ProductManager - product with {product.Name} already exists");
             if (product == null) throw new ProductManagerException("ProductManager - product is null");
             _products.AddProduct(product);
         }

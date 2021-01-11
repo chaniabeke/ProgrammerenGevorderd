@@ -10,8 +10,7 @@ namespace BusinessLayer.Interfaces
         Order GetOrder(int id);
         IReadOnlyList<Order> GetAllOrders();
         IReadOnlyList<Order> GetAllOrdersFromCustomer(int customerId);
-        void RemoveOrder(int order);
-
-        //TODO update order
+        void RemoveOrder(int orderId);
+        void UpdateOrder(int orderId, bool isPayed, decimal priceAlreadyPayed);
     }
 }

@@ -17,6 +17,7 @@ namespace KlantBestellingen.WPF
         #region Properties
         private Klanten _customerWindow = new Klanten();
         private Producten _productsWindow = new Producten();
+        private Bestellingen _bestellingsWindow = new Bestellingen();
         private BestellingDetail _bestellingDetailWindow = new BestellingDetail();
         #endregion
 
@@ -26,6 +27,7 @@ namespace KlantBestellingen.WPF
             Closing += MainWindow_Closing;
             _customerWindow.Closing += _Window_Closing;
             _productsWindow.Closing += _Window_Closing;
+            _bestellingsWindow.Closing += _Window_Closing;
             _bestellingDetailWindow.Closing += _Window_Closing;
             btnNieuweBestelling.IsEnabled = false;
         }
@@ -73,7 +75,8 @@ namespace KlantBestellingen.WPF
         }
         private void MenuItem_Bestellingen_Click(object sender, RoutedEventArgs e)
         {
-            //TODO WPF ADD bestelling window
+            if (_bestellingsWindow != null)
+                _bestellingsWindow.Show();
         }
 
         /// <summary>
@@ -163,7 +166,7 @@ namespace KlantBestellingen.WPF
             Order order = (Order)dgOrderSelection.SelectedItem;
             if (order != null)
             {
-                TbStatusInformation.Text = $"Aantal producten in bestelling: {order.GetProducts().Count}";
+                TbStatusInformation.Text = $"Aantal producten in bestelling: {order.ProductCount}";
             }
         }
     }

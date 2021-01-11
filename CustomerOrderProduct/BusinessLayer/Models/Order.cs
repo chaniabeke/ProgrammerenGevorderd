@@ -19,12 +19,12 @@ namespace BusinessLayer.Models
         }
         public decimal PriceAlreadyPayed
         {
-            get => _priceAlreadyPayed; set => _priceAlreadyPayed = Price();
+            get => _priceAlreadyPayed; set => _priceAlreadyPayed = value;
         }
         public Customer Customer { get; private set; }
         public DateTime DateTime { get; private set; }
         private Dictionary<Product, int> _products = new Dictionary<Product, int>();
-
+        public int ProductCount { get => _products.Keys.Count; }
         #endregion Properties
 
         #region Constructors
@@ -142,14 +142,14 @@ namespace BusinessLayer.Models
 
         public decimal Price()
         {
-            decimal price = 0; int discount = 0;
+            decimal price = 0; double discount = 0;
             if (Customer != null)
             {
                 discount = Customer.Discount();
             }
             foreach (KeyValuePair<Product, int> kvp in _products)
             {
-                price += kvp.Key.Price * kvp.Value * (100 - discount) / 100;
+                price += kvp.Key.Price * kvp.Value * ((decimal)100.0 - (decimal)discount) / (decimal)100.0;
             }
             return price;
         }

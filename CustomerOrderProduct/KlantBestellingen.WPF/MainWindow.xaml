@@ -61,8 +61,8 @@
             <DataGrid x:Name="dgOrderSelection" Grid.Row="2" Grid.ColumnSpan="3" Margin="5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" AlternatingRowBackground="#FFB9BBFF" IsReadOnly="True" MouseDoubleClick="dgOrderSelection_MouseDoubleClick" SelectionChanged="dgOrderSelection_SelectionChanged">
                 <DataGrid.Columns>
                     <!-- we linken ons aan een property van de class Klant: -->
-                    <DataGridTextColumn  Header="{x:Static langs:Translations.Id}" Binding="{Binding Id}" MinWidth="200"/>
-                    <DataGridTextColumn  Header="{x:Static langs:Translations.IsPayed}" Binding="{Binding IsPayed}" MinWidth="200"/>
+                    <DataGridTextColumn  Header="{x:Static langs:Translations.Id}" Binding="{Binding Id}" MinWidth="100"/>
+                    <DataGridTextColumn  Header="{x:Static langs:Translations.IsPayed}" Binding="{Binding IsPayed}" MinWidth="100"/>
                     <DataGridTextColumn  Header="{x:Static langs:Translations.Time}" Binding="{Binding DateTime}" MinWidth="200"/>
                     <DataGridTextColumn  Header="{x:Static langs:Translations.Price}" Binding="{Binding PriceAlreadyPayed}" MinWidth="200"/>
                 </DataGrid.Columns>

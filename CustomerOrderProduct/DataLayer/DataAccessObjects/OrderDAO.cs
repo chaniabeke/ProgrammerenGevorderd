@@ -272,11 +272,41 @@ namespace DataLayer.DataAccessObjects
 
         #endregion
 
+        #region Update
+        public void UpdateOrder(int orderId, bool isPayed, decimal priceAlreadyPayed)
+        {
+            string query = $"UPDATE OrderT SET Is_Checked = @Is_Checked, PriceAlreadyPayed = @PriceAlreadyPayed " +
+                $"WHERE OrderT.OrderId = @Id; ";
+            SqlConnection conn = Util.GetSqlConnection(connectionString);
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                try
+                {
+                    cmd.Parameters.Add("@Id", SqlDbType.Int);
+                    cmd.Parameters.Add("@Is_Checked", SqlDbType.Bit);
+                    cmd.Parameters.Add("@PriceAlreadyPayed", SqlDbType.Decimal);
+                    cmd.CommandText = query;
+                    cmd.Parameters["@Id"].Value = orderId;
+                    cmd.Parameters["@Is_Checked"].Value = isPayed;
+                    cmd.Parameters["@PriceAlreadyPayed"].Value = priceAlreadyPayed;
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        #endregion
+
         #region Delete
         public void RemoveOrder(int id)
         {
-            //delete from OrderProduct where OrderProduct.OrderId = 11;
-            //delete from OrderT where OrderT.OrderId = 11;
             string query = $"delete from OrderProduct where OrderProduct.OrderId = @Id;" +
                 $"delete from OrderT where OrderT.OrderId =  @Id;";
             SqlConnection conn = Util.GetSqlConnection(connectionString);

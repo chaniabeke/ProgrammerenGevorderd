@@ -100,14 +100,14 @@ namespace DataLayer.Tests.DAO
             orderInDb.Should().BeOfType<Order>();
             orderInDb.DateTime.Should().Be(dateTime);
             orderInDb.IsPayed.Should().Be(true);
-            orderInDb.PriceAlreadyPayed.Should().Be(25.1m);
+            orderInDb.PriceAlreadyPayed.Should().Be(25);
             orderInDb.Id.Should().Be(1);
             orderInDb.Customer.Should().BeEquivalentTo(customer);
             orderInDb.GetProducts().Count.Should().Be(3);
 
             product1.SetId(1);
             orderInDb.GetProducts().First().Key.Should().BeEquivalentTo(product1);
-            orderInDb.GetProducts().First().Value.Should().Be(5);
+            orderInDb.GetProducts().First().Value.Should().Be(1);
         }
 
         [TestMethod]

@@ -73,17 +73,17 @@ namespace KlantBestellingen.WPF
             }
         }
 
-        public string TotalPrice 
-        { 
-            get 
-            { 
-                decimal total = 0; 
-                foreach (var p in _orderProducts) 
-                { 
-                    total += p.Price; 
-                } 
-                return total.ToString() + " EUR"; 
-            } 
+        public string TotalPrice
+        {
+            get
+            {
+                decimal total = 0;
+                foreach (var p in _orderProducts)
+                {
+                    total += p.Price;
+                }
+                return total.ToString() + " EUR";
+            }
         }
 
         private ObservableCollection<Product> _products = new ObservableCollection<Product>();
@@ -98,8 +98,8 @@ namespace KlantBestellingen.WPF
                 if (_order == value)
                 {
                     return;
-                }                
-                if(value == null)
+                }
+                if (value == null)
                 {
                     // We doen een reset van de nuttige inhoud op het bestellingsvenster:
                     // Bestelling bevat geen producten:
@@ -118,7 +118,7 @@ namespace KlantBestellingen.WPF
                 _order = value;
                 var orders = _order.GetProducts();
                 _orderProducts = new ObservableCollection<Product>();
-                foreach(var pkv in orders)
+                foreach (var pkv in orders)
                 {
                     for (int i = 0; i < pkv.Value; i++)
                     {
@@ -126,6 +126,8 @@ namespace KlantBestellingen.WPF
                     }
                 }
                 DgProducts.ItemsSource = _orderProducts;
+                CbPrijs.IsChecked = (bool)_order.IsPayed;
+                TbPrijs.Text = $"{_order.PriceAlreadyPayed} EUR";
                 NotifyPropertyChanged("Order");
             }
         }
@@ -147,9 +149,9 @@ namespace KlantBestellingen.WPF
         {
             var orderProducts = new Dictionary<Product, int>();
             decimal total = 0;
-            foreach(var p in _orderProducts)
+            foreach (var p in _orderProducts)
             {
-                if(orderProducts.ContainsKey(p))
+                if (orderProducts.ContainsKey(p))
                 {
                     orderProducts[p] += 1;
                 }
@@ -159,12 +161,21 @@ namespace KlantBestellingen.WPF
                 }
                 total += p.Price;
             }
-            _order = new Order(0, Klant, DateTime.Now, orderProducts) // Id 0 betekent voor database een primary key aanmaken want dit is een identity primary key
+            if (Order != null)
             {
-                IsPayed = (bool)CbPrijs.IsChecked,
-                PriceAlreadyPayed = total
-            };
-            Context.OrderManager.AddOrder(_order);
+                Order.IsPayed = (bool)CbPrijs.IsChecked;
+                Order.PriceAlreadyPayed = total;
+                Context.OrderManager.UpdateOrder(Order.Id, Order.IsPayed, Order.PriceAlreadyPayed);
+            }
+            else
+            {
+                _order = new Order(0, Klant, DateTime.Now, orderProducts) // Id 0 betekent voor database een primary key aanmaken want dit is een identity primary key
+                {
+                    IsPayed = (bool)CbPrijs.IsChecked,
+                    PriceAlreadyPayed = total
+                };
+                Context.OrderManager.AddOrder(_order);
+            }
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -185,4 +196,4 @@ namespace KlantBestellingen.WPF
         #endregion
     }
 }
-//TODO WPF - update
+//TODO WPF - update event

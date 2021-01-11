@@ -29,7 +29,9 @@ namespace KlantBestellingen.WPF
             order.AddProduct(product1, 5);
             order.AddProduct(product3, 8);
             order.AddProduct(product2, 6);
-            Order order2 = new Order(new DateTime(2020, 05, 05, 05, 05 ,05), customer);
+            order.IsPayed = true;
+
+            Order order2 = new Order(new DateTime(2020, 05, 05, 05, 05 ,05), customer2);
 
             OrderManager.AddOrder(order);
             OrderManager.AddOrder(order2);

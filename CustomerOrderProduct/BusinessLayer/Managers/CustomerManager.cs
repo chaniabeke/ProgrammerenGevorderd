@@ -3,6 +3,7 @@ using BusinessLayer.Interfaces;
 using BusinessLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BusinessLayer.Managers
 {
@@ -31,8 +32,9 @@ namespace BusinessLayer.Managers
 
         public void AddCustomer(Customer customer)
         {
-            //TODO MANAGER exception if name & address combo exist => exception
-            if(customer == null) throw new CustomerManagerException("CustomerManager - customer is null");
+            if(GetAllCustomers().Where(x => x.Name == customer.Name && x.Address == customer.Address).Count() > 0)
+                throw new CustomerManagerException("CustomerManager - combination name and address already exists");
+            if (customer == null) throw new CustomerManagerException("CustomerManager - customer is null");
             _customers.AddCustomer(customer);
         }
 

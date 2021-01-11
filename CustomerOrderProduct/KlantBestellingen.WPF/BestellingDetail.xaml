@@ -33,9 +33,9 @@
         <Button x:Name="BtnProductAdd" Grid.Row="3" Grid.Column="2" Content="Voeg toe" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" Click="BtnProductAdd_Click"/>
         <DataGrid x:Name="DgProducts" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" AlternatingRowBackground="#FFB9BBFF" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{x:Static langs:Translations.Name}" Binding="{Binding Name}" MinWidth="200"/>
-                <DataGridTextColumn Header="{x:Static langs:Translations.Price}" Binding="{Binding Price}" MinWidth="200"/>
-                <DataGridTemplateColumn Header="" Width="100">
+                <DataGridTextColumn Header="{x:Static langs:Translations.Name}" Binding="{Binding Name}" MinWidth="300"/>
+                <DataGridTextColumn Header="{x:Static langs:Translations.Price}" Binding="{Binding Price}" MinWidth="50"/>
+                <DataGridTemplateColumn Header="" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Content="Verwijder" Click="DeleteButton_Click"/>
