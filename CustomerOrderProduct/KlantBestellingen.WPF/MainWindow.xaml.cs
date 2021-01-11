@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Models;
+using KlantBestellingen.WPF.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace KlantBestellingen.WPF
             _productsWindow.Closing += _Window_Closing;
             _bestellingsWindow.Closing += _Window_Closing;
             _bestellingDetailWindow.Closing += _Window_Closing;
+            _bestellingDetailWindow.BestellingToegevoegd += OnBestellingToegevoegd;
             btnNieuweBestelling.IsEnabled = false;
         }
 
@@ -168,6 +170,11 @@ namespace KlantBestellingen.WPF
             {
                 TbStatusInformation.Text = $"Aantal producten in bestelling: {order.ProductCount}";
             }
+        }
+
+        public void OnBestellingToegevoegd(object source, BestellingEventArgs args)
+        {
+            Refresh(source, args);
         }
     }
 }

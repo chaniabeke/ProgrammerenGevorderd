@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Models;
+using KlantBestellingen.WPF.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -175,6 +176,7 @@ namespace KlantBestellingen.WPF
                     PriceAlreadyPayed = total
                 };
                 Context.OrderManager.AddOrder(_order);
+                OnBestellingToegevoegd(_order);
             }
         }
 
@@ -193,7 +195,12 @@ namespace KlantBestellingen.WPF
             _orderProducts.Add(CbProducts.SelectedItem as Product);
             NotifyPropertyChanged("TotalPrice"); // Doordat ik zeg: de totaalprijs is veranderd, zal XAML WPF deze property opnieuw ophalen om de user interface aan te passen
         }
+
+        public event EventHandler<BestellingEventArgs> BestellingToegevoegd;
+        protected virtual void OnBestellingToegevoegd(Order o)
+        {
+            BestellingToegevoegd?.Invoke(this, new BestellingEventArgs { Bestelling = o });
+        }
         #endregion
     }
 }
-//TODO WPF - update event

@@ -72,7 +72,6 @@ namespace DataLayer.Tests.DAO
             orderInDb.Customer.Should().BeEquivalentTo(customer);
         }
 
-        //TODO fix priceAlreadyPayed
         [TestMethod]
         public void AddOrder_ShouldAddOrderWithProducts()
         {

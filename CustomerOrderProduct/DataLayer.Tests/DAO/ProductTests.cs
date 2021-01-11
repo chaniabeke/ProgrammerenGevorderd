@@ -24,7 +24,7 @@ namespace DataLayer.Tests.DAO
         {
             ToolKit.ResetTables();
         }
-        //TODO product price fix decimal
+
         [TestMethod]
         public void AddProduct_ShouldAddProduct()
         {
