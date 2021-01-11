@@ -203,19 +203,7 @@ namespace BusinessLayer.Tests.Models
             order.Id.Should().Be(2);
         }
 
-        [TestMethod]
-        public void SetId_ShouldThrowException_IfIdIsZero()
-        {
-            DateTime dateTime = new DateTime(2020, 08, 18, 12, 15, 56);
-            Order order = new Order(1, dateTime);
-
-            Action act = () =>
-            {
-                order.SetId(0);
-            };
-
-            act.Should().Throw<OrderException>().WithMessage("Order - invalid id");
-        }
+       
 
         [TestMethod]
         public void SetId_ShouldThrowException_IfIdIsNegative()
@@ -456,7 +444,7 @@ namespace BusinessLayer.Tests.Models
 
             newOrder.IsPayed = true;
 
-            newOrder.Price().Should().Be(180.5m);
+            newOrder.Price().Should().Be(190);
         }
 
         [TestMethod]
@@ -469,7 +457,7 @@ namespace BusinessLayer.Tests.Models
 
             order.IsPayed = true;
 
-            order.Price().Should().Be(190);
+            order.Price().Should().Be(180.5m);
         }
 
         #endregion Price

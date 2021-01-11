@@ -168,12 +168,11 @@ namespace KlantBestellingen.WPF
                 Order.PriceAlreadyPayed = total;
                 Context.OrderManager.UpdateOrder(Order.Id, Order.IsPayed, Order.PriceAlreadyPayed);
             }
-            else
+            if(Order == null)
             {
                 _order = new Order(0, Klant, DateTime.Now, orderProducts) // Id 0 betekent voor database een primary key aanmaken want dit is een identity primary key
                 {
-                    IsPayed = (bool)CbPrijs.IsChecked,
-                    PriceAlreadyPayed = total
+                    IsPayed = (bool)CbPrijs.IsChecked
                 };
                 Context.OrderManager.AddOrder(_order);
                 OnBestellingToegevoegd(_order);

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:langs="clr-namespace:KlantBestellingen.WPF.Languages"
         xmlns:local="clr-namespace:KlantBestellingen.WPF"
  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
@@ -15,11 +16,12 @@
     <Grid>
         <DataGrid x:Name="dgBestellingen" Grid.Row="0" Grid.Column="0" Margin="5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" AlternatingRowBackground="#FFB9BBFF" IsReadOnly="True" PreviewKeyDown="dgBestellingen_PreviewKeyDown">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Datum" Binding="{Binding DateTime}" MinWidth="200"/>
-                <DataGridTextColumn Header="Betaalt?"  Binding="{Binding IsPayed}" MinWidth="50"/>
-                <DataGridTextColumn Header="Prijs betaalt"  Binding="{Binding PriceAlreadyPayed}" MinWidth="100"/>
-                <DataGridTextColumn Header="Klant"  Binding="{Binding Customer.Name}" MinWidth="100"/>
-                <DataGridTextColumn Header="Aantal producten"  Binding="{Binding ProductCount}" MinWidth="100"/>
+                <DataGridTextColumn Header="{x:Static langs:Translations.Id}" Binding="{Binding Id}" MinWidth="50"/>
+                <DataGridTextColumn Header="{x:Static langs:Translations.Date}" Binding="{Binding DateTime}" MinWidth="200"/>
+                <DataGridTextColumn Header="{x:Static langs:Translations.IsPayed}"  Binding="{Binding IsPayed}" MinWidth="50"/>
+                <DataGridTextColumn Header="{x:Static langs:Translations.Price}"  Binding="{Binding PriceAlreadyPayed}" MinWidth="100"/>
+                <DataGridTextColumn Header="{x:Static langs:Translations.CustomerName}"  Binding="{Binding Customer.Name}" MinWidth="100"/>
+                <DataGridTextColumn Header="{x:Static langs:Translations.ProductAmount}"  Binding="{Binding ProductCount}" MinWidth="100"/>
 
                 <DataGridTemplateColumn MinWidth="48">
                     <DataGridTemplateColumn.CellTemplate>

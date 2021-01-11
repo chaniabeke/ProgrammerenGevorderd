@@ -9,7 +9,7 @@ create table [Product] (
 create table [OrderT] (
 	[OrderId] int identity(1,1) not null,
 	[Is_Checked] BIT not null,
-	[PriceAlreadyPayed] decimal not null,
+	[PriceAlreadyPayed] decimal(18,2) not null,
 	[DateTime] datetime not null,
 	[CustomerId] int null,
 	primary key clustered([OrderId] asc),

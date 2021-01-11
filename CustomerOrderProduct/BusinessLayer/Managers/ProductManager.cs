@@ -42,7 +42,6 @@ namespace BusinessLayer.Managers
         {
             if (id <= 0) throw new OrderManagerException("OrderManager - invalid id");
             if (GetProduct(id) == null) throw new CustomerManagerException("OrderManager - order doesn't exist");
-            //TODO MANAGER if product still exists in orders => exception
             _products.RemoveProduct(id);
         }
 

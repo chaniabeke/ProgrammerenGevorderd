@@ -99,7 +99,7 @@ namespace DataLayer.Tests.DAO
             orderInDb.Should().BeOfType<Order>();
             orderInDb.DateTime.Should().Be(dateTime);
             orderInDb.IsPayed.Should().Be(true);
-            orderInDb.PriceAlreadyPayed.Should().Be(25);
+            orderInDb.PriceAlreadyPayed.Should().Be(25.10M);
             orderInDb.Id.Should().Be(1);
             orderInDb.Customer.Should().BeEquivalentTo(customer);
             orderInDb.GetProducts().Count.Should().Be(3);

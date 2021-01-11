@@ -14,7 +14,7 @@ namespace KlantBestellingen.WPF
         {
             // Wisselen van taal:
             Translations.Culture = new System.Globalization.CultureInfo("nl-BE"); // en-US nl-BE
-                                                                                  //TODO WPF translations
+                                                                                  
            //Context.Populate();
         }
 

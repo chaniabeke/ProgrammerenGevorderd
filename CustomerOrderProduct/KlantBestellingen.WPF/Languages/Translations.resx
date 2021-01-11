@@ -129,11 +129,26 @@
   <data name="Amount" xml:space="preserve">
     <value>Amount</value>
   </data>
+  <data name="CustomerName" xml:space="preserve">
+    <value>Customer name</value>
+  </data>
+  <data name="CustomerNameTag" xml:space="preserve">
+    <value>Customer name:</value>
+  </data>
+  <data name="CustomersMenuItem" xml:space="preserve">
+    <value>_Customers</value>
+  </data>
+  <data name="CustomerTag" xml:space="preserve">
+    <value>Customer:</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
   <data name="ExceptionRaised" xml:space="preserve">
     <value>An exception was raised</value>
   </data>
-  <data name="ggg" xml:space="preserve">
-    <value>bbb</value>
+  <data name="FileMenuItem" xml:space="preserve">
+    <value>_File</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>Number</value>
@@ -141,17 +156,38 @@
   <data name="IsPayed" xml:space="preserve">
     <value>Payed?</value>
   </data>
+  <data name="ManagementMenuItem" xml:space="preserve">
+    <value>_Management</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="NameTag" xml:space="preserve">
     <value>Name: </value>
   </data>
+  <data name="NewOrder" xml:space="preserve">
+    <value>New order</value>
+  </data>
+  <data name="OrdersMenuItem" xml:space="preserve">
+    <value>_Orders</value>
+  </data>
+  <data name="OrdersTag" xml:space="preserve">
+    <value>Orders:</value>
+  </data>
   <data name="Price" xml:space="preserve">
     <value>Price</value>
   </data>
   <data name="PriceTag" xml:space="preserve">
     <value>Price: </value>
+  </data>
+  <data name="ProductAmount" xml:space="preserve">
+    <value>Product amount</value>
+  </data>
+  <data name="ProductsMenuItem" xml:space="preserve">
+    <value>_Products</value>
+  </data>
+  <data name="ProductsTag" xml:space="preserve">
+    <value>Products:</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>

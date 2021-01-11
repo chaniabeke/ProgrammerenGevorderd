@@ -24,7 +24,7 @@ namespace BusinessLayer.Models
         public Customer Customer { get; private set; }
         public DateTime DateTime { get; private set; }
         private Dictionary<Product, int> _products = new Dictionary<Product, int>();
-        public int ProductCount { get => _products.Keys.Count; }
+        public int ProductCount { get => GetProductCount(); }
         #endregion Properties
 
         #region Constructors
@@ -152,6 +152,16 @@ namespace BusinessLayer.Models
                 price += kvp.Key.Price * kvp.Value * ((decimal)100.0 - (decimal)discount) / (decimal)100.0;
             }
             return price;
+        }
+
+        private int GetProductCount()
+        {
+            int count = 0;
+            foreach (KeyValuePair<Product, int> kvp in _products)
+            {
+                count += kvp.Value;
+            }
+            return count;
         }
 
         public override bool Equals(object obj)

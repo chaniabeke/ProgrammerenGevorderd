@@ -129,8 +129,26 @@
   <data name="Amount" xml:space="preserve">
     <value>Aantal</value>
   </data>
+  <data name="CustomerName" xml:space="preserve">
+    <value>Klantnaam</value>
+  </data>
+  <data name="CustomerNameTag" xml:space="preserve">
+    <value>Klantnaam:</value>
+  </data>
+  <data name="CustomersMenuItem" xml:space="preserve">
+    <value>_Klanten</value>
+  </data>
+  <data name="CustomerTag" xml:space="preserve">
+    <value>Klant:</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
   <data name="ExceptionRaised" xml:space="preserve">
     <value>Er deed zich een fout voor</value>
+  </data>
+  <data name="FileMenuItem" xml:space="preserve">
+    <value>_Bestand</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>Nummer</value>
@@ -138,17 +156,38 @@
   <data name="IsPayed" xml:space="preserve">
     <value>Betaald?</value>
   </data>
+  <data name="ManagementMenuItem" xml:space="preserve">
+    <value>_Beheer</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Naam</value>
   </data>
   <data name="NameTag" xml:space="preserve">
     <value>Naam: </value>
   </data>
+  <data name="NewOrder" xml:space="preserve">
+    <value>Nieuwe bestelling</value>
+  </data>
+  <data name="OrdersMenuItem" xml:space="preserve">
+    <value>_Bestellingen</value>
+  </data>
+  <data name="OrdersTag" xml:space="preserve">
+    <value>Bestellingen:</value>
+  </data>
   <data name="Price" xml:space="preserve">
     <value>Prijs</value>
   </data>
   <data name="PriceTag" xml:space="preserve">
     <value>Prijs: </value>
+  </data>
+  <data name="ProductAmount" xml:space="preserve">
+    <value>Aantal producten</value>
+  </data>
+  <data name="ProductsMenuItem" xml:space="preserve">
+    <value>_Producten</value>
+  </data>
+  <data name="ProductsTag" xml:space="preserve">
+    <value>Producten</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Verwijder</value>

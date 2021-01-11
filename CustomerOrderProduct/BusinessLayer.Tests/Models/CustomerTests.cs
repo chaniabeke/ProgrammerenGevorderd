@@ -317,21 +317,6 @@ namespace BusinessLayer.Tests.Models
         #region AddOrder
 
         [TestMethod]
-        public void AddOrder_ShouldThrowException_IfOrderAlreadyExist()
-        {
-            Customer customer = new Customer(5, "Han Hansens", "Dorpstraat 101 6000");
-            Order order = new Order(5, DateTime.Now);
-            customer.AddOrder(order);
-
-            Action act = () =>
-            {
-                customer.AddOrder(order);
-            };
-
-            act.Should().Throw<CustomerException>().WithMessage("Customer : AddOrder - order already exists");
-        }
-
-        [TestMethod]
         public void AddOrder_ShouldAddOrderCorrect_IfOrderDoesNotExist()
         {
             Customer customer = new Customer(5, "Han Hansens", "Dorpstraat 101 6000");

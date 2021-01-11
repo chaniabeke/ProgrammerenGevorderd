@@ -168,7 +168,7 @@ namespace KlantBestellingen.WPF
             Order order = (Order)dgOrderSelection.SelectedItem;
             if (order != null)
             {
-                TbStatusInformation.Text = $"Aantal producten in bestelling: {order.ProductCount}";
+                TbStatusInformation.Text = $"Aantal producten in geselecteerde bestelling: {order.ProductCount}";
             }
         }
 

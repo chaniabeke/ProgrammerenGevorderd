@@ -97,6 +97,51 @@ namespace KlantBestellingen.WPF.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer name.
+        /// </summary>
+        public static string CustomerName {
+            get {
+                return ResourceManager.GetString("CustomerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer name:.
+        /// </summary>
+        public static string CustomerNameTag {
+            get {
+                return ResourceManager.GetString("CustomerNameTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Customers.
+        /// </summary>
+        public static string CustomersMenuItem {
+            get {
+                return ResourceManager.GetString("CustomersMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer:.
+        /// </summary>
+        public static string CustomerTag {
+            get {
+                return ResourceManager.GetString("CustomerTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An exception was raised.
         /// </summary>
         public static string ExceptionRaised {
@@ -106,11 +151,11 @@ namespace KlantBestellingen.WPF.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to bbb.
+        ///   Looks up a localized string similar to _File.
         /// </summary>
-        public static string ggg {
+        public static string FileMenuItem {
             get {
-                return ResourceManager.GetString("ggg", resourceCulture);
+                return ResourceManager.GetString("FileMenuItem", resourceCulture);
             }
         }
         
@@ -133,6 +178,15 @@ namespace KlantBestellingen.WPF.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Management.
+        /// </summary>
+        public static string ManagementMenuItem {
+            get {
+                return ResourceManager.GetString("ManagementMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {
@@ -151,6 +205,33 @@ namespace KlantBestellingen.WPF.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New order.
+        /// </summary>
+        public static string NewOrder {
+            get {
+                return ResourceManager.GetString("NewOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Orders.
+        /// </summary>
+        public static string OrdersMenuItem {
+            get {
+                return ResourceManager.GetString("OrdersMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Orders:.
+        /// </summary>
+        public static string OrdersTag {
+            get {
+                return ResourceManager.GetString("OrdersTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Price.
         /// </summary>
         public static string Price {
@@ -165,6 +246,33 @@ namespace KlantBestellingen.WPF.Languages {
         public static string PriceTag {
             get {
                 return ResourceManager.GetString("PriceTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product amount.
+        /// </summary>
+        public static string ProductAmount {
+            get {
+                return ResourceManager.GetString("ProductAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Products.
+        /// </summary>
+        public static string ProductsMenuItem {
+            get {
+                return ResourceManager.GetString("ProductsMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Products:.
+        /// </summary>
+        public static string ProductsTag {
+            get {
+                return ResourceManager.GetString("ProductsTag", resourceCulture);
             }
         }
         
