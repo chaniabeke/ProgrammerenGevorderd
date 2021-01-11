@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:langs="clr-namespace:KlantBestellingen.WPF.Languages"
+        xmlns:converters="clr-namespace:KlantBestellingen.WPF.ValueConverters"
         xmlns:local="clr-namespace:KlantBestellingen.WPF"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
@@ -76,10 +77,14 @@
             <ComboBox x:Name="cbKlanten" Grid.Row="0" Grid.Column="2" Margin="5" DisplayMemberPath="Name" SelectedValuePath="Name" VerticalAlignment="Center" SelectionChanged="ComboBox_SelectionChanged"/>
             <Label x:Name="lblBestellingen" Grid.Row="1" Grid.Column="0" Margin="5" Content="{x:Static langs:Translations.OrdersTag}"/>
             <DataGrid x:Name="dgOrderSelection" Grid.Row="2" Grid.ColumnSpan="3" Margin="5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" AlternatingRowBackground="#FFB9BBFF" IsReadOnly="True" MouseDoubleClick="dgOrderSelection_MouseDoubleClick" SelectionChanged="dgOrderSelection_SelectionChanged">
+                <DataGrid.Resources>
+                    <converters:YesNoToBooleanConverter x:Key="BooleanToStringConverter"
+                                             FalseValue="{x:Static langs:Translations.No}" TrueValue="{x:Static langs:Translations.Yes}" />
+                </DataGrid.Resources>
                 <DataGrid.Columns>
                     <!-- we linken ons aan een property van de class Klant: -->
                     <DataGridTextColumn  Header="{x:Static langs:Translations.Id}" Binding="{Binding Id}" MinWidth="100"/>
-                    <DataGridTextColumn  Header="{x:Static langs:Translations.IsPayed}" Binding="{Binding IsPayed}" MinWidth="100"/>
+                    <DataGridTextColumn  Header="{x:Static langs:Translations.IsPayed}" Binding="{Binding Path=IsPayed, Converter={StaticResource BooleanToStringConverter}}"  MinWidth="100"/>
                     <DataGridTextColumn  Header="{x:Static langs:Translations.Time}" Binding="{Binding DateTime}" MinWidth="200"/>
                     <DataGridTextColumn  Header="{x:Static langs:Translations.Price}" Binding="{Binding PriceAlreadyPayed}" MinWidth="200"/>
                 </DataGrid.Columns>
