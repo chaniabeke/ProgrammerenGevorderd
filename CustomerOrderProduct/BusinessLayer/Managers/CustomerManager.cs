@@ -30,6 +30,11 @@ namespace BusinessLayer.Managers
             return _customers.GetAllCustomers();
         }
 
+        public Customer GetCustomerWithOrders(int id)
+        {
+            return _customers.GetCustomerWithOrders(id);
+        }
+
         public void AddCustomer(Customer customer)
         {
             if(GetAllCustomers().Where(x => x.Name == customer.Name && x.Address == customer.Address).Count() > 0)
@@ -42,7 +47,7 @@ namespace BusinessLayer.Managers
         {
             if (id <= 0) throw new CustomerManagerException("CustomerManager - invalid id");
             if (GetCustomer(id) == null) throw new CustomerManagerException("CustomerManager - customer doesn't exist");
-            if(GetCustomer(id).GetOrders().Count != 0) throw new CustomerManagerException("CustomerManager - customer has orders!");
+            if(GetCustomerWithOrders(id).GetOrders().Count > 0) throw new CustomerManagerException("CustomerManager - customer has orders!");
             _customers.RemoveCustomer(id);
         }
         #endregion Methodes

@@ -8,7 +8,7 @@ namespace BusinessLayer.Interfaces
     {
         void AddCustomer(Customer customer);
         IReadOnlyList<Customer> GetAllCustomers();
-        //Customer GetCustomerWithOrders(int id);
+        Customer GetCustomerWithOrders(int id);
         Customer GetCustomer(int id);
         void RemoveCustomer(int id);
     }

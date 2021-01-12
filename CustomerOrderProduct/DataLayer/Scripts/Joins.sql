@@ -1,4 +1,4 @@
-﻿-- Select Customer With Orders
+﻿-- Select Customer With Orders (WERKT NIET MEER)
 Select Customer.CustomerId, Customer.Name,Customer.Address, 
 OrderT.OrderId, OrderT.DateTime, OrderT.Is_Checked, OrderT.PriceAlreadyPayed
 from dbo.Customer

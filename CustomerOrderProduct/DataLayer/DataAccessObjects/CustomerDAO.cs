@@ -190,6 +190,59 @@ namespace DataLayer.DataAccessObjects
         //    }
         //    return customer;
         //}
+
+        public Customer GetCustomerWithOrders(int id)
+        {
+            string query = $"Select OrderT.OrderId, OrderT.DateTime, OrderT.Is_Checked, OrderT.PriceAlreadyPayed, OrderT.CustomerId, " +
+                $"Customer.Name, Customer.Address from OrderT " +
+                $"JOIN Customer ON OrderT.CustomerId = Customer.CustomerId " +
+                $"where Customer.CustomerId like @CustomerId; ";
+            SqlConnection conn = Util.GetSqlConnection(connectionString);
+            Customer customer = null;
+            List<Order> orders = new List<Order>();
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                try
+                {
+                    cmd.Parameters.Add("@CustomerId", SqlDbType.Int);
+                    cmd.CommandText = query;
+                    cmd.Parameters["@CustomerId"].Value = id;
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    if (dataReader.HasRows)
+                    {
+                        while (dataReader.Read())
+                        {
+                            int customerId = (int)dataReader["CustomerId"];
+                            string name = (string)dataReader["Name"];
+                            string address = (string)dataReader["Address"];
+                            customer = new Customer(customerId, name, address);
+                            orders.Add(new Order(
+                                (int)dataReader["OrderId"],
+                                (DateTime)dataReader["DateTime"],
+                                (bool)dataReader["Is_Checked"],
+                                (decimal)dataReader["PriceAlreadyPayed"],
+                                customer
+                                ));
+                        }
+                        foreach (var order in orders)
+                        {
+                            customer.AddOrder(order);
+                        }
+                        return customer;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return customer;
+        }
         #endregion
 
         #region Delete

@@ -41,7 +41,7 @@ namespace KlantBestellingen.WPF
             {
                 foreach (Customer klant in e.NewItems)
                 {
-                    Context.CustomerManager.AddCustomer(/*KlantFactory.MaakKlant(klant.Naam, klant.Adres, Context.IdFactory)*/ klant);
+                    Context.CustomerManager.AddCustomer(klant);
                 }
             }
         }
